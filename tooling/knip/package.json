@@ -1,0 +1,11 @@
+{
+	"name": "@ziron/knip",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"knip": "knip"
+	},
+	"devDependencies": {
+		"knip": "^5.85.0"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"name": "@ziron/commitlint",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./commitlint.config.js"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.0"
+	}
+}

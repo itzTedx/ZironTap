@@ -1,0 +1,14 @@
+{
+	"name": "@ziron/biome",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./base": "./base.json",
+		"./nextjs": "./nextjs.json",
+		"./react": "./react.json"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:"
+	}
+}

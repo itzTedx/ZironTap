@@ -1,0 +1,11 @@
+{
+	"name": "@ziron/dependency-rules",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"test:deps": "depcruise ../../packages ../../apps --config .dependency-cruiser.cjs"
+	},
+	"devDependencies": {
+		"dependency-cruiser": "^16.3.3"
+	}
+}
