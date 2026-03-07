@@ -1,0 +1,56 @@
+---
+description: React patterns, component structure, server vs client, styling, performance
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# React Patterns
+
+## Server vs Client
+
+- Prefer **server components** over client components.
+- Use `'use client'` only when necessary: Web APIs, interactivity, TanStack Form/Query, nuqs, providers.
+- Lazy-load heavy features with `next/dynamic` + `ssr: false` (image editor, PDF export, charts).
+- Use `nuqs` for URL search parameter state (filters, pagination, modals).
+
+## Component Structure
+
+- Use functional components with hooks.
+- **File order:** imports → types/interfaces → main component → subcomponents → helpers.
+- Extract reusable logic into custom hooks.
+- Favor named exports for components.
+
+## Styling
+
+- Tailwind CSS with mobile-first approach; Shadcn UI / Radix for components.
+- Use CSS custom properties for theme values; prefer utility classes over custom CSS.
+- **Icons in Buttons:** Don't add size or margin — shadcn Button handles it automatically.
+
+## Performance
+
+- Use `next/image` with `sizes` and `priority` for LCP; `loading="lazy"` below the fold.
+- Use `React.memo` for expensive list items; wrap client components in Suspense with fallback.
+- Minimize `useEffect` and `setState`; favor server components and derived state.
+
+## Forms
+
+- **TanStack Form** + `@tanstack/zod-form-adapter` + schemas from `@ziron/validators`.
+- Use form components from `packages/ui/src/components/form/` (form-input, form-phone-input, form-attachments, etc.).
+
+## Example
+
+```tsx
+// ✅ GOOD — server component by default
+export function CardPreview({ slug }: { slug: string }) {
+  const card = await getCardBySlug(slug)
+  return <CardTemplate data={card} />
+}
+
+
+// ✅ GOOD — client only where needed
+'use client'
+export function CardEditor({ initialData }: CardEditorProps) {
+  const form = useForm({ ... })
+  return <form.Field name="title">...</form.Field>
+}
+```

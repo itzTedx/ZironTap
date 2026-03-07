@@ -1,0 +1,20 @@
+---
+description: Naming conventions for files, variables, components, and DB
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Naming Conventions
+
+| Context | Convention | Examples |
+|---------|------------|----------|
+| Files and directories | kebab-case | `user-profile/`, `deal-card.tsx` |
+| React component files | kebab-case | `deal-card.tsx`, `user-profile.tsx` |
+| Utilities | camelCase | `formatPrice.ts`, `validateEmail.ts` |
+| Variables and functions | camelCase | `userProfile`, `getDealById` |
+| React components (identifier) | PascalCase | `UserProfile`, `DealCard` |
+| Constants | UPPER_SNAKE_CASE | `API_BASE_URL`, `MAX_DEALS_PER_PAGE` |
+| Booleans / flags | descriptive with aux verbs | `isLoading`, `hasError`, `canEdit` |
+| Database tables and columns | snake_case | `user_profiles`, `deal_categories` |
+| API endpoints | kebab-case | `/api/deals`, `/api/user-profile` |
+| URL slugs | kebab-case | `/deals/summer-sale` |

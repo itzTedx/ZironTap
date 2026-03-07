@@ -1,0 +1,40 @@
+---
+description: Core conventions — commit format, code style, frontend ownership, workflow
+alwaysApply: true
+---
+
+# ZironTap Conventions
+
+## Commit Format
+
+```bash
+<type>(<scope>): <description>
+```
+
+- **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `revert`
+- **Scope:** package or area (e.g. `auth`, `qr`, `portal`)
+- **Description:** imperative, lowercase start, no period
+- **Examples:** `feat(auth): add passkey support`, `fix(qr): correct vCard encoding`, `chore(deps): update Next.js`
+
+## Code Style
+
+- **Lint/Format:** Biome only. No Prettier, no ESLint.
+- **TypeScript:** Prefer interfaces over types; avoid enums (use const objects).
+- **Functions:** Keep small and focused; extract logic to hooks or utilities.
+- **Branch naming:** `feature/name`, `fix/description`, `refactor/component`
+
+## Frontend Design Ownership
+
+**Do not design page frontends.** The user designs all pages. AI provides:
+
+- Route scaffolding, data fetching, API wiring, component structure
+- Logic, state, forms, validation
+- Token/theme integration (Figma primitives, mapping, component tokens)
+
+**Do not** create page layouts, visual mockups, or styling decisions. Use placeholders or minimal shells.
+
+## Workflow
+
+- **Always search the codebase** for relevant files before beginning a task.
+- **Don't run type checks** in terminal or create temporary test files.
+- Follow Next.js docs for Data Fetching, Rendering, and Routing.

@@ -1,0 +1,30 @@
+---
+description: Security, accessibility, error handling, data fetching
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Quality Guidelines
+
+## Security
+
+- Use Better Auth for authentication; validate all inputs via `@ziron/validators`.
+- Rate limiting via `@ziron/rate-limit` on oRPC and public routes.
+- Store sensitive data in env vars; never in code.
+
+## Accessibility
+
+- Follow WCAG 2.1 AA; use semantic HTML (`<button>`, `<nav>`, `<main>`).
+- Provide alt text for images; ensure keyboard navigation.
+- Use ARIA labels when semantic HTML isn't sufficient.
+
+## Error Handling
+
+- **Client:** Error boundaries for route/section-level failures; user-friendly messages.
+- **Server:** try/catch with context; return appropriate oRPC error codes (UNAUTHORIZED, NOT_FOUND, etc.).
+- Log errors with context (userId, path) for debugging.
+
+## Data Fetching
+
+- Use oRPC procedures (not server actions) for API calls; TanStack Query for client caching.
+- Handle loading and error states; use Suspense for streaming where appropriate.

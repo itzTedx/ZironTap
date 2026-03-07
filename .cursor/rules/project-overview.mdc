@@ -1,0 +1,18 @@
+---
+description: Quick project context for ZironTap — apps, packages, stack
+alwaysApply: true
+---
+
+# ZironTap Project Context
+
+**What:** Turborepo monorepo SaaS — digital business cards, URL shortener, QR generator, review cards.
+
+**Apps:** `marketing` (landing/pricing) | `client` (public: `/[slug]`, `/r/[shortCode]`, `/review/[slug]`) | `portal` (admin: `/[orgSlug]/cards|links|qr|reviews`)
+
+**Stack:** Next.js 16, Better Auth, oRPC, Drizzle, shadcn, TanStack Form, Zod validators, Biome (no Prettier/ESLint).
+
+**Packages:** `@ziron/auth`, `@ziron/api`, `@ziron/db`, `@ziron/validators`, `@ziron/ui`, `@ziron/media`, `@ziron/qr`, `@ziron/analytics`, `@ziron/templates`, `@ziron/email`, `@ziron/jobs`, `@ziron/sync`, `@ziron/config`, `@ziron/rate-limit`.
+
+**Key:** Org-scoped resources; validation via `@ziron/validators`; user owns page design — AI provides logic, structure, placeholders.
+
+**Full spec:** `plans/FULL_PROJECT_PROMPT.md` | **Overview:** `AGENTS.md`
