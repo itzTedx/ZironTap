@@ -21,7 +21,7 @@ alwaysApply: true
 - **Lint/Format:** Biome only. No Prettier, no ESLint.
 - **TypeScript:** Prefer interfaces over types; avoid enums (use const objects).
 - **Functions:** Keep small and focused; extract logic to hooks or utilities.
-- **Branch naming:** `feature/name`, `fix/description`, `refactor/component`
+- **Branch naming:** `feature/name` (feat), `fix/description`, `refactor/component`, `docs/name`, `chore/description`
 
 ## Frontend Design Ownership
 

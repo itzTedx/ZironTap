@@ -41,7 +41,7 @@ alwaysApply: false
 
 ```tsx
 // ✅ GOOD — server component by default
-export function CardPreview({ slug }: { slug: string }) {
+export async function CardPreview({ slug }: { slug: string }) {
   const card = await getCardBySlug(slug)
   return <CardTemplate data={card} />
 }
