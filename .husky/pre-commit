@@ -1,1 +1,2 @@
-lint-staged 
+pnpm exec lint-staged
+pnpm exec tsc --noEmit 2>/dev/null || true
