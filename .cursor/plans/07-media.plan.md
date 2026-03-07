@@ -1,9 +1,8 @@
 ---
 name: 07 Media
 overview: Image processing — WebP, thumbnails, compressAndResize. PROFILE_IMAGE, COVER_IMAGE presets.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
-order: 7
 todos: []
+isProject: false
 ---
 
 # Implementation Plan 07: Media
@@ -16,10 +15,10 @@ todos: []
 
 ## Deliverables
 
-- [ ] `packages/media/package.json`
-- [ ] `src/process.ts` — convert to WebP, generate thumbnails; `compressAndResize(blob, { width, height, quality, format })`
-- [ ] `src/upload.ts` — upload flow (Better Upload)
-- [ ] `src/sizes.ts` — PROFILE_IMAGE (1080x1080), COVER_IMAGE (1200x630), avatar, thumbnail, full
+- `packages/media/package.json`
+- `src/process.ts` — convert to WebP, generate thumbnails; `compressAndResize(blob, { width, height, quality, format })`
+- `src/upload.ts` — upload flow (Better Upload)
+- `src/sizes.ts` — PROFILE_IMAGE (1080x1080), COVER_IMAGE (1200x630), avatar, thumbnail, full
 
 ## Use Cases
 

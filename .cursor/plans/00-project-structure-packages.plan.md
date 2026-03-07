@@ -1,9 +1,8 @@
 ---
 name: 00 Project Structure and Packages
 overview: Create the root folder structure and all package scaffolds (apps, packages, tooling). Must be done first before any implementation. Establishes the monorepo skeleton with pnpm workspace and Turbo.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
-order: 0
 todos: []
+isProject: false
 ---
 
 # Implementation Plan 00: Project Structure and Packages
@@ -110,26 +109,28 @@ packages:
 
 ## 7. Root Files (minimal manual tweaks)
 
-- **`.nvmrc`** — `echo "22" > .nvmrc`
-- **`.gitignore`** — Usually created by create-turbo; add `.env.local`, `dist`, `.turbo` if missing
+- `**.nvmrc**` — `echo "22" > .nvmrc`
+- `**.gitignore**` — Usually created by create-turbo; add `.env.local`, `dist`, `.turbo` if missing
 
 ## Deliverables
 
-- [ ] Monorepo bootstrapped via `create-turbo`
-- [ ] Apps: `marketing`, `client`, `portal` via `create-next-app`
-- [ ] `packages/ui` via `shadcn init --monorepo`
-- [ ] All other packages via `turbo gen` or minimal scaffold
-- [ ] `pnpm-workspace.yaml` with `apps/*`, `packages/*`, `tooling/*`, `turbo/generators`
-- [ ] `.nvmrc`, `.gitignore`
+- Monorepo bootstrapped via `create-turbo`
+- Apps: `marketing`, `client`, `portal` via `create-next-app`
+- `packages/ui` via `shadcn init --monorepo`
+- All other packages via `turbo gen` or minimal scaffold
+- `pnpm-workspace.yaml` with `apps/*`, `packages/*`, `tooling/*`, `turbo/generators`
+- `.nvmrc`, `.gitignore`
 
 ## CLI Reference
 
-| CLI | Purpose |
-|-----|---------|
-| `pnpm dlx create-turbo@latest -m pnpm` | Bootstrap Turborepo monorepo |
-| `pnpm create next-app@latest apps/<name>` | Add Next.js app |
-| `npx shadcn@latest init --monorepo` | Setup UI package with shadcn (use npx; pnpm dlx may fail) |
-| `pnpm exec turbo gen init` | Add new package (if @turbo/gen configured) |
+
+| CLI                                       | Purpose                                                   |
+| ----------------------------------------- | --------------------------------------------------------- |
+| `pnpm dlx create-turbo@latest -m pnpm`    | Bootstrap Turborepo monorepo                              |
+| `pnpm create next-app@latest apps/<name>` | Add Next.js app                                           |
+| `npx shadcn@latest init --monorepo`       | Setup UI package with shadcn (use npx; pnpm dlx may fail) |
+| `pnpm exec turbo gen init`                | Add new package (if @turbo/gen configured)                |
+
 
 ## Next
 

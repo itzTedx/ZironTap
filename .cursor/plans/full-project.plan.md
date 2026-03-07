@@ -1,6 +1,6 @@
 ---
 name: ZironTap Structure Plan
-overview: A production-ready Turborepo monorepo structure for ZironTap, covering apps (marketing, client, portal), shared packages (auth, analytics, qr, templates, db), tooling, and feature placement for digital business cards, URL shortener, QR generator, and review cards.
+overview: Production-ready Turborepo monorepo for ZironTap — apps (marketing, client, portal), shared packages (auth, api, db, validators, media, qr, templates, email, jobs, sync), tooling, security posture, and observability. Covers digital business cards, URL shortener, QR generator, and review cards.
 todos: []
 isProject: false
 ---
@@ -294,6 +294,7 @@ apps/portal/src/providers/
 
 **Routes summary**
 
+
 | Scope      | Route                          | Purpose                                      |
 | ---------- | ------------------------------ | -------------------------------------------- |
 | Global     | `/[orgSlug]/analytics`         | Cross-resource overview                      |
@@ -316,6 +317,7 @@ apps/portal/src/providers/
 
 **Core tables**
 
+
 | Table                  | Purpose                                                           |
 | ---------------------- | ----------------------------------------------------------------- |
 | `users`                | Auth users (Better Auth); optional `is_super_admin`               |
@@ -325,6 +327,7 @@ apps/portal/src/providers/
 
 
 **Resource tables** (all scoped by `organizationId`)
+
 
 | Table          | Key columns                                                              |
 | -------------- | ------------------------------------------------------------------------ |
@@ -339,6 +342,7 @@ apps/portal/src/providers/
 
 **Billing & entitlements**
 
+
 | Table              | Key columns                                                       |
 | ------------------ | ----------------------------------------------------------------- |
 | `org_entitlements` | `organizationId`, `productId`, `polarOrderId`, `purchasedAt`      |
@@ -347,6 +351,7 @@ apps/portal/src/providers/
 
 **Analytics & activity**
 
+
 | Table              | Key columns                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------- |
 | `analytics_events` | `id`, `organizationId`, `entityType`, `entityId`, `event`, `timestamp`, `metadata` |
@@ -354,6 +359,7 @@ apps/portal/src/providers/
 
 
 **Invitations**
+
 
 | Table                  | Key columns                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------- |
@@ -375,6 +381,7 @@ apps/portal/src/providers/
 - **Better Auth:** `users` table may use auth provider IDs; ensure `id` is uuid/cuid for consistency.
 
 **Index design** — Index for every query pattern; avoid full table scans.
+
 
 | Table                  | Indexes                                                                | Purpose                               |
 | ---------------------- | ---------------------------------------------------------------------- | ------------------------------------- |
@@ -546,7 +553,7 @@ apps/portal/src/providers/
   - `src/theme.ts` — colors, fonts, design tokens
 - **Shared by:** Business cards, review cards; QR layout presets
 
-### 3.5 `packages/db`
+### 3.6 `packages/db`
 
 - **Role:** Drizzle schema, migrations, queries, Studio.
 - **Structure:**
@@ -561,7 +568,7 @@ apps/portal/src/providers/
   - `analytics_events` — linkId/cardId/type, event, timestamp, metadata (GeoIP)
   - `org_entitlements` — organizationId, productId, polarOrderId, purchasedAt (one-time Polar purchases; populated via `onOrderPaid` webhook)
 
-### 3.6 `packages/api`
+### 3.7 `packages/api`
 
 - **Role:** oRPC routers — shared procedures consumed by portal and client. Rate limiting via `@ziron/rate-limit` interceptor. **Live notifications** via oRPC [Event Iterator (SSE)](https://orpc.dev/docs/event-iterator).
 - **Structure:** Folder-per-domain for scalability; each domain owns its router and procedures.
@@ -577,7 +584,7 @@ apps/portal/src/providers/
 - **Pattern:** Root router imports each domain router and merges; domains stay isolated. As a domain grows, add files within its folder (e.g. `cards/procedures.ts`, `cards/schema.ts`).
 - **Consumers:** `portal`, `client` (server-side RPC calls)
 
-#### 3.6.1 Live Notifications (SSE via oRPC Event Iterator)
+#### 3.7.1 Live Notifications (SSE via oRPC Event Iterator)
 
 - **Technology:** oRPC Event Iterator — async generator yields events over SSE; stays within tech stack. [oRPC Event Iterator](https://orpc.dev/docs/event-iterator)
 - **Pattern:** `EventPublisher` or `MemoryPublisher` — subscribe to org-scoped channel; when events occur, publish → SSE yields to connected portal clients. Use `withEventMeta` for `lastEventId` / resume support.
@@ -611,7 +618,7 @@ apps/portal/src/providers/
 - **Channels:** Per-org (e.g. `org:{orgId}:notifications`) so users only receive events for orgs they belong to. Auth context filters subscriptions.
 - **Scalability:** `MemoryPublisher` for single instance; for multi-instance (serverless, pods), use Redis pub/sub adapter so publishes from one instance reach subscribers on others.
 
-#### 3.6.2 Error Handling & Context
+#### 3.7.2 Error Handling & Context
 
 **Docs:** [Error Handling](https://orpc.dev/docs/error-handling), [Client Error Handling](https://orpc.dev/docs/client/error-handling), [RPC Handler](https://orpc.dev/docs/rpc-handler)
 
@@ -717,7 +724,7 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 - **Dependencies:** `nodemailer`, `@react-email/components`, `@react-email/render`
 - **Consumers:** `packages/auth`, `packages/api`, `packages/jobs` (optional)
 
-### 3.7 `packages/ui`
+### 3.8 `packages/ui`
 
 - **Role:** Custom frontend with Figma design tokens; shadcn + Base UI as component base; dark mode.
 - **Design tokens (Figma-sourced):** Three-tier structure — primitives, mapping, component-level.
@@ -818,7 +825,7 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 - **Scope:** Env only. Domain validation (cards, links, forms) lives in `packages/validators`.
 - **SMTP vars (email):** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, `APP_URL` — dev uses Mailpit (localhost:1025, no auth); prod uses SES/Resend or other SMTP.
 
-### 3.8.1 `packages/validators`
+### 3.9.1 `packages/validators`
 
 - **Role:** **Zod schemas for everything** — API input/output, form validation, shared primitives. Single source of truth for runtime validation and type inference.
 - **Architecture:** Domain-organized; primitives shared; input vs output schemas where they differ.
@@ -855,7 +862,7 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 - **Env:** reuse `REDIS_URL` for rate-limiter-flexible
 - **Consumers:** `packages/api`, `apps/client` (redirect route)
 
-### 3.9 `packages/sync`
+### 3.10 `packages/sync`
 
 - **Role:** Offline-first sync layer — IndexedDB (idb), pending write queue, reconnect replay, API sync. Keeps cards and orgs available offline; writes go to IDB + queue; on reconnect, replay queue (upload offline images first), sync via API, update IDB and React Query; store images as blobs.
 - **Structure:**
@@ -879,7 +886,7 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 - **Dependencies:** `inngest` (current adapter); add new adapter if switching
 - **Consumers:** `packages/api`, `apps/portal`
 
-### 3.11 Polar & Pricing (One-Time Payment)
+### 3.12 Polar & Pricing (One-Time Payment)
 
 - **Provider:** [Polar](https://polar.sh/) via [Better Auth Polar plugin](https://www.better-auth.com/docs/plugins/polar).
 - **Model:** One-time payment (no subscriptions). Create a Product in Polar Dashboard with one-time pricing.
@@ -892,7 +899,7 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 
 ---
 
-## 3.12 Tooling Workspace (`tooling/`)
+## 4. Tooling Workspace (`tooling/`)
 
 Tooling configs (Biome, TypeScript) live in `tooling/`. Turborepo generators live at repo root in `turbo/`.
 
@@ -1057,9 +1064,9 @@ flowchart TB
 
 ---
 
-## 5. Tooling and Workspace Config
+## 6. Tooling and Workspace Config
 
-### 5.1 `pnpm-workspace.yaml`
+### 6.1 `pnpm-workspace.yaml`
 
 ```yaml
 packages:
@@ -1079,7 +1086,7 @@ catalog:
   # ... shared versions
 ```
 
-### 5.2 `turbo.json`
+### 6.2 `turbo.json`
 
 Use **latest Turborepo** (`turbo` in devDeps) and **latest schema** for validation and IDE support.
 
@@ -1175,7 +1182,7 @@ Usage from root: `pnpm ui:add button` or `pnpm ui:add dialog card` — forwards 
 
 ---
 
-## 6. Key File Locations (Implementation Guide)
+## 7. Key File Locations (Implementation Guide)
 
 
 | Concern                                                    | Location                                                                                                                                                                                                                         |
@@ -1232,7 +1239,7 @@ Usage from root: `pnpm ui:add button` or `pnpm ui:add dialog card` — forwards 
 
 ---
 
-## 8. Implementation Order (Suggested)
+## 9. Implementation Order (Suggested)
 
 1. **Scaffold** — Root workspace, pnpm, turbo, `tooling/` (biome, typescript-config, vitest-config, commitlint, dependency-rules), `turbo/generators`, Husky, lint-staged, `docker-compose.yml`, `.changeset`; run `pnpm dlx shadcn@rc init --monorepo` for UI setup
 2. **DB** — `packages/db` schema for users, orgs, cards, short_links, review_cards, analytics, qr_records, org_entitlements
@@ -1250,7 +1257,7 @@ Usage from root: `pnpm ui:add button` or `pnpm ui:add dialog card` — forwards 
 
 ---
 
-## 9. Scaffolding & Tooling References
+## 10. Scaffolding & Tooling References
 
 
 | Tool                         | Command / Location                           | Docs                                                                                                                                   |
@@ -1269,7 +1276,43 @@ Usage from root: `pnpm ui:add button` or `pnpm ui:add dialog card` — forwards 
 
 ---
 
-## 11. Project Conventions & Cursor Rules
+## 11. Security, Observability & Production Readiness
+
+### 11.1 Security & Hardening
+
+- **Secrets & env** — All secrets in env only (t3-oss/env-nextjs); never in client bundles. Use `NEXT_PUBLIC`_* only for non-sensitive, build-time or public values. Validate server env in `packages/config`.
+- **Auth & sessions** — Better Auth with secure cookies (httpOnly, secure, sameSite). Redis/Valkey session store; short session TTL with refresh. No sensitive data in JWT if used.
+- **Input validation** — All API inputs via `@ziron/validators` Zod schemas; use `.strict()` to reject unknown keys. Sanitize user-generated content (e.g. review text, card bio) for XSS; escape or use safe HTML subset where needed.
+- **Rate limiting** — Apply `@ziron/rate-limit` to: oRPC procedures (per user/IP), auth endpoints (stricter), public redirect `/r/[shortCode]`, and card/review views. Return `Retry-After` or structured `TOO_MANY_REQUESTS` for client backoff.
+- **CORS & CSP** — Configure CORS for API and upload origins only. Content-Security-Policy headers (e.g. in Next.js headers()) to restrict script/style sources; avoid inline scripts where possible.
+- **Security headers** — Set `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (or sameorigin for embed if needed), `Referrer-Policy: strict-origin-when-cross-origin`. Use Next.js `headers()` or middleware.
+- **CSRF** — Rely on SameSite cookies and origin checks for state-changing requests; no separate CSRF tokens required when using SameSite=Lax/Strict and no cross-origin form posts.
+- **Audit & sensitive actions** — Log sensitive actions (role changes, billing, org delete, invite accept) to `activity_log`; include userId, orgId, action, entityType, entityId, timestamp. Do not log request bodies with secrets.
+- **File uploads** — Validate MIME type and extension server-side; enforce max size in Better Upload config and again in API. Store uploads outside web root; serve via signed URLs or proxy. Scan for malware in production if required (e.g. ClamAV or cloud scanner).
+
+### 11.2 Observability & Error Tracking
+
+- **Structured logging** — Use a structured logger (e.g. Pino) with context (requestId, userId, orgId). Log levels: error for failures, warn for recoverable issues, info for key actions. Avoid logging PII at info level.
+- **Error tracking** — Integrate Sentry (or similar) in apps: `RPCHandler` `onError` in portal, global error boundary in client. Attach user/org context (no secrets). Source maps for production for readable stack traces.
+- **Health checks** — Expose `/api/health` (or `/health`) that checks: DB connectivity, Redis connectivity (if used for sessions). Return 503 if any dependency is down. Use for load balancer and orchestration.
+- **Metrics (optional)** — For high traffic: expose Prometheus metrics (request duration, error rate by route) or use provider (Vercel Analytics, Datadog). Dashboard for redirect latency (`/r/[shortCode]`) and API p95.
+
+### 11.3 Production Readiness Checklist
+
+
+| Area                  | Checklist                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| **Secrets**           | All in env; no hardcoded keys; rotation path for DB, Redis, Polar, SMTP              |
+| **Backups**           | Automated DB backups (daily/weekly); test restore; retention policy                  |
+| **Migrations**        | Drizzle migrations applied in CI/deploy; no manual schema drift                      |
+| **Feature flags**     | Optional: flags for risky features (e.g. new QR types); super admin route or env     |
+| **Incident response** | Document: who is on-call, how to rollback, how to disable features (e.g. pause jobs) |
+| **Dependencies**      | `pnpm audit` in CI; catalog + syncpack for version consistency                       |
+
+
+---
+
+## 12. Project Conventions & Cursor Rules
 
 Strict conventions enforced via Cursor rules (`.cursor/rules/*.mdc`), commitlint, and Biome. All contributors and AI must follow these.
 
@@ -1359,7 +1402,7 @@ Strict conventions enforced via Cursor rules (`.cursor/rules/*.mdc`), commitlint
 
 ---
 
-## 12. Open Questions
+## 13. Open Questions
 
 - **Inngest placement:** Co-locate in `apps/portal` vs `packages/api` — portal is the primary consumer; api may serve event triggers from client.
 
