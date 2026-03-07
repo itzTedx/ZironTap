@@ -1,0 +1,8 @@
+{
+	"$schema": "https://unpkg.com/syncpack@14/schema.json",
+	"versionGroups": [],
+	"semverGroups": [],
+	"lintSemverRanges": true,
+	"formatBugs": true,
+	"formatRepository": true
+}
