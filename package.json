@@ -1,24 +1,48 @@
 {
-  "name": "zirontap-v3",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "turbo format",
-    "typecheck": "turbo typecheck"
-  },
-  "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
-    "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.8.8",
-    "typescript": "5.9.3"
-  },
-  "packageManager": "pnpm@9.0.6",
-  "engines": {
-    "node": ">=20"
-  }
+	"name": "zirontap-v3",
+	"version": "0.0.1",
+	"private": true,
+	"workspaces": ["apps/*", "packages/*", "tooling/*"],
+	"scripts": {
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"lint": "turbo lint",
+		"format": "turbo format",
+		"typecheck": "turbo typecheck",
+		"check": "biome check .",
+		"test": "turbo test",
+		"test:e2e": "turbo test:e2e",
+		"test:deps": "turbo test:deps",
+		"knip": "knip",
+		"syncpack": "pnpm exec syncpack fix",
+		"db:generate": "turbo db:generate",
+		"db:migrate": "turbo db:migrate",
+		"db:studio": "turbo db:studio",
+		"ui:add": "pnpm -F @ziron/ui ui:add --",
+		"gen": "turbo gen",
+		"changeset": "pnpm changeset",
+		"analyze": "ANALYZE=true pnpm build",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@changesets/cli": "^2.30.0",
+		"@commitlint/cli": "^19.8.1",
+		"@ziron/biome": "workspace:*",
+		"@ziron/commitlint": "workspace:*",
+		"@ziron/typescript-config": "workspace:*",
+		"husky": "^9.1.7",
+		"knip": "^5.85.0",
+		"lint-staged": "^16.2.0",
+		"syncpack": "^14.0.0",
+		"turbo": "^2.8.14",
+		"typescript": "catalog:"
+	},
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": ["biome check --write . --unsafe"]
+	},
+	"packageManager": "pnpm@10.30.3",
+	"engines": {
+		"node": ">=20"
+	}
 }
