@@ -1,0 +1,19 @@
+{
+  "name": "{{ packageName }}",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@ziron/typescript-config": "workspace:*",
+    "typescript": "^5.0.0"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
