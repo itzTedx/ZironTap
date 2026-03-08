@@ -20,7 +20,7 @@ todos: []
 
 - [ ] `packages/validators/package.json`, `tsconfig.json`
 - [ ] `src/primitives/` — slug, shortCode, email, url, uuid, pagination, labelEnum
-- [ ] `src/card/` — appearanceSchema, phonesSchema, emailsSchema, linksSchema, cardSchema, attachmentsSchema; create/update variants
+- [ ] `src/card/` — appearanceSchema, phonesSchema, emailsSchema, linksSchema, cardSchema, attachmentsSchema; create/update variants (update includes `version` for optimistic concurrency; API returns 409 if mismatch)
 - [ ] `src/short-link/` — create, update, redirect params
 - [ ] `src/review/` — review card, review submission
 - [ ] `src/qr/` — QR payload types, customization

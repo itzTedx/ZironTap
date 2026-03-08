@@ -31,7 +31,7 @@ isProject: false
 ## Scope
 
 - **Marketing** — Landing, pricing (Polar CTA), features, about
-- **Client** — Public card page, short-link redirect, review page
+- **Client** — NFC card based; public card page `/[slug]` (tap-to-open), short-link redirect, review page. View-only, online; all management in portal.
 - **Portal** — Dashboard with [orgSlug] layout; org-scoped and global routes; providers
 
 ---
@@ -63,7 +63,7 @@ isProject: false
 ## Implementation Steps
 
 1. **Marketing** — Minimal shell; pricing page with Polar checkout CTA
-2. **Client** — Routes; card/review render using templates; redirect handler
+2. **Client** — Routes (card view, redirect, review); card/review render using templates; redirect handler. No offline sync; client is online view.
 3. **Portal** — [orgSlug] layout; sidebar; route scaffolding; providers per full-project §2.3: theme-provider, nuqs-provider, jotai-provider, tanstack-provider, page-load-progress-provider, keyboard-shortcut-provider, analytics-provider, pdf-worker-provider (optional: react-scan-provider)
 4. **Shell pages** — Placeholders; user designs UI per conventions
 5. **Inngest** — Mount jobs handler at `apps/portal/src/app/api/inngest/route.ts` per [13 Inngest](13-inngest.plan.md) and full-project §13

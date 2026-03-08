@@ -22,13 +22,13 @@ todos: []
 - [ ] `src/router.ts` — root router, merge domain routers
 - [ ] `src/context.ts` — auth context, org context
 - [ ] `src/middleware/` — base, auth, db, rate-limit, errors, index
-- [ ] `src/cards/` — mutation, query
+- [ ] `src/cards/` — mutation, query; card update accepts `version`, increments on save; return 409 CONFLICT if `version` mismatch (client must refresh and retry or show conflict)
 - [ ] `src/short-links/` — index
 - [ ] `src/qr/` — index
 - [ ] `src/reviews/` — index
 - [ ] `src/analytics/` — index
 - [ ] `src/notifications/` — router (SSE Event Iterator), publisher
-- [ ] Type-safe errors (UNAUTHORIZED, FORBIDDEN, NOT_FOUND, etc.)
+- [ ] Type-safe errors (UNAUTHORIZED, FORBIDDEN, NOT_FOUND, CONFLICT for version mismatch, etc.)
 - [ ] Invite procedure → sendInviteEmail from @ziron/email
 
 ## Next

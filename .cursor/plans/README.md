@@ -30,3 +30,7 @@ Step-by-step implementation plans derived from the [ZironTap Structure Plan (ful
 ## Main Plan
 
 The master plan lives at [full-project.plan.md](full-project.plan.md) and contains the complete architecture, routes, database design, packages, conventions, and (in §13) resolved decisions such as Inngest placement.
+
+## Roadmap
+
+[roadmap.md](roadmap.md) — v1 (cards, offline cards only, version-based conflict), v2 (links, QR, reviews), v3 (full version history with JSON snapshot), and future ideas.

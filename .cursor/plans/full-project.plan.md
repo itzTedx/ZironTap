@@ -81,7 +81,7 @@ zirontap/
 
 ### 2.2 `apps/client`
 
-- **Purpose:** Public-facing card preview, short-link redirects, review card pages.
+- **Purpose:** Public-facing card view; NFC card based — user taps physical card to open URL (e.g. `/[slug]`). Short-link redirects and review card pages in v2+. All card management is in the portal; client is view-only and online.
 - **Routes:**
 
 
@@ -329,15 +329,15 @@ apps/portal/src/providers/
 **Resource tables** (all scoped by `organizationId`)
 
 
-| Table          | Key columns                                                              |
-| -------------- | ------------------------------------------------------------------------ |
-| `cards`        | `id`, `organizationId`, `slug`, `data`, `template`, `theme`, `createdAt` |
-| `short_links`  | `id`, `organizationId`, `shortCode`, `targetUrl`, `expiresAt`            |
-| `qr_records`   | `id`, `organizationId`, `type`, `payload`, `customization`               |
-| `review_cards` | `id`, `organizationId`, `slug`, `reviewUrl`, `template`, `theme`, `logo` |
-| `media`        | `id`, `organizationId`, `url`, `type`, `metadata` (person, cover, etc.)  |
-| `tags`         | `id`, `organizationId`, `name`, `color` (used by cards, links)           |
-| `templates`    | `id`, `organizationId` (nullable for global), `type`, `data`             |
+| Table          | Key columns                                                                                                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cards`        | `id`, `organizationId`, `slug`, `data`, `template`, `theme`, `version`, `createdAt` — `version` (integer) for optimistic concurrency; API returns 409 if version mismatch on update |
+| `short_links`  | `id`, `organizationId`, `shortCode`, `targetUrl`, `expiresAt`                                                                                                                       |
+| `qr_records`   | `id`, `organizationId`, `type`, `payload`, `customization`                                                                                                                          |
+| `review_cards` | `id`, `organizationId`, `slug`, `reviewUrl`, `template`, `theme`, `logo`                                                                                                            |
+| `media`        | `id`, `organizationId`, `url`, `type`, `metadata` (person, cover, etc.)                                                                                                             |
+| `tags`         | `id`, `organizationId`, `name`, `color` (used by cards, links)                                                                                                                      |
+| `templates`    | `id`, `organizationId` (nullable for global), `type`, `data`                                                                                                                        |
 
 
 **Billing & entitlements**
@@ -504,8 +504,9 @@ apps/portal/src/providers/
 - **Structure:**
   - `src/index.ts` — auth config export
   - `src/org.ts` — org plugin
-  - `src/session.ts` — Redis/Valkey session store
+  - `src/session.ts` — Redis/Valkey session store (secondary storage for Better Auth)
   - `src/polar.ts` — Polar plugin (checkout, webhooks, portal) — [Better Auth Polar](https://www.better-auth.com/docs/plugins/polar)
+- **Session storage:** Redis (or Valkey) as session store is sufficient for session persistence and for offline sync after reconnect: cookie + Redis; if session expires while offline, sync returns 401 — client should prompt re-auth and retry sync without discarding the pending queue.
 - **Email integration:** Wire `sendVerificationEmail` and `sendResetPassword` to `@ziron/email`; use fire-and-forget (`void sendVerificationEmail(...)`) per Better Auth docs.
 - **Dependencies:** `better-auth`, `@polar-sh/better-auth`, `@polar-sh/sdk`, `@better-auth/passkey`, `@ziron/email`
 - **Consumers:** `portal`, `client` (optional auth for review card creation)
@@ -861,14 +862,15 @@ const errorLogging = os.middleware(async ({ context, next, path }) => {
 
 ### 3.10 `packages/sync`
 
-- **Role:** Offline-first sync layer — IndexedDB (idb), pending write queue, reconnect replay, API sync. Keeps cards and orgs available offline; writes go to IDB + queue; on reconnect, replay queue (upload offline images first), sync via API, update IDB and React Query; store images as blobs.
+- **Role:** Offline-first sync layer — IndexedDB (idb), pending write queue, reconnect replay, API sync. **Server is source of truth.** Conflict resolution: optimistic concurrency using `version` on entities; API returns 409 on version mismatch; client refreshes from server. Full version history (JSON snapshot table, compare/restore) deferred to **v3** (see [roadmap.md](roadmap.md)).
+- **V1 scope:** Cards only. IDB stores card details and pending ops; on reconnect: upload offline images first, then replay card mutations (each mutation sends `version`; 409 → refresh and optionally retry or show conflict). Org list can be cached for offline nav but is not in the sync queue in v1.
 - **Structure:**
-  - `src/index.ts` — IndexedDB schema, stores for cards, orgs, pending ops
+  - `src/index.ts` — IndexedDB schema, stores for cards, pending ops, blobs (images)
   - `src/queue.ts` — pending write queue, replay on reconnect
-  - `src/sync.ts` — sync logic: upload offline images first, then API calls, update IDB + React Query
-  - `src/hooks.ts` — React hooks for offline reads, sync status
+  - `src/sync.ts` — sync logic: upload offline images first, then API calls with version; on 409, refresh from server and update IDB
+  - `src/hooks.ts` — React hooks for offline reads (IDB-first for cards), sync status
 - **Dependencies:** `idb` (IndexedDB wrapper)
-- **Consumers:** `apps/portal` (primary); optional for client if needed
+- **Consumers:** `apps/portal` (primary). Client app is NFC/view-only and online; no offline sync on client.
 
 ### 3.10 `packages/jobs`
 
@@ -1249,8 +1251,10 @@ Usage from root: `pnpm ui:add button` or `pnpm ui:add dialog card` — forwards 
 9. **QR** — `packages/qr` encode + render (uses `@ziron/media` for logo)
 10. **Analytics** — `packages/analytics`
 11. **Templates** — `packages/templates` + `packages/ui` components
-12. **Apps** — marketing (minimal), client (routes), portal (dashboard)
-13. **Inngest** — background jobs in portal or api package
+12. **Apps** — marketing (minimal), client (NFC/view routes), portal (dashboard); sync (cards only, version-based conflict) when portal is implemented
+13. **Inngest** — background jobs in portal
+
+**Roadmap:** See [roadmap.md](roadmap.md) for v2 (links, QR, reviews), v3 (full version history with JSON snapshot), and future ideas.
 
 ---
 
