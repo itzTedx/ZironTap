@@ -7,7 +7,7 @@ isProject: false
 
 # Implementation Plan 07: Media
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §3.4 packages/media
 
 ## Scope
 
@@ -27,6 +27,8 @@ isProject: false
 - Review cards: logo
 - CSV import: bulk processing
 
+**Related:** [08 Image Editor + Better Upload](08-image-editor-better-upload.plan.md) (compressAndResize before upload); [09 QR](09-qr.plan.md) (logo); [06 API](06-api.plan.md) (upload handlers)
+
 ## Next
 
-→ [08 Image Editor](08-image-editor.plan.md)
+→ [08 Image Editor + Better Upload](08-image-editor-better-upload.plan.md)

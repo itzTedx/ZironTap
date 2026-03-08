@@ -15,9 +15,9 @@ isProject: false
 
 # Implementation Plan 10: Analytics Package
 
-**Parent plan:** [ziron_tap_structure_plan_43dd61bf.plan.md](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent plan:** [full-project.plan.md](full-project.plan.md) — §3.2 packages/analytics, §4.1 Analytics UX, §5.1 analytics_events / analytics_daily_summary
 
-**Prerequisites:** Plan 2 (DB schema for analytics_events), Plan 6 (API, notifications publisher)
+**Prerequisites:** [02 DB](02-db.plan.md) (analytics_events schema), [06 API](06-api.plan.md) (notifications publisher for SSE)
 
 ---
 

@@ -22,9 +22,9 @@ isProject: false
 
 # Implementation Plan 12: Apps (Marketing, Client, Portal)
 
-**Parent plan:** [ziron_tap_structure_plan_43dd61bf.plan.md](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent plan:** [full-project.plan.md](full-project.plan.md) — §2 Apps Breakdown, §2.3 portal (providers, routing, sidebar), §7 Key File Locations
 
-**Prerequisites:** Plans 1–11 (all packages)
+**Prerequisites:** Plans 01–11 (all packages); [13 Inngest](13-inngest.plan.md) mounts job handler in portal
 
 ---
 
@@ -54,9 +54,9 @@ isProject: false
 
 - `/` — Org switcher, quick actions
 - `/[orgSlug]` — Dashboard
-- `/[orgSlug]/cards`, `/links`, `/qr`, `/reviews`, `/media`, `/members`, `/billing`, `/settings`
-- `/settings` — Account-level
-- `/admin/`* — Super admin
+- `/[orgSlug]/cards`, `/[orgSlug]/links`, `/[orgSlug]/qr`, `/[orgSlug]/reviews`, `/[orgSlug]/media`, `/[orgSlug]/members`, `/[orgSlug]/billing`, `/[orgSlug]/settings`
+- `/settings` — Account-level (profile, security, notifications, api-keys)
+- `/admin/organizations`, `/admin/users`, `/admin/logs` — Super admin only
 
 ---
 
@@ -64,6 +64,7 @@ isProject: false
 
 1. **Marketing** — Minimal shell; pricing page with Polar checkout CTA
 2. **Client** — Routes; card/review render using templates; redirect handler
-3. **Portal** — [orgSlug] layout; sidebar; route scaffolding; providers (theme, nuqs, jotai, tanstack, page-load-progress, keyboard-shortcut, analytics, pdf-worker)
+3. **Portal** — [orgSlug] layout; sidebar; route scaffolding; providers per full-project §2.3: theme-provider, nuqs-provider, jotai-provider, tanstack-provider, page-load-progress-provider, keyboard-shortcut-provider, analytics-provider, pdf-worker-provider (optional: react-scan-provider)
 4. **Shell pages** — Placeholders; user designs UI per conventions
+5. **Inngest** — Mount jobs handler at `apps/portal/src/app/api/inngest/route.ts` per [13 Inngest](13-inngest.plan.md) and full-project §13
 

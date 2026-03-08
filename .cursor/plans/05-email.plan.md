@@ -1,14 +1,16 @@
 ---
 name: 05 Email
 overview: Nodemailer + react-email. Verification, password reset, org invites. Mailpit for dev.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
+parentPlan: full-project.plan.md
 order: 5
 todos: []
 ---
 
 # Implementation Plan 05: Email
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §3.6.3 packages/email
+
+**Related:** [04 Auth](04-auth.plan.md) (wire from auth); [06 API](06-api.plan.md) (invite procedure → sendInviteEmail)
 
 ## Scope
 

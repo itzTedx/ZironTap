@@ -22,9 +22,9 @@ isProject: false
 
 # Implementation Plan 11: Templates + UI Components
 
-**Parent plan:** [full-project.plan.md](.cursor/plans/full-project.plan.md)
+**Parent plan:** [full-project.plan.md](full-project.plan.md) — §3.5 packages/templates, §3.8 packages/ui (theme, review-card-templates), §7 Key File Locations
 
-**Prerequisites:** Plan 2 (DB), Plan 7 (Media)
+**Prerequisites:** [02 DB](02-db.plan.md) (templates table), [07 Media](07-media.plan.md) (images in cards); consumed by [12 Apps](12-apps.plan.md) (client card/review render, portal preview)
 
 ---
 

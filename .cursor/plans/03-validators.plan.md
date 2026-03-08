@@ -1,14 +1,16 @@
 ---
 name: 03 Validators
 overview: Zod schemas — primitives, card, short-link, review, qr, analytics. Single source for API + forms.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
+parentPlan: full-project.plan.md
 order: 3
 todos: []
 ---
 
 # Implementation Plan 03: Validators
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §3.9.1 packages/validators
+
+**Related:** [02 DB](02-db.plan.md) (schemas align with DB columns); [06 API](06-api.plan.md) (oRPC .input(schema)); [12 Apps](12-apps.plan.md) (forms use same schemas)
 
 ## Scope
 

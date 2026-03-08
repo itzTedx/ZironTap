@@ -486,12 +486,9 @@ apps/portal/src/providers/
 - **Experimental** — Consolidate in a single `experimental` block:
 
 ```ts
-  experimental: {
-    typedRoutes: true,
+
     turbopackFileSystemCacheForDev: true,
-    turbopackFileSystemCacheForBuild: true,
-  },
-  
+    turbopackFileSystemCacheForBuild: true, 
 
 ```
 
@@ -1404,5 +1401,5 @@ Strict conventions enforced via Cursor rules (`.cursor/rules/*.mdc`), commitlint
 
 ## 13. Open Questions
 
-- **Inngest placement:** Co-locate in `apps/portal` vs `packages/api` — portal is the primary consumer; api may serve event triggers from client.
+- **Inngest placement (resolved):** **Serve the Inngest HTTP worker from `apps/portal`** (e.g. mount `packages/jobs` handler at `apps/portal/src/app/api/inngest/route.ts`). Job logic and the send-client stay in `packages/jobs`; portal and `packages/api` both trigger jobs by calling `@ziron/jobs` client — no need for the API app to expose the worker. Rationale: (1) Portal is the primary consumer (exports, soft delete, webhooks, “job done” notifications). (2) Single deployment for workers: one endpoint for Inngest cloud. (3) `packages/api` is a package, not an app; the worker must be mounted in an app. (4) Client-originated triggers (e.g. trackView → analytics aggregation) go through oRPC; the procedure calls the jobs client and the job runs on the portal deployment where the worker is mounted.
 

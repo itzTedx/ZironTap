@@ -19,9 +19,9 @@ isProject: false
 
 # Implementation Plan 8: Image Editor + Better Upload
 
-**Parent plan:** [ziron_tap_structure_plan_43dd61bf.plan.md](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent plan:** [full-project.plan.md](full-project.plan.md) — §3.8 packages/ui (Image editor), §7 Key File Locations
 
-**Prerequisites:** Plan 7 (Media), Plan 6 (API for upload handlers)
+**Prerequisites:** [07 Media](07-media.plan.md) (compressAndResize), [06 API](06-api.plan.md) (upload handlers); portal app from [12 Apps](12-apps.plan.md)
 
 ---
 

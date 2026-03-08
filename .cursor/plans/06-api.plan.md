@@ -1,14 +1,16 @@
 ---
 name: 06 API
 overview: oRPC routers, context (auth, org), middleware, domain routers. Rate limiting, error handling.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
+parentPlan: full-project.plan.md
 order: 6
 todos: []
 ---
 
 # Implementation Plan 06: API
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §3.7 packages/api, §3.7.1 Live Notifications, §3.7.2 Error Handling
+
+**Related:** [03 Validators](03-validators.plan.md) (input schemas); [05 Email](05-email.plan.md) (invite → sendInviteEmail); [07 Media](07-media.plan.md) (upload handlers); [10 Analytics](10-analytics.plan.md) (track + SSE publish); [13 Inngest](13-inngest.plan.md) (procedures trigger jobs via @ziron/jobs client)
 
 ## Scope
 

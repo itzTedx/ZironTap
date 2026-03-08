@@ -7,7 +7,7 @@ isProject: false
 
 # Implementation Plan 00: Project Structure and Packages
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [ZironTap Structure Plan (full-project.plan.md)](full-project.plan.md) — §1 Root Layout, §3 Shared Packages, §4 Feature-to-Structure Mapping
 
 ## Scope
 

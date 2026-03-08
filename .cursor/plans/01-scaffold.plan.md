@@ -7,7 +7,7 @@ isProject: false
 
 # Implementation Plan 01: Scaffold
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §4 Tooling, §6 Tooling and Workspace Config, §9 Implementation Order (step 1)
 
 **Previous:** [00 Project Structure & Packages](00-project-structure-packages.plan.md)
 

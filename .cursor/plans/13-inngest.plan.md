@@ -16,16 +16,18 @@ isProject: false
 
 # Implementation Plan 13: Inngest Background Jobs
 
-**Parent plan:** [ziron_tap_structure_plan_43dd61bf.plan.md](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent plan:** [full-project.plan.md](full-project.plan.md) — §3.10 packages/jobs, §13 Open Questions (Inngest placement resolved)
 
-**Prerequisites:** Plan 6 (API), Plan 12 (Portal)
+**Prerequisites:** [06 API](06-api.plan.md) (procedures trigger jobs via client), [12 Apps](12-apps.plan.md) (portal mounts handler)
+
+**Resolved (per full-project §13):** Serve the Inngest HTTP worker from **apps/portal** only. Mount `packages/jobs` handler at `apps/portal/src/app/api/inngest/route.ts`. Portal and API both trigger jobs by calling `@ziron/jobs` client; no worker in API.
 
 ---
 
 ## Scope
 
 - `packages/jobs` — Generic job package; Inngest adapter
-- Serve from portal at `/api/inngest` or `/api/jobs`
+- **Serve from portal only** at `apps/portal/src/app/api/inngest/route.ts` (or `/api/jobs`)
 - Job functions: soft delete, exports, GeoIP, post-upload, Polar follow-up, cache invalidation
 
 ---
@@ -45,8 +47,8 @@ isProject: false
 
 ## Implementation Steps
 
-1. **Adapter** — Create Inngest adapter in packages/jobs
-2. **Serve** — Mount handler in portal; configure Inngest dev server for local
-3. **Functions** — Define jobs (soft delete, export, GeoIP, post-upload, etc.)
-4. **Trigger** — Wire from API procedures, webhooks, portal UI
+1. **Adapter** — Create Inngest adapter in packages/jobs (`src/adapters/inngest.ts`)
+2. **Serve** — Mount handler in **portal** at `apps/portal/src/app/api/inngest/route.ts`; configure Inngest dev server for local
+3. **Functions** — Define jobs in `packages/jobs/src/functions/` (soft delete, export, GeoIP, post-upload, etc.)
+4. **Trigger** — Wire from API procedures (e.g. trackView → aggregation job), webhooks (Polar), portal UI (export, delete)
 

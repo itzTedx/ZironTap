@@ -1,6 +1,6 @@
 # ZironTap Implementation Plans
 
-Step-by-step implementation plans derived from the [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md). Use these while building the project—you can work on UI in parallel by following the order below.
+Step-by-step implementation plans derived from the [ZironTap Structure Plan (full-project.plan.md)](full-project.plan.md). Use these while building the project—you can work on UI in parallel by following the order below.
 
 ## Implementation Order
 
@@ -23,10 +23,10 @@ Step-by-step implementation plans derived from the [ZironTap Structure Plan](.cu
 
 ## Usage
 
-- **Sequential:** Follow 01 → 13 for full implementation.
+- **Sequential:** Follow 00 → 13 for full implementation.
 - **Parallel with UI:** After 01 (scaffold) and 02 (DB), you can start building UI components (forms, providers) while implementing 03–07. Plans 08–12 integrate UI with backend.
-- **Reference:** Each plan links to the main structure plan for full context.
+- **Reference:** Each plan links to [full-project.plan.md](full-project.plan.md) with specific section refs (§2, §3.x, §5, §7, §13). Related plans are cross-linked (e.g. 06 API ↔ 05 Email, 07 Media, 10 Analytics, 13 Inngest).
 
 ## Main Plan
 
-The master plan lives at `.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md` and contains the complete architecture, routes, database design, packages, and conventions.
+The master plan lives at [full-project.plan.md](full-project.plan.md) and contains the complete architecture, routes, database design, packages, conventions, and (in §13) resolved decisions such as Inngest placement.

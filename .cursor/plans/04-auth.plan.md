@@ -1,14 +1,16 @@
 ---
 name: 04 Auth
 overview: Better Auth — users, orgs, Email & Password, Google/Apple, passkeys, 2FA, Polar plugin. Email integration deferred to step 05.
-parentPlan: ziron_tap_structure_plan_43dd61bf.plan.md
+parentPlan: full-project.plan.md
 order: 4
 todos: []
 ---
 
 # Implementation Plan 04: Auth
 
-**Parent:** [ZironTap Structure Plan](.cursor/plans/ziron_tap_structure_plan_43dd61bf.plan.md)
+**Parent:** [full-project.plan.md](full-project.plan.md) — §3.1 packages/auth, §3.12 Polar & Pricing
+
+**Related:** [05 Email](05-email.plan.md) (wire sendVerificationEmail, sendResetPassword in step 05); [12 Apps](12-apps.plan.md) (portal, marketing consume auth)
 
 ## Scope
 
