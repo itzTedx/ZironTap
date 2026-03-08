@@ -18,6 +18,13 @@ interface PackageJson {
 	exports?: Record<string, string>;
 }
 
+interface InitAnswers {
+	name?: string;
+	packageName?: string;
+	packageType?: string;
+	deps?: string;
+}
+
 function isWorkspaceDep(dep: string): boolean {
 	return WORKSPACE_SCOPES.some((scope) => dep.startsWith(scope));
 }
@@ -49,12 +56,12 @@ function getCatalogVersion(dep: string): string | null {
 		if (!existsSync(wsPath)) return null;
 		const content = readFileSync(wsPath, "utf-8");
 		const catalogMatch = content.match(/catalog:\s*([\s\S]*?)(?=\n\w|\n$)/);
-		if (!catalogMatch) return null;
+		if (!catalogMatch?.[1]) return null;
 		const catalog = catalogMatch[1];
 		const key = dep.replace(/^@[^/]+\//, "").replace(/[^a-z0-9-]/gi, "");
 		const re = new RegExp(`${key}:\\s*["']?([^"'\n]+)["']?`, "i");
 		const m = catalog.match(re);
-		return m ? m[1].trim() : null;
+		return m?.[1]?.trim() ?? null;
 	} catch {
 		return null;
 	}
@@ -93,8 +100,9 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 		],
 		actions: [
 			(answers) => {
-				if (answers.name) answers.name = normalizePackageName(answers.name);
-				answers.packageName = `${SCOPE}${answers.name}`;
+				const a = answers as InitAnswers;
+				if (a.name) a.name = normalizePackageName(a.name);
+				a.packageName = `${SCOPE}${a.name ?? "my-package"}`;
 				return "Config sanitized";
 			},
 			{
@@ -145,7 +153,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 				},
 			},
 			async (answers) => {
-				const name = answers.name as string;
+				const name = (answers as InitAnswers).name;
 				if (!name) return "Skipped";
 				execSync("pnpm i", { stdio: "inherit" });
 				try {

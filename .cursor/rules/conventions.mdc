@@ -11,10 +11,13 @@ alwaysApply: true
 <type>(<scope>): <description>
 ```
 
+- **Single line only:** `<type>(<scope>): <description>` — no body, no footer.
+- **All lowercase:** no uppercase letters anywhere in the header (type, scope, or description). When generating commit messages, use strictly lowercase: e.g. `typescript` not `TypeScript`, `next.js` not `Next.js`.
 - **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `revert`
-- **Scope:** package or area (e.g. `auth`, `qr`, `portal`)
-- **Description:** imperative, lowercase start, no period
-- **Examples:** `feat(auth): add passkey support`, `fix(qr): correct vCard encoding`, `chore(deps): update Next.js`
+- **Scope:** package or area (e.g. `auth`, `qr`, `portal`); optional
+- **Description:** imperative, no period, max 100 chars
+- **Enforced by:** commitlint (body-empty, footer-empty, type-case, scope-case, subject-case, header-case, subject-full-stop, header-max-length)
+- **Examples:** `feat(auth): add passkey support`, `fix(qr): correct vcard encoding`, `chore(deps): update next.js`
 
 ## Code Style
 
