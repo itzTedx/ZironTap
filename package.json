@@ -20,7 +20,7 @@
 		"db:studio": "turbo db:studio",
 		"ui:add": "pnpm -F @ziron/ui ui:add --",
 		"gen": "turbo gen",
-		"changeset": "pnpm changeset",
+		"changeset": "changeset",
 		"analyze": "ANALYZE=true pnpm build",
 		"prepare": "husky"
 	},
