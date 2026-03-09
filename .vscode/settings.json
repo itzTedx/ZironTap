@@ -16,5 +16,5 @@
 		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
 		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
 	],
-	"cSpell.words": ["Turborepo", "ziron", "zirontap"]
+	"cSpell.words": ["ecommerce", "Turborepo", "ziron", "zirontap"]
 }
