@@ -14,13 +14,13 @@ export default {
 		// Scope: optional, lowercase when present (e.g. auth, qr, portal)
 		"scope-case": [2, "always", "lower-case"],
 
-		// Subject/header: imperative, no period, max length, all lowercase
-		"subject-case": [2, "always", "lower-case"],
+		// Subject: imperative, no period; allow lowercase/mixed, forbid title/pascal/upper case
+		"subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
 		"subject-empty": [2, "never"],
 		"subject-full-stop": [2, "never"],
 		"header-max-length": [2, "always", 100],
-		// Entire header must be lowercase (no uppercase anywhere)
-		"header-case": [2, "always", "lower-case"],
+		// Allow mixed-case header (brands, acronyms, etc.)
+		"header-case": [0],
 
 		// Only header line allowed; no body or footer
 		"body-empty": [2, "always"],
