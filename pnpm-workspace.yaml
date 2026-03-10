@@ -8,6 +8,7 @@ catalog:
   '@turbo/gen': ^2.8.15
   '@types/node': ^25.4.0
   babel-plugin-react-compiler: ^1.0.0
+  dotenv: ^17.2.2
   next: 16.1.6
   tailwindcss: ^4.2.1
   typescript: ^5

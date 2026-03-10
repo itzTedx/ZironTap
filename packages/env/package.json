@@ -12,10 +12,12 @@
 	"dependencies": {
 		"@t3-oss/env-core": "^0.13.10",
 		"@t3-oss/env-nextjs": "^0.13.10",
-		"zod": "^4.1.12"
+		"dotenv": "catalog:",
+		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@ziron/typescript-config": "workspace:*",
+		"@types/node": "catalog:",
 		"typescript": "catalog:"
 	},
 	"exports": {
