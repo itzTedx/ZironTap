@@ -1,0 +1,24 @@
+{
+	"name": "@ziron/env",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@t3-oss/env-core": "^0.13.10",
+		"@t3-oss/env-nextjs": "^0.13.10",
+		"zod": "^4.1.12"
+	},
+	"devDependencies": {
+		"@ziron/typescript-config": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
+}

@@ -4,14 +4,15 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "build": "tsc",
     "lint": "biome check .",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {},
   "devDependencies": {
     "@ziron/typescript-config": "workspace:*",
-    "typescript": "^5.0.0"
+    "typescript": "catalog:"
   },
   "exports": {
     ".": "./src/index.ts"
