@@ -1,4 +1,5 @@
 import { apiKey } from "@better-auth/api-key";
+import { passkey } from "@better-auth/passkey";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
 import { nextCookies } from "better-auth/next-js";
@@ -78,6 +79,11 @@ export const auth = betterAuth({
 		nextCookies(),
 		twoFactor(),
 		username(),
+		passkey({
+			rpID: new URL(env.BETTER_AUTH_URL).hostname,
+			rpName: "ZironTap",
+			origin: env.BETTER_AUTH_URL,
+		}),
 		emailOTP({
 			async sendVerificationOTP({ type }) {
 				if (type === "sign-in") {

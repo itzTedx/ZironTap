@@ -19,10 +19,12 @@
 		"@ziron/env": "workspace:*",
 		"@ziron/validators": "workspace:*",
 		"next": "catalog:",
+		"react": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
+		"@types/react": "catalog:react19",
 		"@ziron/typescript-config": "workspace:*",
 		"typescript": "catalog:"
 	},

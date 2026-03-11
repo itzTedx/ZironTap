@@ -1,7 +1,5 @@
 import { apiKeyClient } from "@better-auth/api-key/client";
 import { passkeyClient } from "@better-auth/passkey/client";
-import { ac, roles } from "@ziron/auth";
-import { createAuthClient } from "better-auth/client";
 import {
 	adminClient,
 	emailOTPClient,
@@ -10,6 +8,9 @@ import {
 	twoFactorClient,
 	usernameClient,
 } from "better-auth/client/plugins";
+import { createAuthClient } from "better-auth/react";
+
+import { ac, roles } from "@ziron/auth/client";
 
 export const authClient = createAuthClient({
 	plugins: [

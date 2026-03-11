@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 
-import { getPool } from "./client.js";
+import { getPool } from "./client";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
