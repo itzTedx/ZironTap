@@ -2,8 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@ziron/ui/globals.css";
 
-import { cn } from "@ziron/ui/lib/utils";
 import type { Metadata } from "next";
+
+import { cn } from "@ziron/ui/lib/utils";
+
 import { Providers } from "@/components/providers";
 
 const fontSans = Geist({
@@ -28,12 +30,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			className={cn(
-				"antialiased",
-				fontMono.variable,
-				"font-sans",
-				fontSans.variable,
-			)}
+			className={cn("antialiased", fontMono.variable, "font-sans", fontSans.variable)}
 			lang="en"
 			suppressHydrationWarning
 		>

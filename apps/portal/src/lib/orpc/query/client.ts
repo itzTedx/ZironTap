@@ -1,10 +1,7 @@
-import {
-	defaultShouldDehydrateQuery,
-	QueryCache,
-	QueryClient,
-} from "@tanstack/react-query";
+import { defaultShouldDehydrateQuery, QueryCache, QueryClient } from "@tanstack/react-query";
 
 import { toastManager } from "@ziron/ui/components/toast";
+
 import { serializer } from "./serializer";
 
 export function createQueryClient() {
@@ -36,9 +33,7 @@ export function createQueryClient() {
 				staleTime: 60 * 1000, // > 0 to prevent immediate refetching on mount
 			},
 			dehydrate: {
-				shouldDehydrateQuery: (query) =>
-					defaultShouldDehydrateQuery(query) ||
-					query.state.status === "pending",
+				shouldDehydrateQuery: (query) => defaultShouldDehydrateQuery(query) || query.state.status === "pending",
 				serializeData(data) {
 					const [json, meta] = serializer.serialize(data);
 					return { json, meta };
