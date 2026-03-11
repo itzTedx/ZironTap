@@ -1,9 +1,8 @@
 ---
 name: 04 Auth
 overview: Better Auth — users, orgs, Email & Password, Google/Apple, passkeys, 2FA, Polar plugin. Email integration deferred to step 05.
-parentPlan: full-project.plan.md
-order: 4
 todos: []
+isProject: false
 ---
 
 # Implementation Plan 04: Auth
@@ -18,12 +17,12 @@ todos: []
 
 ## Deliverables
 
-- [ ] `packages/auth/package.json` — better-auth, @polar-sh/better-auth, @better-auth/passkey, @ziron/email (for step 05)
-- [ ] `src/index.ts` — auth config export
-- [ ] `src/org.ts` — org plugin
-- [ ] `src/session.ts` — Redis/Valkey session store
-- [ ] `src/polar.ts` — Polar plugin (checkout, webhooks, portal)
-- [ ] Email integration placeholders — wire in step 05
+- `packages/auth/package.json` — better-auth, @polar-sh/better-auth, @better-auth/passkey, @ziron/email (for step 05)
+- `src/index.ts` — auth config export
+- `src/org.ts` — org plugin
+- `src/session.ts` — Redis/Valkey session store
+- `src/polar.ts` — Polar plugin (checkout, webhooks, portal)
+- Email integration placeholders — wire in step 05
 
 ## Dependencies
 

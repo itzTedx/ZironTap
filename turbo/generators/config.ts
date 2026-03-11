@@ -23,6 +23,7 @@ interface InitAnswers {
 	packageName?: string;
 	packageType?: string;
 	deps?: string;
+	devDeps?: string;
 }
 
 function isWorkspaceDep(dep: string): boolean {
@@ -50,18 +51,53 @@ async function resolveDepVersion(dep: string): Promise<string> {
 	}
 }
 
-function getCatalogVersion(dep: string): string | null {
+/** Extract package name from a catalog line (e.g. "  'pkg': ^1" or "  pkg: 1" -> "pkg"). */
+function parseCatalogKey(line: string): string | null {
+	const trimmed = line.trim();
+	const colon = trimmed.indexOf(":");
+	if (colon <= 0) return null;
+	const key = trimmed.slice(0, colon).trim();
+	const quoted = key.match(/^['"](.*)['"]$/);
+	return (quoted?.[1] ?? key) || null;
+}
+
+/** Returns "catalog:name" or "catalog:" for default, or null if not in any catalog. */
+function getCatalogRef(dep: string): string | null {
 	try {
 		const wsPath = join(process.cwd(), "pnpm-workspace.yaml");
 		if (!existsSync(wsPath)) return null;
 		const content = readFileSync(wsPath, "utf-8");
-		const catalogMatch = content.match(/catalog:\s*([\s\S]*?)(?=\n\w|\n$)/);
-		if (!catalogMatch?.[1]) return null;
-		const catalog = catalogMatch[1];
-		const key = dep.replace(/^@[^/]+\//, "").replace(/[^a-z0-9-]/gi, "");
-		const re = new RegExp(`${key}:\\s*["']?([^"'\n]+)["']?`, "i");
-		const m = catalog.match(re);
-		return m?.[1]?.trim() ?? null;
+		const lines = content.split("\n");
+
+		// Named catalogs: find "catalogs:" then each "  name:" block with "    key: val" lines
+		const catalogsIdx = lines.findIndex((l) => /^catalogs:\s*$/.test(l));
+		if (catalogsIdx >= 0) {
+			for (let i = catalogsIdx + 1; i < lines.length; i++) {
+				const nameMatch = lines[i]?.match(/^\s{2}(\w+):\s*$/);
+				const catalogName = nameMatch?.[1];
+				if (!nameMatch || !catalogName) break;
+				i += 1;
+				while (i < lines.length && /^\s{4}\S/.test(lines[i] ?? "")) {
+					const line = lines[i];
+					const key = line ? parseCatalogKey(line) : null;
+					if (key === dep) return `catalog:${catalogName}`;
+					i += 1;
+				}
+				i -= 1;
+			}
+		}
+
+		// Default catalog: find "catalog:" then lines with "  key: val"
+		const catalogIdx = lines.findIndex((l) => /^catalog:\s*$/.test(l));
+		if (catalogIdx >= 0) {
+			for (let i = catalogIdx + 1; i < lines.length; i++) {
+				const line = lines[i];
+				if (!line || !/^\s{2}\S/.test(line)) break;
+				const key = parseCatalogKey(line);
+				if (key === dep) return "catalog:";
+			}
+		}
+		return null;
 	} catch {
 		return null;
 	}
@@ -94,7 +130,13 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 			{
 				type: "input",
 				name: "deps",
-				message: "Dependencies (space-separated; @ziron/* → workspace:*):",
+				message: "Dependencies (space-separated; catalog used when in pnpm-workspace):",
+				default: "",
+			},
+			{
+				type: "input",
+				name: "devDeps",
+				message: "Dev dependencies (space-separated, optional):",
 				default: "",
 			},
 		],
@@ -129,25 +171,22 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 				type: "modify",
 				path: "packages/{{ name }}/package.json",
 				async transform(content, answers) {
-					const depsInput = (answers.deps as string)?.trim();
-					if (!depsInput) return content;
+					const depsInput = (answers.deps as string)?.trim() ?? "";
+					const devDepsInput = (answers.devDeps as string)?.trim() ?? "";
+					if (!depsInput && !devDepsInput) return content;
 
 					const pkg = JSON.parse(content) as PackageJson;
 					if (!pkg.dependencies) pkg.dependencies = {};
 					if (!pkg.devDependencies) pkg.devDependencies = {};
 
+					const resolveVersion = async (dep: string) =>
+						isWorkspaceDep(dep) ? "workspace:*" : (getCatalogRef(dep) ?? (await resolveDepVersion(dep)));
+
 					for (const dep of depsInput.split(/\s+/).filter(Boolean)) {
-						const version = isWorkspaceDep(dep)
-							? "workspace:*"
-							: (getCatalogVersion(dep) ?? (await resolveDepVersion(dep)));
-						const isDev =
-							dep.startsWith("@types/") ||
-							dep === "typescript" ||
-							dep === "vitest" ||
-							dep.includes("eslint") ||
-							dep.includes("biome");
-						const target = isDev ? pkg.devDependencies! : pkg.dependencies!;
-						target[dep] = version;
+						pkg.dependencies![dep] = await resolveVersion(dep);
+					}
+					for (const dep of devDepsInput.split(/\s+/).filter(Boolean)) {
+						pkg.devDependencies![dep] = await resolveVersion(dep);
 					}
 					return JSON.stringify(pkg, null, 2);
 				},

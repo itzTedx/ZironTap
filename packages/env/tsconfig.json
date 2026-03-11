@@ -1,0 +1,10 @@
+{
+	"extends": "@ziron/typescript-config/internal-package.json",
+	"compilerOptions": {
+		"emitDeclarationOnly": false,
+		"outDir": "dist",
+		"rootDir": "src"
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
+}
