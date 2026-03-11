@@ -55,6 +55,7 @@
 				}
 			},
 			"style": {
+				"noProcessEnv": "error",
 				"noParameterAssign": "error",
 				"noCommonJs": "error",
 				"noNamespace": "error",

@@ -29,6 +29,7 @@
 		"@changesets/cli": "^2.30.0",
 		"@commitlint/cli": "^20.4.3",
 		"@turbo/gen": "catalog:",
+		"@types/node": "catalog:",
 		"@ziron/biome": "workspace:*",
 		"@ziron/commitlint": "workspace:*",
 		"@ziron/typescript-config": "workspace:*",

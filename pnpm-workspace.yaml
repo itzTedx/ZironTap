@@ -10,6 +10,7 @@ catalog:
   babel-plugin-react-compiler: ^1.0.0
   dotenv: ^17.2.2
   next: 16.1.6
+  '@tailwindcss/postcss': ^4.2.1
   tailwindcss: ^4.2.1
   typescript: ^5
   zod: ^4.1.12
