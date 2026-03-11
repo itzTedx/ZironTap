@@ -35,6 +35,13 @@ export const ResetPasswordView = ({ token, error }: ResetPasswordViewProps) => {
 			}
 			title="Reset your password"
 		>
+			{!hasValidToken && (
+				<div className="mb-4 rounded-md border-destructive/40 bg-destructive/5 px-3 py-2 text-destructive text-sm">
+					{error === "INVALID_TOKEN"
+						? "Your reset link is invalid or has already been used. Please request a new password reset email."
+						: "We couldn't validate your reset link. It may have expired or is no longer valid. Please request a new password reset email."}
+				</div>
+			)}
 			{hasValidToken ? <ResetPasswordForm token={token} /> : null}
 		</AuthCard>
 	);

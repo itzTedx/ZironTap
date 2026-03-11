@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { useForm } from "@tanstack/react-form";
 
 import { Button } from "@ziron/ui/components/button";
@@ -16,6 +18,8 @@ type ResetPasswordFormProps = {
 };
 
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+	const router = useRouter();
+
 	const form = useForm({
 		defaultValues: {
 			password: "",
@@ -55,6 +59,8 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 						"Your password has been reset successfully. You can now sign in with your new password.",
 					type: "success",
 				});
+
+				router.push("/login?reset=success");
 			} catch {
 				toastManager.add({
 					title: "Something went wrong.",

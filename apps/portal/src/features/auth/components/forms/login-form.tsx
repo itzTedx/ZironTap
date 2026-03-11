@@ -82,7 +82,7 @@ export const LoginForm = () => {
 				>
 					Google
 					{lastMethod === "google" && (
-						<Badge className="absolute -top-2 -right-2" size="sm">
+						<Badge className="absolute -top-2 -right-2" size="sm" variant="outline">
 							Last used
 						</Badge>
 					)}
@@ -95,7 +95,7 @@ export const LoginForm = () => {
 				>
 					Apple
 					{lastMethod === "apple" && (
-						<Badge className="absolute -top-2 -right-2" size="sm">
+						<Badge className="absolute -top-2 -right-2" size="sm" variant="outline">
 							Last used
 						</Badge>
 					)}
@@ -167,7 +167,7 @@ export const LoginForm = () => {
 				<Button className="relative w-full" disabled={isPending} form="login-form" type="submit">
 					{isPending ? "Logging in..." : "Login"}
 					{lastMethod === "email" && (
-						<Badge className="absolute -top-2 -right-2" size="sm">
+						<Badge className="absolute -top-2 -right-2" size="sm" variant="outline">
 							Last used
 						</Badge>
 					)}
