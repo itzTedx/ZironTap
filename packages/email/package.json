@@ -1,0 +1,25 @@
+{
+	"name": "@ziron/email",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@ziron/env": "workspace:*",
+		"nodemailer": "^8.0.2"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@types/nodemailer": "catalog:",
+		"@ziron/typescript-config": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
+}

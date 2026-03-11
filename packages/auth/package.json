@@ -17,6 +17,7 @@
 		"@better-auth/drizzle-adapter": "catalog:",
 		"@better-auth/passkey": "catalog:",
 		"@ziron/cache": "workspace:*",
+		"@ziron/email": "workspace:*",
 		"@ziron/db": "workspace:*",
 		"@ziron/env": "workspace:*",
 		"better-auth": "catalog:",

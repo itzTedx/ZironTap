@@ -12,6 +12,7 @@ import { username } from "better-auth/plugins/username";
 
 import { getCacheClient, namespacedKey } from "@ziron/cache";
 import { db } from "@ziron/db";
+import { sendEmail } from "@ziron/email";
 import { env } from "@ziron/env/server";
 
 import { ac, roles } from "./access";
@@ -82,9 +83,42 @@ export const auth = betterAuth({
 		},
 	},
 
-	//Email and password authentication.
+	//Email verification and password authentication.
+	emailVerification: {
+		async sendVerificationEmail({ user, url }) {
+			await sendEmail({
+				to: user.email,
+				subject: "Verify your email address",
+				text: `Click the link below to verify your email address:\n\n${url}\n\nIf you did not create an account, you can safely ignore this email.`,
+				html: [
+					"<p>Click the link below to verify your email address:</p>",
+					`<p><a href="${url}">${url}</a></p>`,
+					"<p>If you did not create an account, you can safely ignore this email.</p>",
+				].join(""),
+			});
+		},
+	},
 	emailAndPassword: {
 		enabled: true,
+		requireEmailVerification: true,
+		resetPasswordTokenExpiresIn: 60 * 30,
+		revokeSessionsOnPasswordReset: true,
+		minPasswordLength: 8,
+		maxPasswordLength: 256,
+		async sendResetPassword({ user, url }) {
+			// Better Auth already hides whether the email exists and normalizes responses.
+			await sendEmail({
+				to: user.email,
+				subject: "Reset your ZironTap password",
+				text: `You requested to reset your ZironTap password.\n\nClick the link below to choose a new password:\n\n${url}\n\nIf you did not request a password reset, you can safely ignore this email.`,
+				html: [
+					"<p>You requested to reset your ZironTap password.</p>",
+					"<p>Click the link below to choose a new password:</p>",
+					`<p><a href="${url}">${url}</a></p>`,
+					"<p>If you did not request a password reset, you can safely ignore this email.</p>",
+				].join(""),
+			});
+		},
 	},
 
 	advanced: {

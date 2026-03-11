@@ -51,6 +51,9 @@ catalogs:
     '@types/node':
       specifier: ^25.4.0
       version: 25.4.0
+    '@types/nodemailer':
+      specifier: ^7.0.11
+      version: 7.0.11
     babel-plugin-react-compiler:
       specifier: ^1.0.0
       version: 1.0.0
@@ -311,6 +314,9 @@ importers:
       '@ziron/db':
         specifier: workspace:*
         version: link:../db
+      '@ziron/email':
+        specifier: workspace:*
+        version: link:../email
       '@ziron/env':
         specifier: workspace:*
         version: link:../env
@@ -386,6 +392,28 @@ importers:
       tsx:
         specifier: ^4.19.2
         version: 4.21.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/email:
+    dependencies:
+      '@ziron/env':
+        specifier: workspace:*
+        version: link:../env
+      nodemailer:
+        specifier: ^8.0.2
+        version: 8.0.2
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.4.0
+      '@types/nodemailer':
+        specifier: 'catalog:'
+        version: 7.0.11
+      '@ziron/typescript-config':
+        specifier: workspace:*
+        version: link:../../tooling/typescript-config
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -2630,6 +2658,9 @@ packages:
   '@types/node@25.4.0':
     resolution: {integrity: sha512-9wLpoeWuBlcbBpOY3XmzSTG3oscB6xjBEEtn+pYXTfhyXhIxC5FsBer2KTopBlvKEiW9l13po9fq+SJY/5lkhw==}
 
+  '@types/nodemailer@7.0.11':
+    resolution: {integrity: sha512-E+U4RzR2dKrx+u3N4DlsmLaDC6mMZOM/TPROxA0UAPiTgI0y4CEFBmZE+coGWTjakDriRsXG368lNk1u9Q0a2g==}
+
   '@types/pg@8.18.0':
     resolution: {integrity: sha512-gT+oueVQkqnj6ajGJXblFR4iavIXWsGAFCk3dP4Kki5+a9R4NMt0JARdk6s8cUKcfUoqP5dAtDSLU8xYUTFV+Q==}
 
@@ -4383,6 +4414,10 @@ packages:
 
   node-releases@2.0.36:
     resolution: {integrity: sha512-TdC8FSgHz8Mwtw9g5L4gR/Sh9XhSP/0DEkQxfEFXOpiul5IiHgHan2VhYYb6agDSfp4KuvltmGApc8HMgUrIkA==}
+
+  nodemailer@8.0.2:
+    resolution: {integrity: sha512-zbj002pZAIkWQFxyAaqoxvn+zoIwRnS40hgjqTXudKOOJkiFFgBeNqjgD3/YCR12sZnrghWYBY+yP1ZucdDRpw==}
+    engines: {node: '>=6.0.0'}
 
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -7496,6 +7531,10 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+  '@types/nodemailer@7.0.11':
+    dependencies:
+      '@types/node': 25.4.0
+
   '@types/pg@8.18.0':
     dependencies:
       '@types/node': 25.4.0
@@ -9136,6 +9175,8 @@ snapshots:
       resolve: 1.22.11
 
   node-releases@2.0.36: {}
+
+  nodemailer@8.0.2: {}
 
   npm-run-path@4.0.1:
     dependencies:
