@@ -91,8 +91,14 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
-  apps/web:
+  apps/portal:
     dependencies:
+      '@ziron/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@ziron/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@ziron/ui':
         specifier: workspace:*
         version: link:../../packages/ui
