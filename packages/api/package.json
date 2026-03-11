@@ -1,0 +1,31 @@
+{
+	"name": "@ziron/api",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@orpc/client": "^1.13.6",
+		"@orpc/openapi": "^1.13.6",
+		"@orpc/server": "^1.13.6",
+		"@orpc/zod": "^1.13.6",
+		"@ziron/auth": "workspace:*",
+		"@ziron/db": "workspace:*",
+		"@ziron/env": "workspace:*",
+		"zod": "catalog:",
+		"@ziron/validators": "workspace:*"
+	},
+	"devDependencies": {
+		"@ziron/typescript-config": "workspace:*",
+		"@types/node": "catalog:",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
+}

@@ -1,9 +1,8 @@
 ---
 name: 03 Validators
 overview: Zod schemas — primitives, card, short-link, review, qr, analytics. Single source for API + forms.
-parentPlan: full-project.plan.md
-order: 3
 todos: []
+isProject: false
 ---
 
 # Implementation Plan 03: Validators
@@ -18,15 +17,15 @@ todos: []
 
 ## Deliverables
 
-- [ ] `packages/validators/package.json`, `tsconfig.json`
-- [ ] `src/primitives/` — slug, shortCode, email, url, uuid, pagination, labelEnum
-- [ ] `src/card/` — appearanceSchema, phonesSchema, emailsSchema, linksSchema, cardSchema, attachmentsSchema; create/update variants (update includes `version` for optimistic concurrency; API returns 409 if mismatch)
-- [ ] `src/short-link/` — create, update, redirect params
-- [ ] `src/review/` — review card, review submission
-- [ ] `src/qr/` — QR payload types, customization
-- [ ] `src/analytics/` — event payloads, date range, filters
-- [ ] `src/common/` — orgId, userId, dateRange, list params
-- [ ] `src/index.ts` — barrel export
+- `packages/validators/package.json`, `tsconfig.json`
+- `src/primitives/` — slug, shortCode, email, url, uuid, pagination, labelEnum
+- `src/card/` — appearanceSchema, phonesSchema, emailsSchema, linksSchema, cardSchema, attachmentsSchema; create/update variants (update includes `version` for optimistic concurrency; API returns 409 if mismatch)
+- `src/short-link/` — create, update, redirect params
+- `src/review/` — review card, review submission
+- `src/qr/` — QR payload types, customization
+- `src/analytics/` — event payloads, date range, filters
+- `src/common/` — orgId, userId, dateRange, list params
+- `src/index.ts` — barrel export
 
 ## Patterns
 
