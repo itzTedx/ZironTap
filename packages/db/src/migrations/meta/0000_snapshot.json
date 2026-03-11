@@ -1,5 +1,5 @@
 {
-	"id": "1594600b-b9a8-41be-9f08-e745307a304f",
+	"id": "4db7062c-252a-4d67-abf6-b1fe2c6d8695",
 	"prevId": "00000000-0000-0000-0000-000000000000",
 	"version": "7",
 	"dialect": "postgresql",
@@ -10,9 +10,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"account_id": {
 					"name": "account_id",
@@ -28,7 +29,7 @@
 				},
 				"user_id": {
 					"name": "user_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				},
@@ -76,16 +77,17 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
-					"notNull": true
+					"notNull": true,
+					"default": "now()"
 				}
 			},
 			"indexes": {
@@ -128,9 +130,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"config_id": {
 					"name": "config_id",
@@ -325,13 +328,14 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"organization_id": {
 					"name": "organization_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				},
@@ -362,14 +366,21 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"inviter_id": {
 					"name": "inviter_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				}
@@ -438,19 +449,20 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"organization_id": {
 					"name": "organization_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				},
 				"user_id": {
 					"name": "user_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				},
@@ -532,9 +544,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"name": {
 					"name": "name",
@@ -603,9 +616,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"secret": {
 					"name": "secret",
@@ -621,7 +635,7 @@
 				},
 				"user_id": {
 					"name": "user_id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": false,
 					"notNull": true
 				}
@@ -681,9 +695,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"name": {
 					"name": "name",
@@ -709,20 +724,6 @@
 					"type": "text",
 					"primaryKey": false,
 					"notNull": false
-				},
-				"created_at": {
-					"name": "created_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
-				},
-				"updated_at": {
-					"name": "updated_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
 				},
 				"two_factor_enabled": {
 					"name": "two_factor_enabled",
@@ -767,9 +768,54 @@
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": false
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp with time zone",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp with time zone",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
 				}
 			},
-			"indexes": {},
+			"indexes": {
+				"users_email_idx": {
+					"name": "users_email_idx",
+					"columns": [
+						{
+							"expression": "email",
+							"isExpression": false,
+							"asc": true,
+							"nulls": "last"
+						}
+					],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				},
+				"users_username_idx": {
+					"name": "users_username_idx",
+					"columns": [
+						{
+							"expression": "username",
+							"isExpression": false,
+							"asc": true,
+							"nulls": "last"
+						}
+					],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				}
+			},
 			"foreignKeys": {},
 			"compositePrimaryKeys": {},
 			"uniqueConstraints": {
@@ -794,9 +840,10 @@
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "text",
+					"type": "uuid",
 					"primaryKey": true,
-					"notNull": true
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
 				"identifier": {
 					"name": "identifier",
@@ -818,14 +865,14 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"

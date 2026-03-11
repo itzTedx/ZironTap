@@ -1,33 +1,35 @@
 import { relations } from "drizzle-orm";
-import { boolean, index, integer, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { boolean, index, integer, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
-	id: text("id").primaryKey(),
-	name: text("name").notNull(),
-	email: text("email").notNull().unique(),
-	emailVerified: boolean("email_verified").default(false).notNull(),
-	image: text("image"),
-	createdAt: timestamp("created_at").defaultNow().notNull(),
-	updatedAt: timestamp("updated_at")
-		.defaultNow()
-		.$onUpdate(() => /* @__PURE__ */ new Date())
-		.notNull(),
-	twoFactorEnabled: boolean("two_factor_enabled").default(false),
-	username: text("username").unique(),
-	displayUsername: text("display_username"),
-	role: text("role"),
-	banned: boolean("banned").default(false),
-	banReason: text("ban_reason"),
-	banExpires: timestamp("ban_expires"),
-});
+import { id, timestamps } from "./columns";
+
+export const users = pgTable(
+	"users",
+	{
+		id: id(),
+		name: text("name").notNull(),
+		email: text("email").notNull().unique(),
+		emailVerified: boolean("email_verified").default(false).notNull(),
+		image: text("image"),
+		twoFactorEnabled: boolean("two_factor_enabled").default(false),
+		username: text("username").unique(),
+		displayUsername: text("display_username"),
+		role: text("role"),
+		banned: boolean("banned").default(false),
+		banReason: text("ban_reason"),
+		banExpires: timestamp("ban_expires"),
+		...timestamps(),
+	},
+	(table) => [index("users_email_idx").on(table.email), index("users_username_idx").on(table.username)]
+);
 
 export const accounts = pgTable(
 	"accounts",
 	{
-		id: text("id").primaryKey(),
+		id: id(),
 		accountId: text("account_id").notNull(),
 		providerId: text("provider_id").notNull(),
-		userId: text("user_id")
+		userId: uuid("user_id")
 			.notNull()
 			.references(() => users.id, { onDelete: "cascade" }),
 		accessToken: text("access_token"),
@@ -37,10 +39,7 @@ export const accounts = pgTable(
 		refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
 		scope: text("scope"),
 		password: text("password"),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-		updatedAt: timestamp("updated_at")
-			.$onUpdate(() => /* @__PURE__ */ new Date())
-			.notNull(),
+		...timestamps(),
 	},
 	(table) => [index("accounts_userId_idx").on(table.userId)]
 );
@@ -48,15 +47,11 @@ export const accounts = pgTable(
 export const verifications = pgTable(
 	"verifications",
 	{
-		id: text("id").primaryKey(),
+		id: id(),
 		identifier: text("identifier").notNull(),
 		value: text("value").notNull(),
 		expiresAt: timestamp("expires_at").notNull(),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-		updatedAt: timestamp("updated_at")
-			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date())
-			.notNull(),
+		...timestamps(),
 	},
 	(table) => [index("verifications_identifier_idx").on(table.identifier)]
 );
@@ -64,10 +59,10 @@ export const verifications = pgTable(
 export const twoFactors = pgTable(
 	"two_factors",
 	{
-		id: text("id").primaryKey(),
+		id: id(),
 		secret: text("secret").notNull(),
 		backupCodes: text("backup_codes").notNull(),
-		userId: text("user_id")
+		userId: uuid("user_id")
 			.notNull()
 			.references(() => users.id, { onDelete: "cascade" }),
 	},
@@ -77,7 +72,7 @@ export const twoFactors = pgTable(
 export const organizations = pgTable(
 	"organizations",
 	{
-		id: text("id").primaryKey(),
+		id: id(),
 		name: text("name").notNull(),
 		slug: text("slug").notNull().unique(),
 		logo: text("logo"),
@@ -90,11 +85,11 @@ export const organizations = pgTable(
 export const members = pgTable(
 	"members",
 	{
-		id: text("id").primaryKey(),
-		organizationId: text("organization_id")
+		id: id(),
+		organizationId: uuid("organization_id")
 			.notNull()
 			.references(() => organizations.id, { onDelete: "cascade" }),
-		userId: text("user_id")
+		userId: uuid("user_id")
 			.notNull()
 			.references(() => users.id, { onDelete: "cascade" }),
 		role: text("role").default("member").notNull(),
@@ -109,16 +104,16 @@ export const members = pgTable(
 export const invitations = pgTable(
 	"invitations",
 	{
-		id: text("id").primaryKey(),
-		organizationId: text("organization_id")
+		id: id(),
+		organizationId: uuid("organization_id")
 			.notNull()
 			.references(() => organizations.id, { onDelete: "cascade" }),
 		email: text("email").notNull(),
 		role: text("role"),
 		status: text("status").default("pending").notNull(),
 		expiresAt: timestamp("expires_at").notNull(),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-		inviterId: text("inviter_id")
+		...timestamps(),
+		inviterId: uuid("inviter_id")
 			.notNull()
 			.references(() => users.id, { onDelete: "cascade" }),
 	},
@@ -131,7 +126,7 @@ export const invitations = pgTable(
 export const apikeys = pgTable(
 	"apikeys",
 	{
-		id: text("id").primaryKey(),
+		id: id(),
 		configId: text("config_id").default("default").notNull(),
 		name: text("name"),
 		start: text("start"),

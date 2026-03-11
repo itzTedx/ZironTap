@@ -1,13 +1,13 @@
-import { serial, text, timestamp } from "drizzle-orm/pg-core";
-
-/** Serial primary key column: `id` (snake_case in DB). */
-export function id() {
-	return serial("id").primaryKey();
-}
+import { text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /** Text primary key (e.g. cuid, uuid). Use for tables that use string ids. */
 export function textPrimaryKey(name = "id") {
 	return text(name).primaryKey();
+}
+
+/** UUID primary key column with `default gen_random_uuid()`. */
+export function id(name = "id") {
+	return uuid(name).primaryKey().defaultRandom();
 }
 
 /** `created_at` — not null, default now(). */
