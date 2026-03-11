@@ -11,6 +11,7 @@ export const env = createEnv({
 
 		NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 	},
+	// biome-ignore lint/style/noProcessEnv: process.env is used in server environments
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });

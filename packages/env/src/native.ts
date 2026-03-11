@@ -5,6 +5,7 @@ export const env = createEnv({
 	client: {
 		// EXPO_PUBLIC_SERVER_URL: z.url(),
 	},
+	// biome-ignore lint/style/noProcessEnv: process.env is used in native environments
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
