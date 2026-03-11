@@ -10,6 +10,21 @@ export const env = createEnv({
 		BETTER_AUTH_SECRET: z.string().min(32),
 		BETTER_AUTH_URL: z.url(),
 
+		GOOGLE_CLIENT_ID: z.string().min(1),
+		GOOGLE_CLIENT_SECRET: z.string().min(1),
+		APPLE_CLIENT_ID: z.string().min(1),
+		APPLE_TEAM_ID: z.string().min(1),
+		APPLE_KEY_ID: z.string().min(1),
+		APPLE_PRIVATE_KEY: z.string().min(1),
+
+		SMTP_HOST: z.string().min(1),
+		SMTP_PORT: z.coerce.number().min(1),
+		SMTP_SECURE: z.coerce.boolean().default(false),
+		SMTP_USER: z.string().min(1),
+		SMTP_PASS: z.string().min(1),
+		SMTP_FROM_EMAIL: z.email(),
+
+		LOG_LEVEL: z.enum(["error", "warn", "info", "http", "verbose", "debug", "silly"]).default("info"),
 		NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 	},
 	// biome-ignore lint/style/noProcessEnv: process.env is used in server environments
