@@ -8,16 +8,18 @@
 		"format": "biome format --write .",
 		"typecheck": "tsc --noEmit",
 		"build": "tsc",
-		"db:push": "drizzle-kit push",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
+		"db:push": "pnpm with-env drizzle-kit push",
+		"db:generate": "pnpm with-env drizzle-kit generate",
+		"db:migrate": "pnpm with-env drizzle-kit migrate",
 		"db:migrate:run": "tsx src/migrate.ts",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "pnpm with-env drizzle-kit studio",
+		"with-env": "pnpm exec dotenv -e ../../apps/portal/.env --"
 	},
 	"dependencies": {
 		"drizzle-orm": "^0.45.1",
 		"pg": "^8.20.0",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"dotenv-cli": "catalog:"
 	},
 	"devDependencies": {
 		"@ziron/typescript-config": "workspace:*",

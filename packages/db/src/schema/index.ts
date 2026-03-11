@@ -5,4 +5,5 @@
  * templates, organization_invites, activity_log.
  */
 
-export * from "./columns.js";
+export * from "./auth";
+export * from "./columns";

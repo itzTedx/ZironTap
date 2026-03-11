@@ -12,14 +12,16 @@
 			"persistent": true
 		},
 		"lint": {
-			"dependsOn": ["^build"],
+			"dependsOn": [],
 			"outputs": []
 		},
 		"format": {
+			"dependsOn": [],
 			"outputs": []
 		},
 		"typecheck": {
-			"dependsOn": ["^typecheck"]
+			"dependsOn": ["^build"],
+			"outputs": []
 		},
 		"test": {
 			"dependsOn": ["^build"],
@@ -31,20 +33,29 @@
 			"outputs": ["test-results/**", "playwright-report/**"]
 		},
 		"test:deps": {
+			"cache": false,
 			"outputs": []
 		},
 		"knip": {
 			"outputs": []
 		},
 		"db:generate": {
-			"outputs": ["src/migrations/**"]
+			"cache": false,
+			"outputs": ["**/migrations/**"]
 		},
 		"db:migrate": {
-			"cache": false
+			"cache": false,
+			"outputs": []
 		},
 		"db:studio": {
 			"cache": false,
 			"persistent": true
+		},
+		"auth:generate": {
+			"cache": false
+		},
+		"generate": {
+			"cache": false
 		}
 	}
 }
