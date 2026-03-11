@@ -13,22 +13,22 @@ isProject: false
 
 ## Scope
 
-`packages/api` — oRPC root router, context, middleware stack, domain routers (cards, short-links, qr, reviews, analytics, notifications).
+`packages/api` — oRPC root router, context, middleware stack, shared procedures (`baseProcedure`, `protectedProcedure`), domain routers (cards, qr, notifications, contracts).
 
 ## Deliverables
 
 - `packages/api/package.json` — orpc, @ziron/db, @ziron/validators, @ziron/rate-limit, @ziron/email
-- `src/router.ts` — root router, merge domain routers
+- `src/router.ts` — root router, merge domain routers and export `baseProcedure`, `protectedProcedure`
 - `src/context.ts` — auth context, org context
 - `src/middleware/` — base, auth, db, rate-limit, errors, index
 - `src/cards/` — mutation, query; card update accepts `version`, increments on save; return 409 CONFLICT if `version` mismatch (client must refresh and retry or show conflict)
-- `src/short-links/` — index
 - `src/qr/` — index
-- `src/reviews/` — index
-- `src/analytics/` — index
 - `src/notifications/` — router (SSE Event Iterator), publisher
+- `src/contracts/` — index
 - Type-safe errors (UNAUTHORIZED, FORBIDDEN, NOT_FOUND, CONFLICT for version mismatch, etc.)
 - Invite procedure → sendInviteEmail from @ziron/email
+
+> **Note:** Short-links, reviews, and analytics routers are deferred for a later iteration of this plan.
 
 ## Next
 

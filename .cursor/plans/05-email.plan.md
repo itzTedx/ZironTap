@@ -1,9 +1,8 @@
 ---
 name: 05 Email
 overview: Nodemailer + react-email. Verification, password reset, org invites. Mailpit for dev.
-parentPlan: full-project.plan.md
-order: 5
 todos: []
+isProject: false
 ---
 
 # Implementation Plan 05: Email
@@ -18,19 +17,19 @@ todos: []
 
 ## Deliverables
 
-- [ ] `packages/email/package.json` — nodemailer, @react-email/components, @react-email/render
-- [ ] `src/index.ts` — sendEmail, sendVerificationEmail, sendPasswordResetEmail, sendInviteEmail
-- [ ] `src/transport.ts` — Nodemailer from env
-- [ ] `src/templates/` — verification.tsx, password-reset.tsx, invite.tsx, layout.tsx
-- [ ] Wire `packages/auth` — sendVerificationEmail, sendResetPassword (fire-and-forget)
-- [ ] Wire `packages/api` — sendInviteEmail on invite create
-- [ ] docker-compose — Mailpit (1025 SMTP, 8025 web UI)
-- [ ] Env: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, APP_URL
+- `packages/email/package.json` — nodemailer, @react-email/components, @react-email/render
+- `src/index.ts` — sendEmail, sendVerificationEmail, sendPasswordResetEmail, sendInviteEmail
+- `src/transport.ts` — Nodemailer from env
+- `src/templates/` — verification.tsx, password-reset.tsx, invite.tsx, layout.tsx
+- Wire `packages/auth` — sendVerificationEmail, sendResetPassword (fire-and-forget)
+- Wire `packages/api` — sendInviteEmail on invite create
+- docker-compose — Mailpit (1025 SMTP, 8025 web UI)
+- Env: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, APP_URL
 
 ## Local Dev
 
 - SMTP_HOST=localhost, SMTP_PORT=1025 (no auth)
-- View emails at http://localhost:8025
+- View emails at [http://localhost:8025](http://localhost:8025)
 
 ## Next
 

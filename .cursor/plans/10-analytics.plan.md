@@ -4,12 +4,16 @@ overview: Implement packages/analytics for clicks, views, events with DB persist
 todos:
   - id: track
     content: Implement track.ts (trackClick, trackView, trackEvent)
+    status: pending
   - id: query
     content: Implement query.ts for aggregations by link/card/QR
+    status: pending
   - id: umami
     content: Optional Umami/Plausible integration in umami.ts
+    status: pending
   - id: sse-publish
     content: Publish to org channel on track for SSE
+    status: pending
 isProject: false
 ---
 
@@ -32,11 +36,13 @@ isProject: false
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
+
+| File                              | Purpose                           |
+| --------------------------------- | --------------------------------- |
 | `packages/analytics/src/track.ts` | trackClick, trackView, trackEvent |
-| `packages/analytics/src/query.ts` | Aggregations by entity |
-| `packages/analytics/src/umami.ts` | Optional Umami integration |
+| `packages/analytics/src/query.ts` | Aggregations by entity            |
+| `packages/analytics/src/umami.ts` | Optional Umami integration        |
+
 
 ---
 
@@ -46,3 +52,4 @@ isProject: false
 2. **Publish** — On each track, publish to org channel for SSE
 3. **Query** — Aggregations for dashboards; use analytics_daily_summary for scale
 4. **Umami** — Optional integration if desired
+

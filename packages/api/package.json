@@ -17,12 +17,13 @@
 		"@ziron/auth": "workspace:*",
 		"@ziron/db": "workspace:*",
 		"@ziron/env": "workspace:*",
-		"zod": "catalog:",
-		"@ziron/validators": "workspace:*"
+		"@ziron/validators": "workspace:*",
+		"next": "catalog:",
+		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@ziron/typescript-config": "workspace:*",
 		"@types/node": "catalog:",
+		"@ziron/typescript-config": "workspace:*",
 		"typescript": "catalog:"
 	},
 	"exports": {
