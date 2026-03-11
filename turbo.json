@@ -37,7 +37,7 @@
 			"outputs": []
 		},
 		"db:generate": {
-			"outputs": ["drizzle/**"]
+			"outputs": ["src/migrations/**"]
 		},
 		"db:migrate": {
 			"cache": false

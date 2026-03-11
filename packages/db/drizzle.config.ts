@@ -1,5 +1,3 @@
-import "./load-env";
-
 import { defineConfig } from "drizzle-kit";
 
 import { env } from "@ziron/env/server";

@@ -1,7 +1,3 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-
-import { env } from "@ziron/env/server";
-
-import * as schema from "./schema";
-
-export const db = drizzle(env.DATABASE_URL, { schema });
+export { db, getDb, getPool } from "./client.js";
+export * from "./helpers/index.js";
+export * as schema from "./schema/index.js";
