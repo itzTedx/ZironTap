@@ -4,16 +4,22 @@ overview: Implement the image editor (profile/cover cropper) with react-advanced
 todos:
   - id: image-editor-modal
     content: Create image-editor-modal.tsx with Crop and Adjust tabs
+    status: pending
   - id: crop-tab
     content: Implement crop-tab.tsx (rotate, flip, zoom, straighten)
+    status: pending
   - id: adjust-tab
     content: Implement adjust-tab.tsx (brightness, contrast, saturation, vignette)
+    status: pending
   - id: better-upload-route
     content: Add Better Upload route in apps/portal/src/app/api/upload/
+    status: pending
   - id: profile-cover-components
     content: Create profile-image-upload and cover-image-upload components
+    status: pending
   - id: tanstack-form-wiring
     content: Wire image upload to TanStack Form (form.setFieldValue)
+    status: pending
 isProject: false
 ---
 
@@ -35,14 +41,16 @@ isProject: false
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `packages/ui/src/components/image-editor/image-editor-modal.tsx` | Main modal with Crop/Adjust tabs |
-| `packages/ui/src/components/image-editor/crop-tab.tsx` | Rotate, flip, zoom, straighten |
-| `packages/ui/src/components/image-editor/adjust-tab.tsx` | Brightness, contrast, saturation, vignette |
-| `packages/ui/src/components/image-editor/use-image-editor.ts` | Editor state hook |
-| `packages/ui/src/components/image-editor/export-canvas.ts` | Canvas export (crop + adjustments) |
-| `apps/portal/src/app/api/upload/route.ts` | Better Upload handler |
+
+| File                                                             | Purpose                                    |
+| ---------------------------------------------------------------- | ------------------------------------------ |
+| `packages/ui/src/components/image-editor/image-editor-modal.tsx` | Main modal with Crop/Adjust tabs           |
+| `packages/ui/src/components/image-editor/crop-tab.tsx`           | Rotate, flip, zoom, straighten             |
+| `packages/ui/src/components/image-editor/adjust-tab.tsx`         | Brightness, contrast, saturation, vignette |
+| `packages/ui/src/components/image-editor/use-image-editor.ts`    | Editor state hook                          |
+| `packages/ui/src/components/image-editor/export-canvas.ts`       | Canvas export (crop + adjustments)         |
+| `apps/portal/src/app/api/upload/route.ts`                        | Better Upload handler                      |
+
 
 ---
 
@@ -73,3 +81,4 @@ isProject: false
 - **Upload / drag-and-drop** — Primary
 - **Paste image URL** — Modal with URL input; fetch → open editor
 - **Unsplash** — Modal to search/select; fetch → open editor
+
