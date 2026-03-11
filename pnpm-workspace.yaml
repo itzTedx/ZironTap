@@ -8,7 +8,14 @@ catalog:
   '@better-auth/drizzle-adapter': ^1.5.4
   '@better-auth/passkey': ^1.5.4
   '@biomejs/biome': ^2.4.6
+  '@orpc/client': ^1.13.6
+  '@orpc/openapi': ^1.13.6
+  '@orpc/server': ^1.13.6
+  '@orpc/tanstack-query': ^1.13.6
+  '@orpc/zod': ^1.13.6
   '@tailwindcss/postcss': ^4.2.1
+  '@tanstack/react-query': ^5.90.21
+  '@tanstack/react-query-devtools': ^5.91.3
   '@turbo/gen': ^2.8.15
   '@types/node': ^25.4.0
   babel-plugin-react-compiler: ^1.0.0
@@ -16,6 +23,7 @@ catalog:
   dotenv: ^17.2.2
   dotenv-cli: ^7.4.2
   next: 16.1.6
+  react-day-picker: ^9.14.0
   tailwindcss: ^4.2.1
   typescript: ^5
   zod: ^4.1.12

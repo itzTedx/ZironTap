@@ -27,6 +27,14 @@
 		"typescript": "catalog:"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": {
+			"default": "./src/index.ts"
+		},
+		"./routers": {
+			"default": "./src/routers/index.ts"
+		},
+		"./*": {
+			"default": "./src/*.ts"
+		}
 	}
 }

@@ -18,9 +18,30 @@ catalogs:
     '@biomejs/biome':
       specifier: ^2.4.6
       version: 2.4.6
+    '@orpc/client':
+      specifier: ^1.13.6
+      version: 1.13.6
+    '@orpc/openapi':
+      specifier: ^1.13.6
+      version: 1.13.6
+    '@orpc/server':
+      specifier: ^1.13.6
+      version: 1.13.6
+    '@orpc/tanstack-query':
+      specifier: ^1.13.6
+      version: 1.13.6
+    '@orpc/zod':
+      specifier: ^1.13.6
+      version: 1.13.6
     '@tailwindcss/postcss':
       specifier: ^4.2.1
       version: 4.2.1
+    '@tanstack/react-query':
+      specifier: ^5.90.21
+      version: 5.90.21
+    '@tanstack/react-query-devtools':
+      specifier: ^5.91.3
+      version: 5.91.3
     '@turbo/gen':
       specifier: ^2.8.15
       version: 2.8.15
@@ -42,6 +63,9 @@ catalogs:
     next:
       specifier: 16.1.6
       version: 16.1.6
+    react-day-picker:
+      specifier: ^9.14.0
+      version: 9.14.0
     tailwindcss:
       specifier: ^4.2.1
       version: 4.2.1
@@ -120,6 +144,27 @@ importers:
       '@better-auth/passkey':
         specifier: 'catalog:'
         version: 1.5.4(c197c0d7469867bbdcadb63aad9ebea2)
+      '@orpc/client':
+        specifier: 'catalog:'
+        version: 1.13.6
+      '@orpc/openapi':
+        specifier: 'catalog:'
+        version: 1.13.6
+      '@orpc/server':
+        specifier: 'catalog:'
+        version: 1.13.6
+      '@orpc/tanstack-query':
+        specifier: 'catalog:'
+        version: 1.13.6(@orpc/client@1.13.6)(@tanstack/query-core@5.90.20)
+      '@orpc/zod':
+        specifier: 'catalog:'
+        version: 1.13.6(@orpc/contract@1.13.6)(@orpc/server@1.13.6)(zod@4.3.6)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.90.21(react@19.2.4)
+      '@ziron/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@ziron/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -157,6 +202,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.2.1
+      '@tanstack/react-query-devtools':
+        specifier: 'catalog:'
+        version: 5.91.3(@tanstack/react-query@5.90.21(react@19.2.4))(react@19.2.4)
       '@types/node':
         specifier: 'catalog:'
         version: 25.4.0
@@ -363,6 +411,9 @@ importers:
       react:
         specifier: catalog:react19
         version: 19.2.4
+      react-day-picker:
+        specifier: 'catalog:'
+        version: 9.14.0(react@19.2.4)
       react-dom:
         specifier: catalog:react19
         version: 19.2.4(react@19.2.4)
@@ -372,9 +423,6 @@ importers:
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
-      tw-animate-css:
-        specifier: ^1.4.0
-        version: 1.4.0
       zod:
         specifier: 'catalog:'
         version: 4.3.6
@@ -397,15 +445,15 @@ importers:
       '@types/react-dom':
         specifier: catalog:react19
         version: 19.2.3(@types/react@19.2.14)
-      '@ziron/biome':
-        specifier: workspace:*
-        version: link:../../tooling/biome
       '@ziron/typescript-config':
         specifier: workspace:*
         version: link:../../tooling/typescript-config
       tailwindcss:
         specifier: 'catalog:'
         version: 4.2.1
+      tw-animate-css:
+        specifier: ^1.4.0
+        version: 1.4.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -898,6 +946,9 @@ packages:
   '@commitlint/types@20.4.3':
     resolution: {integrity: sha512-51OWa1Gi6ODOasPmfJPq6js4pZoomima4XLZZCrkldaH2V5Nb3bVhNXPeT6XV0gubbainSpTw4zi68NqAeCNCg==}
     engines: {node: '>=v18'}
+
+  '@date-fns/tz@1.4.1':
+    resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
 
   '@dotenvx/dotenvx@1.54.1':
     resolution: {integrity: sha512-41gU3q7v05GM92QPuPUf4CmUw+mmF8p4wLUh6MCRlxpCkJ9ByLcY9jUf6MwrMNmiKyG/rIckNxj9SCfmNCmCqw==}
@@ -1909,6 +1960,12 @@ packages:
   '@orpc/standard-server@1.13.6':
     resolution: {integrity: sha512-GNYZXCWxYLVHsxBWR+bg5F12vDCsQghqxbqoFpMnA4goe58dugNWmuxM+aSDbI0D81YxkKDULSqft5S+GWi5ww==}
 
+  '@orpc/tanstack-query@1.13.6':
+    resolution: {integrity: sha512-OBseuArjkAobKtKLVdzpepiS0fhc0TzW0O0Jixt1gkhkCiWG1xK8z0gZ7daQ85UBXRIoI9SXzwXhl+HVP+j14w==}
+    peerDependencies:
+      '@orpc/client': 1.13.6
+      '@tanstack/query-core': '>=5.80.2'
+
   '@orpc/zod@1.13.6':
     resolution: {integrity: sha512-Sj3KQbtV1Zuy2QnSs3NrFBnuZfttmWnXb39gLarD3rEKaxE4Mugv2yXIZ7vnBOj5cL24V+ysgharU/Dl7Ro0yA==}
     peerDependencies:
@@ -2318,6 +2375,10 @@ packages:
       zod:
         optional: true
 
+  '@tabby_ai/hijri-converter@1.0.5':
+    resolution: {integrity: sha512-r5bClKrcIusDoo049dSL8CawnHR6mRdDwhlQuIgZRNty68q0x8k3Lf1BtPAMxRf/GgnHBnIO4ujd3+GQdLWzxQ==}
+    engines: {node: '>=16.0.0'}
+
   '@tailwindcss/node@4.2.1':
     resolution: {integrity: sha512-jlx6sLk4EOwO6hHe1oCGm1Q4AN/s0rSrTTPBGPM0/RQ6Uylwq17FuU8IeJJKEjtc6K6O07zsvP+gDO6MMWo7pg==}
 
@@ -2409,6 +2470,23 @@ packages:
 
   '@tailwindcss/postcss@4.2.1':
     resolution: {integrity: sha512-OEwGIBnXnj7zJeonOh6ZG9woofIjGrd2BORfvE5p9USYKDCZoQmfqLcfNiRWoJlRWLdNPn2IgVZuWAOM4iTYMw==}
+
+  '@tanstack/query-core@5.90.20':
+    resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
+
+  '@tanstack/query-devtools@5.93.0':
+    resolution: {integrity: sha512-+kpsx1NQnOFTZsw6HAFCW3HkKg0+2cepGtAWXjiiSOJJ1CtQpt72EE2nyZb+AjAbLRPoeRmPJ8MtQd8r8gsPdg==}
+
+  '@tanstack/react-query-devtools@5.91.3':
+    resolution: {integrity: sha512-nlahjMtd/J1h7IzOOfqeyDh5LNfG0eULwlltPEonYy0QL+nqrBB+nyzJfULV+moL7sZyxc2sHdNJki+vLA9BSA==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.90.20
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.90.21':
+    resolution: {integrity: sha512-0Lu6y5t+tvlTJMTO7oh5NSpJfpg/5D41LlThfepTixPYkJ0sE2Jj0m0f6yYqujBwIXlId87e234+MxG3D3g7kg==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@ts-morph/common@0.27.0':
     resolution: {integrity: sha512-Wf29UqxWDpc+i61k3oIOzcUfQt79PIT9y/MWfAGlrkjg6lBC1hwDECLXPVJAhWjiGbfBCxZd65F/LIZF3+jeJQ==}
@@ -2981,6 +3059,12 @@ packages:
   data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+
+  date-fns-jalali@4.1.0-0:
+    resolution: {integrity: sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -4507,6 +4591,12 @@ packages:
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
 
+  react-day-picker@9.14.0:
+    resolution: {integrity: sha512-tBaoDWjPwe0M5pGrum4H0SR6Lyk+BO9oHnp9JbKpGKW2mlraNPgP9BMfsg5pWpwrssARmeqk7YBl2oXutZTaHA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: '>=16.8.0'
+
   react-dom@19.2.4:
     resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
@@ -5885,6 +5975,8 @@ snapshots:
       conventional-commits-parser: 6.3.0
       picocolors: 1.1.1
 
+  '@date-fns/tz@1.4.1': {}
+
   '@dotenvx/dotenvx@1.54.1':
     dependencies:
       commander: 11.1.0
@@ -6680,6 +6772,14 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/tanstack-query@1.13.6(@orpc/client@1.13.6)(@tanstack/query-core@5.90.20)':
+    dependencies:
+      '@orpc/client': 1.13.6
+      '@orpc/shared': 1.13.6
+      '@tanstack/query-core': 5.90.20
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/zod@1.13.6(@orpc/contract@1.13.6)(@orpc/server@1.13.6)(zod@4.3.6)':
     dependencies:
       '@orpc/contract': 1.13.6
@@ -7047,6 +7147,8 @@ snapshots:
       valibot: 1.2.0(typescript@5.9.3)
       zod: 4.3.6
 
+  '@tabby_ai/hijri-converter@1.0.5': {}
+
   '@tailwindcss/node@4.2.1':
     dependencies:
       '@jridgewell/remapping': 2.3.5
@@ -7115,6 +7217,21 @@ snapshots:
       '@tailwindcss/oxide': 4.2.1
       postcss: 8.5.8
       tailwindcss: 4.2.1
+
+  '@tanstack/query-core@5.90.20': {}
+
+  '@tanstack/query-devtools@5.93.0': {}
+
+  '@tanstack/react-query-devtools@5.91.3(@tanstack/react-query@5.90.21(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@tanstack/query-devtools': 5.93.0
+      '@tanstack/react-query': 5.90.21(react@19.2.4)
+      react: 19.2.4
+
+  '@tanstack/react-query@5.90.21(react@19.2.4)':
+    dependencies:
+      '@tanstack/query-core': 5.90.20
+      react: 19.2.4
 
   '@ts-morph/common@0.27.0':
     dependencies:
@@ -7656,6 +7773,10 @@ snapshots:
   dargs@8.1.0: {}
 
   data-uri-to-buffer@4.0.1: {}
+
+  date-fns-jalali@4.1.0-0: {}
+
+  date-fns@4.1.0: {}
 
   debug@4.4.3:
     dependencies:
@@ -9107,6 +9228,14 @@ snapshots:
     dependencies:
       defu: 6.1.4
       destr: 2.0.5
+
+  react-day-picker@9.14.0(react@19.2.4):
+    dependencies:
+      '@date-fns/tz': 1.4.1
+      '@tabby_ai/hijri-converter': 1.0.5
+      date-fns: 4.1.0
+      date-fns-jalali: 4.1.0-0
+      react: 19.2.4
 
   react-dom@19.2.4(react@19.2.4):
     dependencies:
