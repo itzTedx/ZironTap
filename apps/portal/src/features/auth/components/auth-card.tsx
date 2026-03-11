@@ -1,7 +1,5 @@
 import type React from "react";
 
-import { CircleAlertIcon } from "lucide-react";
-
 import {
 	Card,
 	CardDescription,
@@ -16,9 +14,10 @@ interface Props {
 	children: React.ReactNode;
 	title: string;
 	description: string;
+	footer?: React.ReactNode;
 }
 
-export const AuthCard = ({ children, title, description }: Props) => {
+export const AuthCard = ({ children, title, description, footer }: Props) => {
 	return (
 		<CardFrame className="w-full max-w-md">
 			<Card>
@@ -28,12 +27,11 @@ export const AuthCard = ({ children, title, description }: Props) => {
 				</CardHeader>
 				<CardPanel className="p-9">{children}</CardPanel>
 			</Card>
-			<CardFrameFooter className="px-9">
-				<div className="flex gap-1 text-muted-foreground text-xs">
-					<CircleAlertIcon className="size-3 h-lh shrink-0" />
-					<p>This will take a few seconds to complete.</p>
-				</div>
-			</CardFrameFooter>
+			{footer && (
+				<CardFrameFooter className="px-9">
+					<div className="flex items-center justify-center gap-1">{footer}</div>
+				</CardFrameFooter>
+			)}
 		</CardFrame>
 	);
 };

@@ -15,6 +15,8 @@ import { registerSchema } from "@ziron/validators";
 
 import { authClient } from "@/lib/auth/client";
 
+import { handleAuthError } from "../../lib/handle-auth-error";
+
 export const RegisterForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const router = useRouter();
@@ -49,37 +51,12 @@ export const RegisterForm = () => {
 						},
 						onError: (ctx) => {
 							const { error } = ctx;
-							const status = error.status;
-							// const message = error.message;
 
-							// Handle specific status codes
-							switch (status) {
-								case 400:
-									toastManager.add({
-										title: "Invalid request. Please check your email and password.",
-										type: "error",
-									});
-									break;
-								case 401:
-									toastManager.add({
-										title: "Invalid email or password. Please try again.",
-										type: "error",
-									});
-									break;
-								case 403:
-									toastManager.add({
-										title: "Access denied.",
-										description: "Please verify your email address",
-										type: "error",
-									});
-									break;
-								default:
-									toastManager.add({
-										title: "An unexpected error occurred. Please try again.",
-										type: "error",
-									});
-									console.error("Login error:", error);
-							}
+							handleAuthError({
+								context: "register",
+								email: value.email,
+								error,
+							});
 						},
 					},
 				});
@@ -97,7 +74,6 @@ export const RegisterForm = () => {
 		>
 			<FieldGroup>
 				<form.Field
-					// biome-ignore lint/correctness/noChildrenProp: needed for form.Field
 					children={(field) => {
 						const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 						return (
@@ -120,7 +96,6 @@ export const RegisterForm = () => {
 					name="name"
 				/>
 				<form.Field
-					// biome-ignore lint/correctness/noChildrenProp: needed for form.Field
 					children={(field) => {
 						const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 						return (
@@ -144,7 +119,6 @@ export const RegisterForm = () => {
 					name="email"
 				/>
 				<form.Field
-					// biome-ignore lint/correctness/noChildrenProp: needed for form.Field
 					children={(field) => {
 						const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 						return (

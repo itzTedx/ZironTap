@@ -61,6 +61,27 @@ export const auth = betterAuth({
 	trustedOrigins: [env.BETTER_AUTH_URL],
 	appName: "ZironTap",
 
+	//Social providers.
+	socialProviders: {
+		google: {
+			clientId: env.GOOGLE_CLIENT_ID,
+			clientSecret: env.GOOGLE_CLIENT_SECRET,
+		},
+		apple: {
+			clientId: env.APPLE_CLIENT_ID,
+			teamId: env.APPLE_TEAM_ID,
+			keyId: env.APPLE_KEY_ID,
+			privateKey: env.APPLE_PRIVATE_KEY,
+		},
+	},
+
+	//Account configuration.
+	account: {
+		accountLinking: {
+			enabled: true,
+		},
+	},
+
 	//Email and password authentication.
 	emailAndPassword: {
 		enabled: true,

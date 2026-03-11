@@ -8,11 +8,16 @@ import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 
 import { createContext } from "@ziron/api/context";
 import { router } from "@ziron/api/routers";
+import { logger } from "@ziron/logger";
 
 const rpcHandler = new RPCHandler(router, {
 	interceptors: [
 		onError((error) => {
-			console.error(error);
+			logger.error("rpc_handler_error", {
+				err: error,
+				path: (error as { path?: string }).path,
+				code: (error as { code?: string }).code,
+			});
 		}),
 	],
 });
@@ -24,34 +29,51 @@ const apiHandler = new OpenAPIHandler(router, {
 	],
 	interceptors: [
 		onError((error) => {
-			console.error(error);
+			logger.error("openapi_handler_error", {
+				err: error,
+				path: (error as { path?: string }).path,
+				code: (error as { code?: string }).code,
+			});
 		}),
 	],
 });
 
 async function handleRequest(req: NextRequest) {
-	// Create context once and reuse it for both handlers
-	// This prevents duplicate session retrieval calls and ensures consistency
-	// const context = await createContext(req, await headers());
 	const context = await createContext(req);
 
-	const rpcResult = await rpcHandler.handle(req, {
-		prefix: "/api/rpc",
-		context,
+	const requestLogger = logger.child({
+		requestId: req.headers.get("x-request-id") ?? crypto.randomUUID(),
+		method: req.method,
+		path: req.nextUrl.pathname,
 	});
-	if (rpcResult.response) {
-		return rpcResult.response;
-	}
 
-	const apiResult = await apiHandler.handle(req, {
-		prefix: "/api/rpc/docs",
-		context,
-	});
-	if (apiResult.response) {
-		return apiResult.response;
-	}
+	requestLogger.info("rpc_request_start");
 
-	return new Response("Not found", { status: 404 });
+	try {
+		const rpcResult = await rpcHandler.handle(req, {
+			prefix: "/api/rpc",
+			context,
+		});
+		if (rpcResult.response) {
+			requestLogger.info("rpc_request_success");
+			return rpcResult.response;
+		}
+
+		const apiResult = await apiHandler.handle(req, {
+			prefix: "/api/rpc/docs",
+			context,
+		});
+		if (apiResult.response) {
+			requestLogger.info("openapi_request_success");
+			return apiResult.response;
+		}
+
+		requestLogger.warn("rpc_route_not_found");
+		return new Response("Not found", { status: 404 });
+	} catch (error) {
+		requestLogger.error("rpc_request_unhandled_error", { err: error });
+		throw error;
+	}
 }
 
 export const GET = handleRequest;

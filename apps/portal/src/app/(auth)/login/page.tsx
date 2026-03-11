@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { getSession } from "@/features/auth/api";
+import { getSession } from "@/features/auth/lib/api";
 import { LoginView } from "@/features/auth/views/login-view";
 
 export default async function LoginPage() {

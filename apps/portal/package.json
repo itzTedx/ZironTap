@@ -27,6 +27,7 @@
 		"@ziron/auth": "workspace:*",
 		"@ziron/db": "workspace:*",
 		"@ziron/env": "workspace:*",
+		"@ziron/logger": "workspace:*",
 		"@ziron/ui": "workspace:*",
 		"@ziron/validators": "workspace:*",
 		"better-auth": "catalog:",
