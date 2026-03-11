@@ -1,6 +1,7 @@
 {
-	"extends": "@ziron/typescript-config/base.json",
+	"extends": "@ziron/typescript-config/internal-package.json",
 	"compilerOptions": {
+		"emitDeclarationOnly": false,
 		"outDir": "dist",
 		"rootDir": "src"
 	},
