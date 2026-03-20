@@ -201,3 +201,7 @@
 @utility container {
 	@apply mx-auto max-w-[1416px] px-4 lg:px-6;
 }
+
+.checkerboard {
+	background: repeating-conic-gradient(hsl(255, 4%, 79%) 0% 25%, hsl(300, 8%, 97%) 0% 50%) 50% / 10px 10px;
+}

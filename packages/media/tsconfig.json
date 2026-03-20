@@ -1,0 +1,10 @@
+{
+	"extends": "@ziron/typescript-config/base.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"lib": ["dom", "dom.iterable", "esnext"]
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
+}

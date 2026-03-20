@@ -2,9 +2,13 @@ import { InfoIcon } from "lucide-react";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@ziron/ui/components/empty";
 
-import { MediaUploader } from "./media-uploader";
+import { MediaUploader, type UploadedMedia } from "./media-uploader";
 
-export const EmptyLibrary = () => {
+type EmptyLibraryProps = {
+	onUploaded: (payload: UploadedMedia) => void;
+};
+
+export const EmptyLibrary = ({ onUploaded }: EmptyLibraryProps) => {
 	return (
 		<div className="flex h-full w-full items-center justify-center">
 			<Empty>
@@ -16,7 +20,7 @@ export const EmptyLibrary = () => {
 					<EmptyDescription>Start by uploading your files.</EmptyDescription>
 				</EmptyHeader>
 				<EmptyContent>
-					<MediaUploader />
+					<MediaUploader onUploaded={onUploaded} />
 				</EmptyContent>
 			</Empty>
 		</div>
