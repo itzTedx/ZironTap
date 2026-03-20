@@ -69,6 +69,29 @@ export const twoFactors = pgTable(
 	(table) => [index("twoFactors_secret_idx").on(table.secret), index("twoFactors_userId_idx").on(table.userId)]
 );
 
+export const passkeys = pgTable(
+	"passkeys",
+	{
+		id: id(),
+		name: text("name"),
+		publicKey: text("public_key").notNull(),
+		userId: uuid("user_id")
+			.notNull()
+			.references(() => users.id, { onDelete: "cascade" }),
+		credentialID: text("credential_id").notNull(),
+		counter: integer("counter").notNull(),
+		deviceType: text("device_type").notNull(),
+		backedUp: boolean("backed_up").notNull(),
+		transports: text("transports"),
+		createdAt: timestamp("created_at"),
+		aaguid: text("aaguid"),
+	},
+	(table) => [
+		index("passkeys_userId_idx").on(table.userId),
+		index("passkeys_credentialID_idx").on(table.credentialID),
+	]
+);
+
 export const organizations = pgTable(
 	"organizations",
 	{
@@ -159,6 +182,7 @@ export const apikeys = pgTable(
 export const usersRelations = relations(users, ({ many }) => ({
 	accounts: many(accounts),
 	twoFactors: many(twoFactors),
+	passkeys: many(passkeys),
 	members: many(members),
 	invitations: many(invitations),
 }));
@@ -166,6 +190,13 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const accountsRelations = relations(accounts, ({ one }) => ({
 	users: one(users, {
 		fields: [accounts.userId],
+		references: [users.id],
+	}),
+}));
+
+export const passkeysRelations = relations(passkeys, ({ one }) => ({
+	users: one(users, {
+		fields: [passkeys.userId],
 		references: [users.id],
 	}),
 }));

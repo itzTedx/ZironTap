@@ -1,10 +1,10 @@
-export type { CursorPayload, LimitOffset } from "./pagination.js";
+export type { CursorPayload, LimitOffset } from "./pagination";
 export {
 	cursorOrder,
 	parseLimitOffset,
-} from "./pagination.js";
+} from "./pagination";
 export {
 	isDeleted,
 	isNotDeleted,
-} from "./soft-delete.js";
-export type { TransactionCallback } from "./transaction.js";
+} from "./soft-delete";
+export type { TransactionCallback } from "./transaction";

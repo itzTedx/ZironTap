@@ -17,6 +17,7 @@
 		"@better-auth/drizzle-adapter": "catalog:",
 		"@better-auth/passkey": "catalog:",
 		"@ziron/cache": "workspace:*",
+		"@ziron/email": "workspace:*",
 		"@ziron/db": "workspace:*",
 		"@ziron/env": "workspace:*",
 		"better-auth": "catalog:",
@@ -29,6 +30,13 @@
 		"typescript": "catalog:"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": {
+			"types": "./src/index.ts",
+			"default": "./src/index.ts"
+		},
+		"./client": {
+			"types": "./src/client.ts",
+			"default": "./src/client.ts"
+		}
 	}
 }

@@ -1,5 +1,8 @@
 import { Button } from "@ziron/ui/components/button";
 
+import { IsLoggedIn } from "@/features/auth/components/is-logged-in";
+import { LogoutButton } from "@/features/auth/components/logout-button";
+
 export default function Page() {
 	return (
 		<div className="flex min-h-svh p-6">
@@ -13,6 +16,9 @@ export default function Page() {
 				<div className="font-mono text-muted-foreground text-xs">
 					(Press <kbd>d</kbd> to toggle dark mode)
 				</div>
+				<IsLoggedIn>
+					<LogoutButton render={<Button />}>Logout</LogoutButton>
+				</IsLoggedIn>
 			</div>
 		</div>
 	);

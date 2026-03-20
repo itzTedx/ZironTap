@@ -1,4 +1,5 @@
 export * from "./analytics";
+export * from "./auth";
 export * from "./card";
 export * from "./common";
 export * from "./primitives";

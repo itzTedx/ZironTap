@@ -10,14 +10,17 @@
 		"cssVariables": true
 	},
 	"iconLibrary": "lucide",
+	"rtl": false,
+	"menuColor": "default",
+	"menuAccent": "subtle",
 	"aliases": {
 		"components": "@ziron/ui/components",
 		"utils": "@ziron/ui/lib/utils",
-		"hooks": "@ziron/ui/hooks",
+		"ui": "@ziron/ui/components",
 		"lib": "@ziron/ui/lib",
-		"ui": "@ziron/ui/components"
+		"hooks": "@ziron/ui/hooks"
 	},
-	"rtl": false,
-	"menuColor": "default",
-	"menuAccent": "subtle"
+	"registries": {
+		"@coss": "https://coss.com/ui/r/{name}.json"
+	}
 }
