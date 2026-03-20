@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@ziron/ui/components/button";
 
 import { IsLoggedIn } from "@/features/auth/components/is-logged-in";
@@ -16,6 +18,7 @@ export default function Page() {
 				<div className="font-mono text-muted-foreground text-xs">
 					(Press <kbd>d</kbd> to toggle dark mode)
 				</div>
+				<Button render={<Link href="/media" />}>Media Page</Button>
 				<IsLoggedIn>
 					<LogoutButton render={<Button />}>Logout</LogoutButton>
 				</IsLoggedIn>

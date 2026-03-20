@@ -19,7 +19,7 @@ export const createCard = publicProcedure
 		description: "Create a new card with the given name, phone, website, address, and logo",
 		tags: ["card"],
 	})
-	.handler(async ({ input, context, errors }) => {
+	.handler(async ({ context, errors }) => {
 		const [card] = await context.db
 			.insert(cards)
 			.values({
