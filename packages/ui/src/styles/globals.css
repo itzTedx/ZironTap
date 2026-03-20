@@ -96,7 +96,7 @@
 	--color-brand-800: oklch(0.2606 0.1331 276.82);
 	--color-brand-900: oklch(0.1712 0.0749 277.38);
 	--color-brand-950: oklch(0.0824 0.0346 275.68);
-	--background: var(--color-white);
+	--background: color-mix(in srgb, var(--color-neutral-100) 66%, var(--color-white));
 	--foreground: var(--color-neutral-800);
 	--card: var(--color-white);
 	--card-foreground: var(--color-neutral-800);
@@ -126,7 +126,7 @@
 	--chart-3: var(--color-cyan-900);
 	--chart-4: var(--color-amber-400);
 	--chart-5: var(--color-amber-500);
-	--sidebar: var(--color-neutral-50);
+	--sidebar: var(--color-neutral-100);
 	--sidebar-foreground: color-mix(in srgb, var(--color-neutral-800) 64%, var(--sidebar));
 	--sidebar-primary: var(--color-brand-600);
 	--sidebar-primary-foreground: var(--color-neutral-50);

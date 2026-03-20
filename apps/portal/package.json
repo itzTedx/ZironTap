@@ -16,6 +16,8 @@
 	"dependencies": {
 		"@better-auth/api-key": "catalog:",
 		"@better-auth/passkey": "catalog:",
+		"@better-upload/client": "catalog:",
+		"@better-upload/server": "catalog:",
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",
