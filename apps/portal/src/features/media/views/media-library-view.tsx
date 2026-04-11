@@ -1,66 +1,37 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { InfoIcon } from "lucide-react";
 
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@ziron/ui/components/empty";
 import { Separator } from "@ziron/ui/components/separator";
 
-import { EmptyLibrary } from "../components/empty-library";
-import { type MediaDraft, MediaDraftsPanel } from "../components/media-drafts-panel";
-import { MediaLibraryHeader } from "../components/media-library-header";
-import { MediaUploader, type UploadedMedia } from "../components/media-uploader";
+import { orpc } from "@/lib/orpc/client";
 
-function baseFilename(name: string) {
-	return name.replace(/\.[^/.]+$/, "");
-}
+import { MediaLibraryHeader } from "../components/media-library-header";
+import { MediaUploadButton } from "../components/media-uploader";
 
 export const MediaLibraryView = () => {
-	const [items, setItems] = useState<MediaDraft[]>([]);
-	const [selectedId, setSelectedId] = useState<string | null>(null);
-
-	const handleUploaded = useCallback((payload: UploadedMedia) => {
-		const id = payload.objectKey;
-
-		setItems((prev) => {
-			const next: MediaDraft = {
-				id,
-				objectKey: payload.objectKey,
-				previewUrl: payload.previewUrl,
-				rawFilename: payload.rawFilename,
-				filename: baseFilename(payload.rawFilename) || payload.rawFilename,
-				altText: "",
-				tags: [],
-				mimeType: payload.mimeType,
-			};
-
-			// Put the newest upload first.
-			return [next, ...prev];
-		});
-
-		setSelectedId(id);
-	}, []);
-
-	const handleChange = useCallback((id: string, patch: Partial<MediaDraft>) => {
-		setItems((prev) => prev.map((item) => (item.id === id ? { ...item, ...patch } : item)));
-	}, []);
-
-	const uploadSlot = useMemo(() => <MediaUploader onUploaded={handleUploaded} />, [handleUploaded]);
-
+	const { data: items } = useQuery(orpc.media.list.queryOptions());
 	return (
 		<div className="flex h-full flex-col">
 			<MediaLibraryHeader />
 			<Separator />
 			<div className="grow overflow-hidden">
-				{items.length === 0 ? (
-					<EmptyLibrary onUploaded={handleUploaded} />
-				) : (
-					<MediaDraftsPanel
-						items={items}
-						onChange={handleChange}
-						onSelect={setSelectedId}
-						selectedId={selectedId}
-						uploadSlot={uploadSlot}
-					/>
-				)}
+				{items?.length === 0 ? (
+					<Empty className="flex h-full w-full items-center justify-center">
+						<EmptyHeader>
+							<EmptyMedia variant="icon">
+								<InfoIcon />
+							</EmptyMedia>
+							<EmptyTitle>No media yet</EmptyTitle>
+							<EmptyDescription>Start by uploading your files.</EmptyDescription>
+						</EmptyHeader>
+						<EmptyContent>
+							<MediaUploadButton />
+						</EmptyContent>
+					</Empty>
+				) : null}
 			</div>
 		</div>
 	);

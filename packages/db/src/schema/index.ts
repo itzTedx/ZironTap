@@ -8,3 +8,4 @@
 export * from "./auth";
 export * from "./card";
 export * from "./columns";
+export * from "./media";

@@ -123,7 +123,7 @@ export function MediaDraftsPanel({ items, selectedId, uploadSlot, onSelect, onCh
 
 				<div className="flex-1 overflow-auto p-2">
 					<div className="space-y-2">
-						{items.map((item) => {
+						{items.map((item: MediaDraft) => {
 							const isSelected = item.id === selectedId;
 							return (
 								<button

@@ -16,5 +16,16 @@
 		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
 		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
 	],
-	"cSpell.words": ["ecommerce", "oklch", "orpc", "Turborepo", "ziron", "zirontap"]
+	"cSpell.words": [
+		"biomejs",
+		"dotenv",
+		"ecommerce",
+		"nodemailer",
+		"oklch",
+		"orpc",
+		"tanstack",
+		"Turborepo",
+		"ziron",
+		"zirontap"
+	]
 }

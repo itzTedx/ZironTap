@@ -2,7 +2,7 @@ import { InfoIcon } from "lucide-react";
 
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@ziron/ui/components/empty";
 
-import { MediaUploader, type UploadedMedia } from "./media-uploader";
+import { MediaUploadButton, type UploadedMedia } from "./media-uploader";
 
 type EmptyLibraryProps = {
 	onUploaded: (payload: UploadedMedia) => void;
@@ -20,7 +20,7 @@ export const EmptyLibrary = ({ onUploaded }: EmptyLibraryProps) => {
 					<EmptyDescription>Start by uploading your files.</EmptyDescription>
 				</EmptyHeader>
 				<EmptyContent>
-					<MediaUploader onUploaded={onUploaded} />
+					<MediaUploadButton onUploaded={onUploaded} />
 				</EmptyContent>
 			</Empty>
 		</div>
