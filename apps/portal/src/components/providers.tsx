@@ -16,7 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<ThemeProvider>
 			<QueryClientProvider client={queryClient}>
-				<ToastProvider />
+				<ToastProvider timeout={1000} />
 				{children}
 				<ReactQueryDevtools />
 			</QueryClientProvider>

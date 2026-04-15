@@ -14,7 +14,25 @@
 	"tailwindCSS.experimental.configFile": "packages/ui/src/styles/globals.css",
 	"tailwindCSS.experimental.classRegex": [
 		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+		["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+		// tailwind-variants tv() function
+		["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		// For base, slots, variants, compoundVariants, etc.
+		["(base|slots|variants|compoundVariants|defaultVariants):\\s*{([^}]*)}", ":\\s*[\"'`]([^\"'`]*).*?[\"'`]"],
+		// For single line properties
+		[":\\s*[\"'`]([^\"'`]*).*?[\"'`]"]
 	],
-	"cSpell.words": ["ecommerce", "oklch", "orpc", "Turborepo", "ziron", "zirontap"]
+	"tailwindCSS.classAttributes": ["class", "className", "ngClass", "base", ".*ClassName"],
+	"cSpell.words": [
+		"biomejs",
+		"dotenv",
+		"ecommerce",
+		"nodemailer",
+		"oklch",
+		"orpc",
+		"tanstack",
+		"Turborepo",
+		"ziron",
+		"zirontap"
+	]
 }

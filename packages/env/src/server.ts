@@ -24,6 +24,13 @@ export const env = createEnv({
 		SMTP_PASS: z.string().min(1),
 		SMTP_FROM_EMAIL: z.email(),
 
+		AWS_BUCKET_NAME: z.string().min(1),
+		AWS_BUCKET_REGION: z.string().min(1),
+		AWS_ACCESS_KEY_ID: z.string().min(1),
+		AWS_SECRET_ACCESS_KEY: z.string().min(1),
+
+		UNSPLASH_ACCESS_KEY: z.string().min(1),
+
 		LOG_LEVEL: z.enum(["error", "warn", "info", "http", "verbose", "debug", "silly"]).default("info"),
 		NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 	},

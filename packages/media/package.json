@@ -1,0 +1,26 @@
+{
+	"name": "@ziron/media",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit",
+		"build": "tsc"
+	},
+	"dependencies": {
+		"@better-upload/client": "catalog:"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@ziron/typescript-config": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./process": "./src/process.ts",
+		"./upload": "./src/upload.ts",
+		"./sizes": "./src/sizes.ts"
+	}
+}

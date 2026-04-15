@@ -5,6 +5,7 @@
 	"private": true,
 	"scripts": {
 		"lint": "biome check .",
+		"dev": "pnpm db:studio",
 		"format": "biome format --write .",
 		"typecheck": "tsc --noEmit",
 		"build": "tsc",

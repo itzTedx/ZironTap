@@ -41,6 +41,7 @@
 		"./utils": "./src/lib/utils.ts",
 		"./components/*": "./src/components/*.tsx",
 		"./hooks/*": "./src/hooks/*.ts",
-		"./base-ui/*": "./src/base-ui/*.ts"
+		"./base-ui/*": "./src/base-ui/*.ts",
+		"./icons/*": "./src/assets/icons/*.tsx"
 	}
 }
