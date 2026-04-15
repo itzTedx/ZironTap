@@ -27,3 +27,5 @@ export const authClient = createAuthClient({
 		lastLoginMethodClient(),
 	],
 });
+
+export const { signIn, signUp, signOut, useSession, twoFactor } = authClient;

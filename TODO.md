@@ -1,41 +1,49 @@
 # ZironTap — phased focus list
 
+**Current implementation order:** finish the **digital business card** vertical end-to-end (Phases 0–8 below) before touching QR codes, short links, review cards, or other product surfaces. Those stay in Phase 10 until cards are solid in portal + public client + media + optional sync.
+
 Use one phase at a time. Check items when done. Deeper detail lives in `.cursor/plans/` (especially `full-project.plan.md`, `roadmap.md`, `02-db.plan.md`, `04-auth.plan.md`, `06-api.plan.md`, `12-apps.plan.md`).
 
 **Product north star (from `roadmap.md`):** v1 = digital business cards only; portal manages cards; public client is view-only online; optional portal offline sync for cards with `version` + 409 on conflict.
 
 ---
 
+## Digital card (v1) — implement this first
+
+Phases 0 through 8. No parallel work on QR, `review_cards`, or `/r/[shortCode]` until this block is in good shape.
+
+---
+
 ## Phase 0 — Dev environment and repo hygiene
 
-- [ ] `docker-compose.yml`: Postgres + Valkey (or Redis) run cleanly; document ports in `.env.example` if missing.
+- [x] `docker-compose.yml`: Postgres + Valkey (or Redis) run cleanly; document ports in `.env.example` if missing.
 - [ ] Root `.env.example` lists all required vars for portal + db + auth.
-- [ ] `pnpm install` / `pnpm dev` (portal) verified from clean clone.
-- [ ] Align root `README.md` with ZironTap (replace generic shadcn template text); link to `AGENTS.md` and `plans/`.
-- [ ] `.gitignore` excludes `.next/`, local env files, and build artifacts (avoid committing `apps/portal/.next`).
+- [x] `pnpm install` / `pnpm dev` (portal) verified from clean clone.
+- [x] Align root `README.md` with ZironTap (replace generic shadcn template text); link to `AGENTS.md` and `plans/`.
+- [x] `.gitignore` excludes `.next/`, local env files, and build artifacts (avoid committing `apps/portal/.next`).
 
 ---
 
 ## Phase 1 — Database and migrations (v1 scope)
 
-- [ ] Drizzle schema complete for **v1**: organizations, members, org-scoped **cards** (include `version` or equivalent for optimistic concurrency per roadmap).
-- [ ] Auth-related tables aligned with Better Auth + org plugin (`04-auth.plan.md`, `packages/db/src/schema/auth.ts`).
-- [ ] Migrations generated and applied (`pnpm db:generate` / `pnpm db:migrate`).
-- [ ] `packages/db`: exports and `drizzle.config.ts` paths stay consistent across apps.
+- [x] Drizzle schema complete for **v1**: organizations, members, org-scoped **cards** (include `version` or equivalent for optimistic concurrency per roadmap).
+- [x] Auth-related tables aligned with Better Auth + org plugin (`04-auth.plan.md`, `packages/db/src/schema/auth.ts`).
+- [x] Migrations generated and applied (`pnpm db:generate` / `pnpm db:migrate`).
+- [x] `packages/db`: exports and `drizzle.config.ts` paths stay consistent across apps.
 
 ---
 
 ## Phase 2 — Validators single source of truth
 
-- [ ] Zod schemas in `@ziron/validators` for card create/update/list filters (match DB fields).
+- [x] Zod schemas in `@ziron/validators` for card create/update/list filters (match DB fields).
 - [ ] Wire validators into oRPC inputs/outputs (`03-validators.plan.md`); no duplicated inline schemas in routers long-term.
 
 ---
 
 ## Phase 3 — Auth, sessions, and org context
 
-- [ ] Better Auth: email/password + intended OAuth/passkeys per product spec.
-- [ ] Session store on Valkey/Redis where planned (`roadmap.md`).
+- [x] Better Auth: email/password + intended OAuth/passkeys per product spec.
+- [x] Session store on Valkey/Redis where planned (`roadmap.md`).
 - [ ] Organization plugin: create/join org, roles; portal can resolve **current org** for RPC and routes.
 - [ ] Replace or tighten `publicProcedure` on sensitive routes (`packages/api` middleware: `require-auth`, org scoping).
 
@@ -88,12 +96,14 @@ Use one phase at a time. Check items when done. Deeper detail lives in `.cursor/
 
 ---
 
-## Phase 10 — v2 prep (do not block v1)
+## Phase 10 — After digital cards (QR, reviews, links, jobs)
 
-Track here so it does not distract from v1.
+**Do not start until Phases 0–8 are acceptable for cards.** This is everything that is not the core card loop.
 
-- [ ] `apps/client`: `/r/[shortCode]`, `/review/[slug]` (schema already hints at short_links / review_cards in `packages/db/src/schema/index.ts` comments).
-- [ ] New packages as needed: `@ziron/analytics`, `@ziron/qr`, `@ziron/templates`, `@ziron/jobs` (Inngest), `@ziron/rate-limit`.
+- [ ] **QR codes** — `@ziron/qr`, portal + client surfaces (`09-qr.plan.md`).
+- [ ] **Review cards** — schema, API, portal, `apps/client` `/review/[slug]`.
+- [ ] **Short links** — `apps/client` `/r/[shortCode]` (and related DB if not already present).
+- [ ] New or expanded packages as needed: `@ziron/analytics`, `@ziron/jobs` (Inngest), `@ziron/rate-limit` (some may already exist; wire them here, not during v1 card-only work unless unavoidable).
 - [ ] Background jobs (`13-inngest.plan.md`).
 
 ---
@@ -118,4 +128,4 @@ Track here so it does not distract from v1.
 
 ---
 
-*Last structured from repo state: single app `apps/portal`; `packages/api` exposes minimal `card.create` + `media`; DB exports `auth`, `card`, `media`.*
+*Last structured from repo state: single app `apps/portal`; `packages/api` exposes minimal `card.create` + `media`; DB exports `auth`, `card`, `media`. Focus: digital card first; defer QR, reviews, short links to Phase 10.*
