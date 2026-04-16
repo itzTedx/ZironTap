@@ -41,19 +41,21 @@ export function UserMenu() {
 					</Avatar>
 				</MenuTrigger>
 				<MenuPopup align="end" className="ml-2 min-w-48 rounded-lg" sideOffset={6}>
-					<MenuGroupLabel className="font-normal">
-						<div className="grid flex-1 text-left text-sm leading-tight">
-							<span className="truncate font-medium">{user?.name ?? ""}</span>
-							<span className="truncate text-muted-foreground text-xs">{user?.email ?? ""}</span>
-						</div>
-					</MenuGroupLabel>
+					<MenuGroup>
+						<MenuGroupLabel className="font-normal">
+							<div className="grid flex-1 text-left text-sm leading-tight">
+								<span className="truncate font-medium">{user?.name ?? ""}</span>
+								<span className="truncate text-muted-foreground text-xs">{user?.email ?? ""}</span>
+							</div>
+						</MenuGroupLabel>
+					</MenuGroup>
 					<MenuSeparator />
 					<MenuGroup>
 						<MenuItem closeOnClick render={<Link href="/settings/account" />}>
 							<IconUser className="size-4 text-muted-foreground" />
 							Account Settings
 						</MenuItem>
-						<MenuItem closeOnClick render={<LogoutButton className="w-full" />}>
+						<MenuItem closeOnClick nativeButton render={<LogoutButton className="w-full" />}>
 							<LogOutIcon className="size-4 text-muted-foreground" />
 							Log out
 						</MenuItem>

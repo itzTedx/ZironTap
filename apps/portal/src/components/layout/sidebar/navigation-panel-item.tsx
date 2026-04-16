@@ -11,9 +11,9 @@ import { cn } from "@ziron/ui/lib/utils";
 
 import { AnimatedContainer } from "@/components/primitives/animated/animated-container";
 
-import type { NavItemType, NavSubItemType } from "./types";
+import type { SidebarPanelNavItem, SidebarPanelNavSubItem } from "./types";
 
-export function SidebarNavItem({ item }: { item: NavItemType | NavSubItemType }) {
+export function NavigationPanelItem({ item }: { item: SidebarPanelNavItem | SidebarPanelNavSubItem }) {
 	const { name, href, exact } = item;
 
 	const Icon = "icon" in item ? item.icon : undefined;
@@ -67,8 +67,8 @@ export function SidebarNavItem({ item }: { item: NavItemType | NavSubItemType })
 					>
 						<div className="pt-1 pl-3.5">
 							<div className="flex flex-col gap-0.5 border-l pl-2">
-								{items.map((item) => (
-									<SidebarNavItem item={item} key={item.name} />
+								{items.map((subItem) => (
+									<NavigationPanelItem item={subItem} key={subItem.name} />
 								))}
 							</div>
 						</div>

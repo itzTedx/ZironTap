@@ -4,13 +4,14 @@ import type { Route } from "next";
 
 import type { LucideIcon } from "lucide-react";
 
-export type Icon = LucideIcon | ComponentType<SVGProps<SVGSVGElement>>;
+export type SidebarIcon = LucideIcon | ComponentType<SVGProps<SVGSVGElement>>;
 
-export type SidebarNavData = {
+/** Passed into panel layer resolvers (e.g. pathname for active logic). */
+export type SidebarRuntimeData = {
 	pathname: string;
 };
 
-export type NavItemCommon = {
+export type SidebarPanelNavItemBase = {
 	name: string;
 	href: Route;
 	exact?: boolean;
@@ -20,16 +21,17 @@ export type NavItemCommon = {
 	locked?: boolean;
 };
 
-export type NavSubItemType = NavItemCommon;
+export type SidebarPanelNavSubItem = SidebarPanelNavItemBase;
 
-export type NavItemType = NavItemCommon & {
-	icon: Icon;
-	items?: NavSubItemType[];
+export type SidebarPanelNavItem = SidebarPanelNavItemBase & {
+	icon: SidebarIcon;
+	items?: SidebarPanelNavSubItem[];
 };
 
-export type NavGroupType = {
+/** One module in the narrow icon rail (switches high-level product areas). */
+export type SidebarRailModule = {
 	name: string;
-	icon: Icon;
+	icon: SidebarIcon;
 	href: Route;
 	active: boolean;
 	onClick?: () => void;
@@ -42,18 +44,22 @@ export type NavGroupType = {
 	learnMoreHref?: string;
 };
 
-export type SidebarNavGroups<_T extends Record<string, unknown>> = NavGroupType[];
+export type SidebarRailModules<_T extends Record<string, unknown>> = SidebarRailModule[];
 
-export type SidebarNavAreas<T extends Record<string, unknown>> = Record<
+/** One animated “layer” in the wide panel (e.g. main nav vs settings). */
+export type SidebarPanelLayerDefinition = {
+	title?: string | ReactNode;
+	backHref?: Route;
+	hideSwitcherIcons?: boolean;
+	direction?: "left" | "right";
+	content: {
+		/** Section heading (e.g. “Insights”). */
+		name?: string;
+		items: SidebarPanelNavItem[];
+	}[];
+};
+
+export type SidebarPanelLayers<T extends Record<string, unknown>> = Record<
 	string,
-	(args: T) => {
-		title?: string | ReactNode;
-		backHref?: Route;
-		hideSwitcherIcons?: boolean; // hide workspace switcher + product icons for this area
-		direction?: "left" | "right";
-		content: {
-			name?: string;
-			items: NavItemType[];
-		}[];
-	}
+	(args: T) => SidebarPanelLayerDefinition
 >;

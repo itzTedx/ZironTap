@@ -4,26 +4,48 @@ import type { ReactNode } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { Bell, LineChart, Settings, ShieldCheck } from "lucide-react";
+import { Bell, CardSim, LineChart, Settings, ShieldCheck, Tag, UserPlus } from "lucide-react";
 
 import { IconBlankCard, IconDigitalCard } from "@ziron/ui/assets/icons/digital-card";
+import { IconLinks } from "@ziron/ui/assets/icons/links";
+import { IconQrCode } from "@ziron/ui/assets/icons/qr-code";
+import { IconStarLine } from "@ziron/ui/assets/icons/stars";
 
-import { SidebarNav } from "./sidebar-nav";
-import type { SidebarNavAreas, SidebarNavData, SidebarNavGroups } from "./types";
+import { DualColumnSidebar } from "./dual-column-sidebar";
+import type { SidebarPanelLayers, SidebarRailModules, SidebarRuntimeData } from "./types";
 
-const NAV_GROUPS: SidebarNavGroups<SidebarNavData> = [
+const RAIL_MODULES: SidebarRailModules<SidebarRuntimeData> = [
 	{
 		name: "Digital Card",
 		description: "Create, organize, and measure the performance of your digital cards.",
 		icon: IconDigitalCard,
 		href: "/cards",
 		active: true,
-		// active: pathname.startsWith("/cards"),
+	},
+	{
+		name: "QR Code",
+		description: "Create, organize, and measure the performance of your QR codes.",
+		icon: IconQrCode,
+		href: "/qr",
+		active: false,
+	},
+	{
+		name: "Links",
+		description: "Create, organize, and measure the performance of your links.",
+		icon: IconLinks,
+		href: "/links",
+		active: false,
+	},
+	{
+		name: "Reviews",
+		description: "Create, organize, and measure the performance of your reviews.",
+		icon: IconStarLine,
+		href: "/reviews",
+		active: false,
 	},
 ];
 
-const NAV_AREAS: SidebarNavAreas<SidebarNavData> = {
-	// Top-level
+const PANEL_LAYERS: SidebarPanelLayers<SidebarRuntimeData> = {
 	default: () => ({
 		title: "Digital Cards",
 		direction: "left",
@@ -35,11 +57,6 @@ const NAV_AREAS: SidebarNavAreas<SidebarNavData> = {
 						icon: IconBlankCard,
 						href: "/cards",
 					},
-					// {
-					// 	name: "Organizations",
-					// 	icon: IconBuilding,
-					// 	href: "/organization",
-					// },
 				],
 			},
 			{
@@ -50,12 +67,46 @@ const NAV_AREAS: SidebarNavAreas<SidebarNavData> = {
 						icon: LineChart,
 						href: "/analytics",
 					},
+					{
+						name: "Leads",
+						icon: UserPlus,
+						href: "/leads",
+					},
+				],
+			},
+			{
+				name: "Management",
+				items: [
+					{
+						name: "Templates",
+						icon: CardSim,
+						href: "/templates",
+					},
+					{
+						name: "Tags",
+						icon: Tag,
+						href: "/tags",
+					},
+				],
+			},
+			{
+				name: "Favorites",
+				items: [
+					{
+						name: "Templates",
+						icon: CardSim,
+						href: "/templates",
+					},
+					{
+						name: "Tags",
+						icon: Tag,
+						href: "/tags",
+					},
 				],
 			},
 		],
 	}),
 
-	// Workspace settings
 	workspaceSettings: () => ({
 		title: "Settings",
 		backHref: "/cards",
@@ -86,7 +137,6 @@ const NAV_AREAS: SidebarNavAreas<SidebarNavData> = {
 		],
 	}),
 
-	// User settings
 	userSettings: () => ({
 		title: "Settings",
 		backHref: "/cards",
@@ -113,7 +163,15 @@ const NAV_AREAS: SidebarNavAreas<SidebarNavData> = {
 	}),
 };
 
-export function AppSidebarNav({ toolContent }: { toolContent?: ReactNode }) {
+/** Portal app nav: rail modules + panel layers wired to ZironTap routes. */
+export function PortalSidebar({ toolContent }: { toolContent?: ReactNode }) {
 	const pathname = usePathname();
-	return <SidebarNav areas={NAV_AREAS} data={{ pathname }} groups={NAV_GROUPS} toolContent={toolContent} />;
+	return (
+		<DualColumnSidebar
+			data={{ pathname }}
+			panelLayers={PANEL_LAYERS}
+			railModules={RAIL_MODULES}
+			toolContent={toolContent}
+		/>
+	);
 }

@@ -1,6 +1,7 @@
 import type { ComponentType, PropsWithChildren, ReactNode } from "react";
 
-export function MainNav({
+/** Root layout: fixed dual-column sidebar + scrollable main column. */
+export function SidebarPageLayout({
 	children,
 	sidebar: Sidebar,
 	toolContent,

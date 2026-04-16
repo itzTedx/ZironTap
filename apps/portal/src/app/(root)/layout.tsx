@@ -1,6 +1,6 @@
-import { AppSidebarNav } from "@/components/layout/sidebar/app-sidebar";
-import { MainNav } from "@/components/layout/sidebar/main-nav";
+import { PortalSidebar } from "@/components/layout/sidebar/app-sidebar";
+import { SidebarPageLayout } from "@/components/layout/sidebar/sidebar-page-layout";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return <MainNav sidebar={AppSidebarNav}>{children}</MainNav>;
+	return <SidebarPageLayout sidebar={PortalSidebar}>{children}</SidebarPageLayout>;
 }

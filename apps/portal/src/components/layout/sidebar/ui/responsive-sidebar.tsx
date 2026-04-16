@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { useIsMobile } from "@ziron/ui/hooks/use-media-query";
 import { cn } from "@ziron/ui/lib/utils";
 
-export const SIDEBAR_WIDTH = 290;
+export const SIDEBAR_WIDTH = 320;
 const SIDEBAR_GROUPS_WIDTH = 64;
 const SIDEBAR_AREAS_WIDTH = SIDEBAR_WIDTH - SIDEBAR_GROUPS_WIDTH;
 
