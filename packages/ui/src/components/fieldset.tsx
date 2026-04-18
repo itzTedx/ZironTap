@@ -1,19 +1,24 @@
 "use client";
 
+import type React from "react";
+
 import { Fieldset as FieldsetPrimitive } from "@base-ui/react/fieldset";
 
 import { cn } from "@ziron/ui/lib/utils";
 
-function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props) {
+export function Fieldset({ className, ...props }: FieldsetPrimitive.Root.Props): React.ReactElement {
 	return (
 		<FieldsetPrimitive.Root
-			className={cn("flex w-full max-w-64 flex-col gap-6", className)}
+			className={cn(
+				"flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+				className
+			)}
 			data-slot="fieldset"
 			{...props}
 		/>
 	);
 }
-function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props) {
+export function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props): React.ReactElement {
 	return (
 		<FieldsetPrimitive.Legend
 			className={cn("font-semibold text-foreground", className)}
@@ -23,4 +28,4 @@ function FieldsetLegend({ className, ...props }: FieldsetPrimitive.Legend.Props)
 	);
 }
 
-export { Fieldset, FieldsetLegend, FieldsetPrimitive };
+export { FieldsetPrimitive };

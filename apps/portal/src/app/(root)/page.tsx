@@ -1,28 +1,16 @@
-import Link from "next/link";
+"use client";
 
-import { Button } from "@ziron/ui/components/button";
+import { useRouter } from "next/navigation";
 
-import { IsLoggedIn } from "@/features/auth/components/is-logged-in";
-import { LogoutButton } from "@/features/auth/components/logout-button";
+import { useActiveOrganization } from "@/lib/auth/client";
 
 export default function Page() {
-	return (
-		<div className="flex min-h-svh p-6">
-			<div className="flex min-w-0 max-w-md flex-col gap-4 text-sm leading-loose">
-				<div>
-					<h1 className="font-medium">Project ready!</h1>
-					<p>You may now add components and start building.</p>
-					<p>We&apos;ve already added the button component for you.</p>
-					<Button className="mt-2">Button</Button>
-				</div>
-				<div className="font-mono text-muted-foreground text-xs">
-					(Press <kbd>d</kbd> to toggle dark mode)
-				</div>
-				<Button render={<Link href="/media" />}>Media Page</Button>
-				<IsLoggedIn>
-					<LogoutButton render={<Button />}>Logout</LogoutButton>
-				</IsLoggedIn>
-			</div>
-		</div>
-	);
+	const { data } = useActiveOrganization();
+	const router = useRouter();
+
+	if (data) {
+		router.push(`/${data?.slug}/cards`);
+	} else {
+		router.push("/login");
+	}
 }

@@ -5,22 +5,8 @@
 		{
 			"idx": 0,
 			"version": "7",
-			"when": 1773198863169,
-			"tag": "0000_wet_mantis",
-			"breakpoints": true
-		},
-		{
-			"idx": 1,
-			"version": "7",
-			"when": 1773229311042,
-			"tag": "0001_ambitious_moira_mactaggert",
-			"breakpoints": true
-		},
-		{
-			"idx": 2,
-			"version": "7",
-			"when": 1775912078395,
-			"tag": "0002_dazzling_banshee",
+			"when": 1776545021101,
+			"tag": "0000_steep_tomorrow_man",
 			"breakpoints": true
 		}
 	]

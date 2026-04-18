@@ -1,177 +1,64 @@
 "use client";
 
-import type { ReactNode } from "react";
-
+import type { Route } from "next";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Bell, CardSim, LineChart, Settings, ShieldCheck, Tag, UserPlus } from "lucide-react";
+import { CreditCard, Link2, QrCode, Star } from "lucide-react";
 
-import { IconBlankCard, IconDigitalCard } from "@ziron/ui/assets/icons/digital-card";
-import { IconLinks } from "@ziron/ui/assets/icons/links";
-import { IconQrCode } from "@ziron/ui/assets/icons/qr-code";
-import { IconStarLine } from "@ziron/ui/assets/icons/stars";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarGroup,
+	SidebarGroupContent,
+	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+} from "@ziron/ui/components/sidebar";
 
-import { DualColumnSidebar } from "./dual-column-sidebar";
-import type { SidebarPanelLayers, SidebarRailModules, SidebarRuntimeData } from "./types";
+import { useActiveOrganization } from "@/lib/auth/client";
 
-const RAIL_MODULES: SidebarRailModules<SidebarRuntimeData> = [
-	{
-		name: "Digital Card",
-		description: "Create, organize, and measure the performance of your digital cards.",
-		icon: IconDigitalCard,
-		href: "/cards",
-		active: true,
-	},
-	{
-		name: "QR Code",
-		description: "Create, organize, and measure the performance of your QR codes.",
-		icon: IconQrCode,
-		href: "/qr",
-		active: false,
-	},
-	{
-		name: "Links",
-		description: "Create, organize, and measure the performance of your links.",
-		icon: IconLinks,
-		href: "/links",
-		active: false,
-	},
-	{
-		name: "Reviews",
-		description: "Create, organize, and measure the performance of your reviews.",
-		icon: IconStarLine,
-		href: "/reviews",
-		active: false,
-	},
-];
+import { OrganizationSelector } from "./organization-selector";
 
-const PANEL_LAYERS: SidebarPanelLayers<SidebarRuntimeData> = {
-	default: () => ({
-		title: "Digital Cards",
-		direction: "left",
-		content: [
-			{
-				items: [
-					{
-						name: "Cards",
-						icon: IconBlankCard,
-						href: "/cards",
-					},
-				],
-			},
-			{
-				name: "Insights",
-				items: [
-					{
-						name: "Analytics",
-						icon: LineChart,
-						href: "/analytics",
-					},
-					{
-						name: "Leads",
-						icon: UserPlus,
-						href: "/leads",
-					},
-				],
-			},
-			{
-				name: "Management",
-				items: [
-					{
-						name: "Templates",
-						icon: CardSim,
-						href: "/templates",
-					},
-					{
-						name: "Tags",
-						icon: Tag,
-						href: "/tags",
-					},
-				],
-			},
-			{
-				name: "Favorites",
-				items: [
-					{
-						name: "Templates",
-						icon: CardSim,
-						href: "/templates",
-					},
-					{
-						name: "Tags",
-						icon: Tag,
-						href: "/tags",
-					},
-				],
-			},
-		],
-	}),
+const mainNav = [
+	{ href: "/cards", label: "Cards", icon: CreditCard },
+	{ href: "/", label: "QR", icon: QrCode },
+	{ href: "/", label: "Links", icon: Link2 },
+	{ href: "/", label: "Review", icon: Star },
+] as const;
 
-	workspaceSettings: () => ({
-		title: "Settings",
-		backHref: "/cards",
-		direction: "right",
-		content: [
-			{
-				name: "Workspace",
-				items: [
-					{
-						name: "General",
-						icon: Settings,
-						href: "/workspace/settings",
-						exact: true,
-					},
-				],
-			},
-
-			{
-				name: "Account",
-				items: [
-					{
-						name: "Notifications",
-						icon: Bell,
-						href: "/workspace/settings/notifications",
-					},
-				],
-			},
-		],
-	}),
-
-	userSettings: () => ({
-		title: "Settings",
-		backHref: "/cards",
-		direction: "right",
-		hideSwitcherIcons: true,
-		content: [
-			{
-				name: "Account",
-				items: [
-					{
-						name: "General",
-						icon: Settings,
-						href: "/settings/account",
-						exact: true,
-					},
-					{
-						name: "Security",
-						icon: ShieldCheck,
-						href: "/settings/security",
-					},
-				],
-			},
-		],
-	}),
-};
-
-/** Portal app nav: rail modules + panel layers wired to ZironTap routes. */
-export function PortalSidebar({ toolContent }: { toolContent?: ReactNode }) {
+export function AppSidebar() {
 	const pathname = usePathname();
+	const { data: activeOrganization } = useActiveOrganization();
+	const activePath = pathname === "/" ? `/${activeOrganization?.slug}` : pathname;
 	return (
-		<DualColumnSidebar
-			data={{ pathname }}
-			panelLayers={PANEL_LAYERS}
-			railModules={RAIL_MODULES}
-			toolContent={toolContent}
-		/>
+		<Sidebar>
+			<SidebarHeader>
+				<OrganizationSelector />
+			</SidebarHeader>
+			<SidebarContent>
+				<SidebarGroup className="p-0">
+					<SidebarGroupContent className="px-2">
+						<SidebarMenu className="f flex flex-row gap-1 border-sidebar-border border-b pb-2 md:border-0 md:pb-0">
+							{mainNav.map(({ href, label, icon: Icon }) => (
+								<SidebarMenuItem className="min-w-0 flex-1 md:flex-none" key={label}>
+									<SidebarMenuButton
+										isActive={activePath === href}
+										render={<Link href={`/${activeOrganization?.slug}${href}` as Route} />}
+										tooltip={label}
+									>
+										<Icon />
+										{activePath === `${activeOrganization?.slug}${href}` && <span>{label}</span>}
+									</SidebarMenuButton>
+								</SidebarMenuItem>
+							))}
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+			</SidebarContent>
+			<SidebarFooter />
+		</Sidebar>
 	);
 }

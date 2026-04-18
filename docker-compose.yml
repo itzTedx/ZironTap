@@ -1,6 +1,8 @@
 services:
   postgres:
     image: postgres:18-alpine
+    # Required when the data volume has logical replication slots (e.g. Electric).
+    command: ["postgres", "-c", "wal_level=logical"]
     ports:
       - "5432:5432"
     environment:

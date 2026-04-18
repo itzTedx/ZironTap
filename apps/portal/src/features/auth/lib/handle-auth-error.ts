@@ -12,7 +12,7 @@ type AuthError = {
 
 type HandleAuthErrorParams = {
 	context: AuthErrorContext;
-	email: string;
+	email?: string;
 	error: AuthError;
 };
 
