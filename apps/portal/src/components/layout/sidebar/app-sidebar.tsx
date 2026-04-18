@@ -33,8 +33,9 @@ export function AppSidebar() {
 	const pathname = usePathname();
 	const { data: activeOrganization } = useActiveOrganization();
 	const activePath = pathname === "/" ? `/${activeOrganization?.slug}` : pathname;
+
 	return (
-		<Sidebar>
+		<Sidebar collapsible="icon" variant="inset">
 			<SidebarHeader>
 				<OrganizationSelector />
 			</SidebarHeader>
@@ -42,18 +43,28 @@ export function AppSidebar() {
 				<SidebarGroup className="p-0">
 					<SidebarGroupContent className="px-2">
 						<SidebarMenu className="f flex flex-row gap-1 border-sidebar-border border-b pb-2 md:border-0 md:pb-0">
-							{mainNav.map(({ href, label, icon: Icon }) => (
-								<SidebarMenuItem className="min-w-0 flex-1 md:flex-none" key={label}>
-									<SidebarMenuButton
-										isActive={activePath === href}
-										render={<Link href={`/${activeOrganization?.slug}${href}` as Route} />}
-										tooltip={label}
-									>
-										<Icon />
-										{activePath === `${activeOrganization?.slug}${href}` && <span>{label}</span>}
-									</SidebarMenuButton>
-								</SidebarMenuItem>
-							))}
+							{mainNav.map(({ href, label, icon: Icon }) => {
+								const slug = activeOrganization?.slug;
+								const itemPath =
+									slug != null && slug !== ""
+										? href === "/"
+											? `/${slug}`
+											: `/${slug}${href}`
+										: `/${String(activeOrganization?.slug)}${href}`;
+								const isActive = Boolean(slug && activePath === itemPath);
+								return (
+									<SidebarMenuItem className="min-w-0 flex-1 md:flex-none" key={label}>
+										<SidebarMenuButton
+											isActive={isActive}
+											render={<Link href={itemPath as Route} />}
+											tooltip={label}
+										>
+											<Icon />
+											{isActive && <span>{label}</span>}
+										</SidebarMenuButton>
+									</SidebarMenuItem>
+								);
+							})}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
