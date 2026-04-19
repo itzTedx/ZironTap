@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { CreditCard, Link2, QrCode, Star } from "lucide-react";
 
+import { Kbd, KbdGroup } from "@ziron/ui/components/kbd";
 import {
 	Sidebar,
 	SidebarContent,
@@ -69,7 +70,24 @@ export function AppSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
-			<SidebarFooter />
+			<SidebarFooter>
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<SidebarMenuButton
+							className="justify-between data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+							render={<Link href={`/${activeOrganization?.slug}/cards/new`} />}
+							size="lg"
+							tooltip={{ children: "Create card" }}
+						>
+							New card
+							<KbdGroup>
+								<Kbd>Ctrl</Kbd>
+								<Kbd>O</Kbd>
+							</KbdGroup>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
+				</SidebarMenu>
+			</SidebarFooter>
 		</Sidebar>
 	);
 }

@@ -17,7 +17,7 @@ import { slugify } from "@ziron/ui/lib/slugify";
 
 import { type CreateOrganizationType, createOrganizationSchema } from "@ziron/validators";
 
-import { UploadButton } from "@/components/primitives/upload/upload-button";
+import { UploadButton } from "@/components/upload/upload-button";
 
 import { authClient, useSession } from "@/lib/auth/client";
 import { UPLOAD_ROUTES } from "@/lib/constants/upload";
@@ -146,7 +146,7 @@ export const CreateOrganizationForm = ({
 			/>
 			<DialogPanel>
 				<FieldGroup className="pt-4">
-					<form.Subscribe
+					<form.Subscribe<string>
 						children={(logo) => (
 							<form.Field
 								children={(field) => {

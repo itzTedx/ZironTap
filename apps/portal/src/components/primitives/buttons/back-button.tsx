@@ -10,7 +10,7 @@ interface Props {
 
 export const BackButton = ({ href }: Props) => {
 	return (
-		<Button render={<Link href={href} />} size="icon" variant="outline">
+		<Button render={<Link href={href} />} size="icon-sm" variant="outline">
 			<IconArrowLeft aria-hidden="true" />
 			<span className="sr-only">Back</span>
 		</Button>

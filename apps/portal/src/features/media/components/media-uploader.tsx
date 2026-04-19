@@ -5,7 +5,7 @@ import { formatBytes } from "@better-upload/client/helpers";
 
 import { toastManager } from "@ziron/ui/components/toast";
 
-import { UploadButton } from "@/components/primitives/upload/upload-button";
+import { UploadButton } from "@/components/upload/upload-button";
 
 import { UPLOAD_ROUTES } from "@/lib/constants/upload";
 import { client } from "@/lib/orpc/client";
