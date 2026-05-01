@@ -8,7 +8,6 @@ import { admin } from "better-auth/plugins/admin";
 import { emailOTP } from "better-auth/plugins/email-otp";
 import { organization } from "better-auth/plugins/organization";
 import { twoFactor } from "better-auth/plugins/two-factor";
-import { username } from "better-auth/plugins/username";
 
 import { getCacheClient, namespacedKey } from "@ziron/cache";
 import { db } from "@ziron/db";
@@ -133,7 +132,7 @@ export const auth = betterAuth({
 	plugins: [
 		nextCookies(),
 		twoFactor(),
-		username(),
+		// username(),
 		passkey({
 			rpID: new URL(env.BETTER_AUTH_URL).hostname,
 			rpName: "ZironTap",

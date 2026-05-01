@@ -75,7 +75,7 @@ export function AppSidebar() {
 					<SidebarMenuItem>
 						<SidebarMenuButton
 							className="justify-between data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-							render={<Link href={`/${activeOrganization?.slug}/cards/new`} />}
+							render={<Link href={`/${activeOrganization?.slug}/cards/new` as Route} />}
 							size="lg"
 							tooltip={{ children: "Create card" }}
 						>

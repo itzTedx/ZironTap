@@ -1,15 +1,19 @@
 "use client";
 
+import { useUploadFile } from "@better-upload/client";
 import { LinkIcon, TrashIcon } from "@phosphor-icons/react";
 import { useForm } from "@tanstack/react-form";
 
 import { UnsplashIcon } from "@ziron/ui/assets/icons/unsplash";
 import { Button } from "@ziron/ui/components/button";
-import { Field, FieldError, FieldLabel } from "@ziron/ui/components/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@ziron/ui/components/field";
 import { Frame, FrameHeader, FramePanel, FrameTitle } from "@ziron/ui/components/frame";
 import { Input } from "@ziron/ui/components/input";
 
 import { DialogDrawer } from "@/components/responsive/dialog-drawer";
+import { UploadButton } from "@/components/upload/upload-button";
+
+import { UPLOAD_ROUTES } from "@/lib/constants/upload";
 
 import { CoverUpload } from "./fields/cover-upload";
 
@@ -19,6 +23,7 @@ export const CardForm = () => {
 			name: "",
 			slug: "",
 			coverImage: "",
+			photo: "",
 			email: "",
 			phone: "",
 			bio: "",
@@ -27,6 +32,11 @@ export const CardForm = () => {
 			address: "",
 		},
 	});
+
+	const { control } = useUploadFile({
+		route: UPLOAD_ROUTES.photo,
+	});
+
 	return (
 		<form
 			onSubmit={(e) => {
@@ -35,7 +45,7 @@ export const CardForm = () => {
 			}}
 		>
 			<div className="grid md:grid-cols-[1fr_360px]">
-				<div className="container mt-4 max-w-4xl">
+				<FieldGroup className="container mt-4 max-w-4xl">
 					<form.Field
 						children={(field) => {
 							const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
@@ -84,7 +94,26 @@ export const CardForm = () => {
 						}}
 						name="coverImage"
 					/>
-				</div>
+
+					<FieldGroup>
+						<form.Field
+							children={() => {
+								return (
+									<div className="flex items-center gap-4">
+										<div className="rounded-full border border-dashed p-2">
+											<div className="size-20 rounded-full bg-muted" />
+										</div>
+										<div className="space-y-1">
+											<UploadButton control={control} />
+											<FieldDescription>Recommended size: 1:1, up to 2mb</FieldDescription>
+										</div>
+									</div>
+								);
+							}}
+							name="photo"
+						/>
+					</FieldGroup>
+				</FieldGroup>
 				<aside>Context menu</aside>
 			</div>
 		</form>

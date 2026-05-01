@@ -1,16 +1,13 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { useRouter } from "next/navigation";
+import { isLoggedIn } from "@/features/auth/lib/api";
 
-import { useActiveOrganization } from "@/lib/auth/client";
+export default async function Page() {
+	const loggedIn = await isLoggedIn();
 
-export default function Page() {
-	const { data } = useActiveOrganization();
-	const router = useRouter();
-
-	if (data) {
-		router.push(`/${data?.slug}/cards`);
-	} else {
-		router.push("/login");
+	if (!loggedIn) {
+		redirect("/login");
 	}
+
+	return <div>Page</div>;
 }
