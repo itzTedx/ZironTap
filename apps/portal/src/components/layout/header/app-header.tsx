@@ -7,7 +7,7 @@ import { BackButton } from "@/components/primitives/buttons/back-button";
 
 export const AppHeader = () => {
 	return (
-		<header className="sticky top-0 z-50 w-full border-b py-2">
+		<header className="sticky top-0 z-50 w-full border-b bg-background/80 py-2 backdrop-blur-xl">
 			<div className="container flex items-center justify-between gap-4">
 				<div className="flex items-center gap-3">
 					<BackButton href="/" />

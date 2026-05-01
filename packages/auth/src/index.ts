@@ -1,4 +1,3 @@
-import { apiKey } from "@better-auth/api-key";
 import { passkey } from "@better-auth/passkey";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
@@ -162,28 +161,28 @@ export const auth = betterAuth({
 			creatorRole: "owner",
 			defaultOrganizationIdField: "slug",
 		}),
-		apiKey([
-			{
-				configId: REVIEWS_API_KEY_CONFIG_ID,
-				defaultPrefix: "zt_reviews_",
-				references: "user",
-				requireName: true,
-				enableMetadata: true,
-				permissions: {
-					defaultPermissions: { reviews: ["read"] },
-				},
-				rateLimit: {
-					enabled: true,
-					timeWindow: 60 * 60 * 1000, // 1 hour
-					maxRequests: 1000,
-				},
-				keyExpiration: {
-					defaultExpiresIn: null,
-					minExpiresIn: 1,
-					maxExpiresIn: 365,
-				},
-			},
-		]),
+		// apiKey([
+		// 	{
+		// 		configId: REVIEWS_API_KEY_CONFIG_ID,
+		// 		defaultPrefix: "zt_reviews_",
+		// 		references: "user",
+		// 		requireName: true,
+		// 		enableMetadata: true,
+		// 		permissions: {
+		// 			defaultPermissions: { reviews: ["read"] },
+		// 		},
+		// 		rateLimit: {
+		// 			enabled: true,
+		// 			timeWindow: 60 * 60 * 1000, // 1 hour
+		// 			maxRequests: 1000,
+		// 		},
+		// 		keyExpiration: {
+		// 			defaultExpiresIn: null,
+		// 			minExpiresIn: 1,
+		// 			maxExpiresIn: 365,
+		// 		},
+		// 	},
+		// ]),
 		lastLoginMethod(),
 		openAPI(),
 	],
