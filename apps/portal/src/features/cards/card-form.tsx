@@ -45,6 +45,11 @@ export const CardForm = () => {
 			address: "",
 			mapUrl: "",
 		},
+		onSubmitInvalid() {
+			const InvalidInput = document.querySelector('[aria-invalid="true"]') as HTMLInputElement;
+
+			InvalidInput?.focus();
+		},
 	});
 
 	const { control } = useUploadFile({
