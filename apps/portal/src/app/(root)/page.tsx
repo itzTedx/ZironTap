@@ -16,14 +16,12 @@ export default async function Page() {
 		headers: await headers(),
 	});
 
-	console.log("organization", organization);
 	if (organization) {
 		await auth.api.setActiveOrganization({
 			body: {
 				organizationId: organization[0]?.id,
 				organizationSlug: organization[0]?.slug,
 			},
-			// This endpoint requires session cookies.
 			headers: await headers(),
 		});
 		return redirect(`/${organization[0]?.slug}/cards`);

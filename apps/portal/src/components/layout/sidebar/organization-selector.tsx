@@ -22,17 +22,13 @@ import {
 	useSidebar,
 } from "@ziron/ui/components/sidebar";
 
-import { useActiveOrganization, useListOrganizations, useSession } from "@/lib/auth/client";
+import { useActiveOrganization, useListOrganizations } from "@/lib/auth/client";
 
 export const OrganizationSelector = () => {
 	const { data, error, isPending } = useActiveOrganization();
 	const { data: organizations } = useListOrganizations();
-	const org = useListOrganizations();
-	const { isMobile } = useSidebar();
 
-	const user = useSession();
-	console.log("org: ", org);
-	console.log("user: ", user);
+	const { isMobile } = useSidebar();
 
 	if (isPending) {
 		return <p className="text-muted-foreground text-sm">Loading organization…</p>;

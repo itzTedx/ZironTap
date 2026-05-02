@@ -7,10 +7,7 @@ import { cn } from "@ziron/ui/lib/utils";
 
 function Label({ className, render, ...props }: useRender.ComponentProps<"label">) {
 	const defaultProps = {
-		className: cn(
-			"inline-flex items-center gap-2 font-medium text-base/4.5 text-foreground sm:text-sm/4",
-			className
-		),
+		className: cn("inline-flex items-center gap-2 text-foreground/80 text-sm/4.5 sm:text-sm/3.5", className),
 		"data-slot": "label",
 	};
 

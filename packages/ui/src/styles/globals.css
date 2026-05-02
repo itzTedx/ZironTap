@@ -139,7 +139,7 @@
 	--muted-foreground: color-mix(in srgb, var(--color-zinc-500) 90%, var(--color-black));
 
 	--brand-accent: var(--violet-600);
-	--brand-accent-foreground: var(--violet-400);
+	--brand-accent-foreground: var(--violet-300);
 
 	--accent: --alpha(var(--color-black) / 4%);
 	--accent-foreground: var(--color-zinc-800);
@@ -200,7 +200,7 @@
 	--muted-foreground: color-mix(in srgb, var(--color-zinc-500) 90%, var(--color-white));
 
 	--brand-accent: var(--violet-600);
-	--brand-accent-foreground: var(--violet-400);
+	--brand-accent-foreground: var(--violet-300);
 
 	--accent: --alpha(var(--color-white) / 4%);
 	--accent-foreground: var(--color-zinc-100);

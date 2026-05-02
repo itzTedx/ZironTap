@@ -1,7 +1,8 @@
 import { useId } from "react";
 
 import type { UploadHookControl } from "@better-upload/client";
-import { Loader2, Upload } from "lucide-react";
+import type { Icon } from "@phosphor-icons/react";
+import { SpinnerIcon, UploadSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@ziron/ui/components/button";
 
@@ -11,7 +12,7 @@ type UploadButtonProps = {
 	accept?: string;
 	metadata?: Record<string, unknown>;
 	uploadOverride?: (...args: Parameters<UploadHookControl<false>["upload"]>) => void;
-
+	icon?: Icon;
 	// Add any additional props you need.
 };
 
@@ -21,9 +22,10 @@ export function UploadButton({
 	accept,
 	metadata,
 	uploadOverride,
+	icon = UploadSimpleIcon,
 }: UploadButtonProps) {
 	const id = useId();
-
+	const Icon = icon;
 	return (
 		<Button className="relative" disabled={isPending} type="button" variant="outline">
 			<label className="absolute inset-0 cursor-pointer" htmlFor={_id || id}>
@@ -47,12 +49,12 @@ export function UploadButton({
 			</label>
 			{isPending ? (
 				<>
-					<Loader2 className="size-4 animate-spin" />
+					<SpinnerIcon className="animate-spin" weight="bold" />
 					Upload file
 				</>
 			) : (
 				<>
-					<Upload className="size-4" />
+					<Icon weight="bold" />
 					Upload file
 				</>
 			)}

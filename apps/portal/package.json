@@ -25,6 +25,7 @@
 		"@orpc/zod": "catalog:",
 		"@phosphor-icons/react": "catalog:",
 		"@tanstack/react-form": "catalog:",
+		"@tanstack/react-form-nextjs": "catalog:",
 		"@tanstack/react-query": "catalog:",
 		"@ziron/api": "workspace:*",
 		"@ziron/auth": "workspace:*",

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { uuidSchema } from "../primitives";
 
-export const orgIdSchema = uuidSchema.brand<"OrgId">();
+export const orgIdSchema = uuidSchema.brand<"orgId">();
 
 export type OrgId = z.infer<typeof orgIdSchema>;
 

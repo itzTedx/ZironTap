@@ -1,4 +1,3 @@
-import { apiKeyClient } from "@better-auth/api-key/client";
 import { passkeyClient } from "@better-auth/passkey/client";
 import {
 	adminClient,
@@ -23,7 +22,7 @@ export const authClient = createAuthClient({
 			roles,
 		}),
 		organizationClient(),
-		apiKeyClient(),
+		// apiKeyClient(),
 		lastLoginMethodClient(),
 	],
 });
