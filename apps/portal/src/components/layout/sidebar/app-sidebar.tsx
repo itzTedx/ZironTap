@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { CreditCard, Link2, QrCode, SearchIcon, Star } from "lucide-react";
 
+import { CardPlusIcon } from "@ziron/ui/assets/icons/digital-card";
 import { Kbd, KbdGroup } from "@ziron/ui/components/kbd";
 import {
 	Sidebar,
@@ -36,7 +37,7 @@ export function AppSidebar() {
 	const activePath = pathname === "/" ? `/${activeOrganization?.slug}` : pathname;
 
 	return (
-		<Sidebar collapsible="icon" variant="inset">
+		<Sidebar className="bg-transparent" collapsible="icon" variant="sidebar">
 			<SidebarHeader>
 				<OrganizationSelector />
 			</SidebarHeader>
@@ -80,12 +81,15 @@ export function AppSidebar() {
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton
-							className="justify-between data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+							className="justify-between bg-sidebar-accent text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 							render={<Link href={`/${activeOrganization?.slug}/cards/new` as Route} />}
 							size="lg"
 							tooltip={{ children: "Create card" }}
 						>
-							New card
+							<span className="flex items-center gap-1">
+								<CardPlusIcon className="size-5" />
+								New card
+							</span>
 							<KbdGroup>
 								<Kbd>Ctrl</Kbd>
 								<Kbd>O</Kbd>
@@ -94,6 +98,8 @@ export function AppSidebar() {
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarFooter>
+
+			<div className="absolute bottom-0 left-12 -z-10 size-96 -translate-x-1/2 translate-y-1/2 rounded-full bg-brand-accent/10 blur-3xl" />
 		</Sidebar>
 	);
 }

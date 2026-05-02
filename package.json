@@ -38,7 +38,7 @@
 		"knip": "^5.86.0",
 		"lint-staged": "^16.3.3",
 		"syncpack": "^14.2.0",
-		"turbo": "^2.8.15",
+		"turbo": "catalog:",
 		"typescript": "catalog:"
 	},
 	"lint-staged": {
