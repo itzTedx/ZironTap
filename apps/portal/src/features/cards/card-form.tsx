@@ -20,6 +20,7 @@ import { Progress } from "@ziron/ui/components/progress";
 import { ScrollArea } from "@ziron/ui/components/scroll-area";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@ziron/ui/components/tabs";
 
+import PhoneMockup from "@/components/layout/preview/iphone";
 import { FileIcon } from "@/components/upload/upload-progress";
 
 import { useAppForm } from "../forms/hooks/use-app-form";
@@ -225,21 +226,74 @@ export const CardForm = () => {
 									</div>
 								</CollapsibleFrame>
 							</TabsPanel>
-							<TabsPanel value="customization">Tab 3 content</TabsPanel>
+							<TabsPanel value="customization">
+								<CollapsibleFrame className="space-y-3" title="Layout style">
+									<div className="flex items-center gap-2 rounded-lg border bg-transparent p-3 dark:bg-input/10">
+										<FileIcon type={"application/pdf"} />
+
+										<div className="grid grow gap-1">
+											<div className="flex items-center gap-0.5">
+												<p className="max-w-40 truncate font-medium text-sm">
+													Company Profile.pdf
+												</p>
+												<DotIcon className="size-4 text-muted-foreground" />
+												<p className="text-muted-foreground text-xs">{formatBytes(2520000)}</p>
+												<DotIcon className="size-4 text-muted-foreground" />
+												<div className="flex items-center gap-1 text-muted-foreground text-sm">
+													<SpinnerIcon className="animate-spin" /> <span>Uploading...</span>
+												</div>
+											</div>
+
+											<div className="flex h-4 items-center">
+												<Progress className="h-1.5" value={0.45 * 100} />
+											</div>
+										</div>
+									</div>
+								</CollapsibleFrame>
+							</TabsPanel>
 						</Tabs>
 					</FieldGroup>
 				</ScrollArea>
 				<aside className="sticky top-14 h-[91svh]">
-					<div className="m-4 h-full rounded-md border bg-muted p-1">
-						<div className="rounded-md bg-muted p-3">
+					<div className="m-4 h-full rounded-md border bg-muted">
+						<div className="m-1 rounded-md bg-muted p-3">
 							<h3 className="text-md text-muted-foreground">Quick Action</h3>
 							<div>
 								<Button variant="outline">Preview</Button>
 							</div>
 						</div>
-						<form.AppForm>
-							<form.SubmitButton label="Save" />
-						</form.AppForm>
+
+						<CollapsibleFrame
+							className="flex h-[50%] items-center justify-center overflow-hidden"
+							title="Properties"
+						>
+							<PhoneMockup>
+								<ScrollArea>
+									<div className="w-full p-4">
+										<p>Hello</p>
+
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, quo
+											optio rerum recusandae rem explicabo corporis sunt qui amet adipisci cum,
+											corrupti officiis enim illo iusto eius laudantium modi eveniet? Natus iste
+											harum nulla reprehenderit repellat cum itaque hic dolor sint repudiandae
+											fuga eius assumenda est, debitis, omnis repellendus saepe, exercitationem
+											beatae? Molestias veritatis quis officiis accusamus, itaque at corporis!
+											Ipsam saepe ipsa nulla voluptatem iure, non ad consequuntur maxime alias.
+											Ipsam doloribus deleniti assumenda, laudantium voluptatibus incidunt!
+											Debitis soluta expedita vitae quam ipsa cumque id culpa libero! Explicabo,
+											consequatur.
+										</p>
+									</div>
+								</ScrollArea>
+							</PhoneMockup>
+						</CollapsibleFrame>
+
+						<div className="mt-auto border-t p-3">
+							<form.AppForm>
+								<form.SubmitButton label="Save" />
+							</form.AppForm>
+						</div>
 					</div>
 				</aside>
 			</div>
