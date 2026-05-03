@@ -6,9 +6,10 @@ import { Frame, FrameHeader, FramePanel } from "@ziron/ui/components/frame";
 interface CollapsibleFrameProps {
 	title: string;
 	children: React.ReactNode;
+	className?: string;
 }
 
-export const CollapsibleFrame = ({ title, children }: CollapsibleFrameProps) => {
+export const CollapsibleFrame = ({ title, children, className }: CollapsibleFrameProps) => {
 	return (
 		<Frame className="w-full">
 			<Collapsible defaultOpen>
@@ -21,7 +22,7 @@ export const CollapsibleFrame = ({ title, children }: CollapsibleFrameProps) => 
 					</CollapsibleTrigger>
 				</FrameHeader>
 				<CollapsiblePanel>
-					<FramePanel>{children}</FramePanel>
+					<FramePanel className={className}>{children}</FramePanel>
 				</CollapsiblePanel>
 			</Collapsible>
 		</Frame>
