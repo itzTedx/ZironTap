@@ -10,7 +10,7 @@ import { UploadButton } from "@/components/upload/upload-button";
 import { ProfileImage } from "@/features/cards/components/profile-image";
 import { UPLOAD_ROUTES } from "@/lib/constants/upload";
 
-import { useFieldContext } from "../hooks/use-app-form";
+import { useFieldContext } from "../hooks/form-contexts";
 
 interface ProfileUploadFieldProps {
 	label:

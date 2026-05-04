@@ -21,7 +21,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@z
 import { authClient } from "@/lib/auth/client";
 import { SHORT_DOMAIN } from "@/utils/constants";
 
-import { useFieldContext } from "../hooks/use-app-form";
+import { useFieldContext } from "../hooks/form-contexts";
 
 interface SlugFieldProps extends ComponentProps<typeof Input> {
 	label: string;

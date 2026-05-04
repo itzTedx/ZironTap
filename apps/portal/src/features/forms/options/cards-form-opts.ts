@@ -15,14 +15,14 @@ export const cardFormOpts = formOptions({
 		mapUrl: "",
 		phones: [
 			{
-				label: "",
-				value: "",
+				phone: "primary",
+				label: "primary",
 			},
 		],
 		emails: [
 			{
-				label: "",
-				value: "",
+				email: "test",
+				label: "primary",
 			},
 		],
 	} as z.input<typeof cardSchema>,

@@ -5,7 +5,7 @@ import { emailSchema, slugSchema, urlSchema, uuidSchema } from "../primitives";
 
 export const phoneSchema = z.object({
 	label: z.string().min(1, "Phone label is required.").max(32, "Phone label must be 32 characters or less."),
-	value: z
+	phone: z
 		.string()
 		.min(3, "Please enter a valid phone number.")
 		.max(32, "Phone number must be 32 characters or less."),
@@ -13,9 +13,10 @@ export const phoneSchema = z.object({
 
 export type Phone = z.infer<typeof phoneSchema>;
 
+export const LabelEnum = z.enum(["Primary", "Work", "Personal"]);
 export const emailContactSchema = z.object({
 	label: z.string().min(1, "Email label is required.").max(32, "Email label must be 32 characters or less."),
-	value: emailSchema,
+	email: emailSchema,
 });
 
 export type EmailContact = z.infer<typeof emailContactSchema>;
@@ -29,6 +30,7 @@ export type Link = z.infer<typeof linkSchema>;
 
 export const appearanceSchema = z.object({
 	theme: z.string().min(1, "Theme is required.").max(64, "Theme must be 64 characters or less."),
+	layout: z.string().min(1, "Theme is required."),
 	accentColor: z.string().min(1, "Accent color is required.").max(32, "Accent color must be 32 characters or less."),
 	cardStyle: z.string().min(1, "Card style is required.").max(32, "Card style must be 32 characters or less."),
 });

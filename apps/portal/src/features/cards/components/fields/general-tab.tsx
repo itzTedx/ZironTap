@@ -3,6 +3,8 @@ import { FieldGroup } from "@ziron/ui/components/field";
 import { Map, MapControls } from "@ziron/ui/components/map";
 import { TabsPanel } from "@ziron/ui/components/tabs";
 
+import { EmailRow } from "@/features/forms/components/email-row";
+import { PhoneRow } from "@/features/forms/components/phone-row";
 import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
@@ -31,17 +33,29 @@ export const GeneralTab = withForm({
 						</form.AppField>
 
 						<FieldGroup className="flex-row gap-3">
-							<form.AppField name="emails">
-								{(field) => (
-									<field.InputField
-										autoComplete="email"
-										label="Email"
-										placeholder="e.g. name@company.com"
-										type="email"
-									/>
-								)}
+							<form.AppField mode="array" name="emails">
+								{(field) =>
+									field.state.value?.map((data, i) => (
+										<EmailRow
+											fields={`emails[${i}]`}
+											form={form}
+											key={`${Number(i + 1)}-${data.label}-${data.email}`}
+										/>
+									))
+								}
 							</form.AppField>
-							<form.AppField name="phones">
+							<form.AppField mode="array" name="phones">
+								{(field) =>
+									field.state.value?.map((data, i) => (
+										<PhoneRow
+											fields={`phones[${i}]`}
+											form={form}
+											key={`${Number(i + 1)}-${data.label}-${data.phone}`}
+										/>
+									))
+								}
+							</form.AppField>
+							{/* <form.AppField name="phones">
 								{(field) => (
 									<field.InputField
 										autoComplete="tel"
@@ -50,7 +64,7 @@ export const GeneralTab = withForm({
 										type="tel"
 									/>
 								)}
-							</form.AppField>
+							</form.AppField> */}
 						</FieldGroup>
 
 						<form.AppField name="bio">

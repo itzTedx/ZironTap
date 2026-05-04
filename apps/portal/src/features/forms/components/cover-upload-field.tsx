@@ -13,7 +13,7 @@ import { UploadDropzone } from "@/components/upload/upload-dropzone";
 
 import { UPLOAD_ROUTES } from "@/lib/constants/upload";
 
-import { useFieldContext } from "../hooks/use-app-form";
+import { useFieldContext } from "../hooks/form-contexts";
 
 interface CoverUploadFieldProps {
 	label: string;
