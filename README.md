@@ -1,4 +1,4 @@
-# 🚀 ZironTap
+# ZironTAP
 
 ![ZironTap Hero](./docs/zirontap_hero.png)
 
