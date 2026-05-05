@@ -18,6 +18,7 @@ import {
 	MenuSubTrigger,
 	MenuTrigger,
 } from "@ziron/ui/components/menu";
+import { cn } from "@ziron/ui/lib/utils";
 
 import { withFieldGroup } from "../hooks/use-app-form";
 import { cardFormOpts } from "../options/cards-form-opts";
@@ -39,15 +40,15 @@ const EMAIL_TYPE = [
 
 export const PhoneRow = withFieldGroup({
 	defaultValues: cardFormOpts.defaultValues.phones?.[0],
-	props: { onRemove: () => {} },
-	render: function EmailRowRender({ group, onRemove }) {
+	props: { onRemove: () => {}, index: 0 },
+	render: function EmailRowRender({ group, index, onRemove }) {
 		return (
-			<Field>
-				<FieldLabel>Phone</FieldLabel>
-				<group.AppField name="phone">
-					{(field) => {
-						const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-						return (
+			<group.AppField name="phone">
+				{(field) => {
+					const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+					return (
+						<Field>
+							<FieldLabel className={cn(index !== 0 && "sr-only")}>Phone</FieldLabel>
 							<InputGroup aria-invalid={isInvalid}>
 								<InputGroupAddon align="inline-start">
 									<PhoneIcon className="text-muted-foreground" weight="fill" />
@@ -97,17 +98,17 @@ export const PhoneRow = withFieldGroup({
 												</MenuSubPopup>
 											</MenuSub>
 
-											<MenuItem onClick={onRemove} variant="destructive">
+											<MenuItem disabled={index === 0} onClick={onRemove} variant="destructive">
 												Delete
 											</MenuItem>
 										</MenuPopup>
 									</Menu>
 								</InputGroupAddon>
 							</InputGroup>
-						);
-					}}
-				</group.AppField>
-			</Field>
+						</Field>
+					);
+				}}
+			</group.AppField>
 		);
 	},
 });

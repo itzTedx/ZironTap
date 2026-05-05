@@ -45,6 +45,7 @@ export const GeneralTab = withForm({
 													<EmailRow
 														fields={`emails[${i}]`}
 														form={form}
+														index={i}
 														key={`${Number(i + 1)}-${data.label}-${data.email}`}
 														onRemove={() => field.removeValue(i)}
 													/>
@@ -70,6 +71,7 @@ export const GeneralTab = withForm({
 													<PhoneRow
 														fields={`phones[${i}]`}
 														form={form}
+														index={i}
 														key={`${Number(i + 1)}-${data.label}-${data.phone}`}
 														onRemove={() => field.removeValue(i)}
 													/>

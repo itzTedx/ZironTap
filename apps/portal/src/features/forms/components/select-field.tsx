@@ -1,7 +1,5 @@
 import type { ComponentProps } from "react";
 
-import { useStore } from "@tanstack/react-form-nextjs";
-
 import { Field, FieldLabel } from "@ziron/ui/components/field";
 import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "@ziron/ui/components/select";
 
@@ -26,18 +24,17 @@ export const SelectField = ({
 }: SelectFieldProps) => {
 	const field = useFieldContext<string>();
 
-	const _errors = useStore(field.store, (state) => state.meta.errors);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	function SelectComp() {
 		return (
 			<Select
+				{...rest}
 				defaultValue={defaultValue}
 				items={items}
 				name={field.name}
 				onValueChange={(e) => field.handleChange(e)}
 				value={field.state.value}
-				{...rest}
 			>
 				<SelectTrigger className="w-fit min-w-none" onBlur={field.handleBlur}>
 					<SelectValue />
