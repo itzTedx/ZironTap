@@ -2,17 +2,21 @@
 
 ![ZironTap Hero](./docs/zirontap_hero.png)
 
-ZironTap is a **production-ready SaaS platform** built on a high-performance Turborepo monorepo. It empowers users and businesses to create, manage, and track digital business cards, short URLs, QR codes, and customer reviews.
+ZironTap is an all-in-one **Growth & Online Presence Platform** built to help marketing companies and their clients scale. It empowers businesses to capture leads, collect reviews, and drive offline-to-online growth through digital business cards, smart URLs, and dynamic QR codes.
 
 ---
 
-## 🛠️ Key Features
+## 🎯 Value for Marketing Clients & Platform Capabilities
 
--   📇 **Digital Business Cards**: Create professional, shareable profile pages with contact info, social links, and rich media.
--   🔗 **URL Shortener**: Manage branded short links with built-in redirect analytics.
--   🏁 **QR Generator**: Generate dynamic, customizable QR codes (URL, vCard, WiFi) with logo support.
--   ⭐️ **Review Cards**: Collect and display verified customer reviews to build social proof.
--   🏢 **Organization Scoped**: Full support for multi-tenant organizations with role-based access control (RBAC).
+-   🧲 **Lead Capture & Digital Profiles**: Instantly exchange contact info and capture new leads with highly customizable, shareable digital business cards.
+-   ⭐️ **Review Collection & Reputation**: Build unshakeable social proof by easily collecting and displaying verified customer reviews.
+-   🚀 **Growth & Analytics Tracking**: Drive offline traffic online and measure real-time engagement using branded short links, dynamic QR codes, and comprehensive analytics tracking.
+-   🌍 **Enhanced Online Presence**: Consolidate a client's digital footprint into professional, high-converting landing pages.
+-   🎨 **Modern UI & Template System**: Enjoy a fully revamped, visually stunning UI. Includes a robust template system with customization (Custom template builder coming soon).
+-   💳 **NFC Card Ordering**: Seamlessly order physical NFC cards. Choose a pre-made design, request a custom design, or upload your own artwork (guidelines provided for .ai, .psd, canva, .jpg).
+-   🏢 **Agency & Dynamic Billing**: Manage multiple client workspaces securely with organization-scoped access control and an organization-based dynamic payment system enforcing usage limitations.
+-   🔒 **Local-First & Privacy Focused**: Robust local-first architecture ensuring privacy and offline access.
+-   ⚙️ **Advanced Background Queuing**: Powerful job queuing system handling automatic image optimization, monthly reports, pushing offline changes to the database when reconnected, file security checking, and more.
 
 ---
 
