@@ -20,28 +20,182 @@ ZironTap is an all-in-one **Growth & Online Presence Platform** built to help ma
 
 ---
 
-## 💻 Tech Stack
+# 🧱 Core Architecture
 
-### Core
--   **Monorepo Management**: [Turborepo](https://turbo.build/) + [pnpm](https://pnpm.io/) Workspaces.
--   **Framework**: [Next.js 16](https://nextjs.org/) (App Router).
--   **Language**: TypeScript.
+| Tech | Description | Usage |
+|------|------------|------|
+| Turborepo | Monorepo build system | Manages apps and shared packages |
+| pnpm Workspaces | Fast package manager | Dependency management |
+| TypeScript | Strong typing | End-to-end type safety |
+| Next.js (App Router) | Fullstack framework | Frontend + backend rendering |
 
-### Backend & Data
--   **API Layer**: [oRPC](https://orpc.run/) for end-to-end type-safe RPC.
--   **Database**: [Drizzle ORM](https://orm.drizzle.team/) with **PostgreSQL**.
--   **Authentication**: [Better Auth](https://better-auth.com/) (Google, Apple, Passkeys, Organizations).
--   **Background Jobs**: [Inngest](https://www.inngest.com/).
+---
 
-### Frontend & UI
--   **Styling**: [TailwindCSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/).
--   **Form Management**: [TanStack Form](https://tanstack.com/form) + Zod validation.
--   **State Management**: [Jotai](https://jotai.org/) & [nuqs](https://nuqs.47ng.com/).
+# 🎨 Frontend & UI
 
-### Dev Tools
--   **Linting/Formatting**: [Biome](https://biomejs.dev/) (Strictly no Prettier/ESLint).
--   **Type Safety**: Single source of truth via `@ziron/validators`.
+| Tech | Description | Usage |
+|------|------------|------|
+| React 19 | UI library | Core rendering |
+| Tailwind CSS | Utility CSS | Styling system |
+| shadcn/ui | Component library | Design system |
+| Framer Motion / motion | Animation library | UI animations |
+| Jotai | State management | Lightweight global state |
+| TanStack React Query | Data fetching | API caching & sync |
+| TanStack Form | Form management | Complex forms |
+| Zod | Validation | Forms + API schemas |
+| react-dropzone | File upload UI | Upload media/assets |
+| maplibre-gl | Maps | Location features |
+| next-themes | Theme system | Dark/light mode |
+| Icon Libraries | Icons | Phosphor, Lucide, Tabler |
 
+---
+
+# 🔌 Backend & API Layer
+
+| Tech | Description | Usage |
+|------|------------|------|
+| oRPC | Type-safe RPC | Client-server communication |
+| @orpc/client/server | RPC tools | API integration |
+| @orpc/openapi | API docs | OpenAPI generation |
+| @orpc/tanstack-query | Integration layer | API + React Query |
+| @orpc/zod | Validation | Schema enforcement |
+
+---
+
+# 🗄️ Database & Storage
+
+| Tech | Description | Usage |
+|------|------------|------|
+| PostgreSQL | Database | Core data storage |
+| Drizzle ORM | ORM | Type-safe queries |
+| pg | DB driver | PostgreSQL connection |
+| Redis | In-memory store | Cache, queues, rate limit |
+
+---
+
+# 🔐 Authentication & Security
+
+| Tech | Description | Usage |
+|------|------------|------|
+| Better Auth | Auth system | Login, OAuth, org auth |
+| @better-auth/api-key | API auth | Secure API access |
+| @better-auth/passkey | Passwordless auth | WebAuthn login |
+| @better-auth/drizzle-adapter | Adapter | Connect auth to DB |
+| Zod | Validation | Input protection |
+
+---
+
+# 📁 File Upload & Media
+
+| Tech | Description | Usage |
+|------|------------|------|
+| @better-upload/client/server | Upload system | File uploads |
+| react-email | Email templates | UI email design |
+| nodemailer | Email sending | SMTP delivery |
+| Custom media package | Image processing | WebP, thumbnails |
+
+---
+
+# 📊 Logging & Monitoring
+
+| Tech | Description | Usage |
+|------|------------|------|
+| Winston | Logging | Structured logs |
+| @ziron/logger | Internal logger | Centralized logging |
+
+---
+
+# 🧩 Internal Packages
+
+| Package | Description | Usage |
+|--------|------------|------|
+| @ziron/api | API layer | Business logic |
+| @ziron/auth | Auth config | Authentication logic |
+| @ziron/db | Database | Schema & queries |
+| @ziron/ui | UI system | Components |
+| @ziron/validators | Validation | Shared schemas |
+| @ziron/env | Env config | Type-safe env |
+| @ziron/cache | Cache utils | Redis abstraction |
+| @ziron/email | Email system | Templates + sending |
+
+---
+
+# 🛠️ Dev Tooling
+
+| Tech | Description | Usage |
+|------|------------|------|
+| Biome | Lint + format | Code quality |
+| Husky | Git hooks | Pre-commit checks |
+| lint-staged | Staged linting | Faster checks |
+| Commitlint | Commit rules | Standard messages |
+| Changesets | Versioning | Releases & changelog |
+| Knip | Cleanup tool | Remove unused code |
+| Syncpack | Dependency tool | Version consistency |
+| dotenv-cli | Env loader | Manage env variables |
+
+---
+
+# 🚀 Phase 2 & Advanced Features
+
+## ⚙️ Background Jobs & Automation
+
+| Feature | Tech | Purpose |
+|--------|------|--------|
+| Background jobs | Inngest | Async workflows |
+| Image optimization | Workers | Auto compression |
+| Image resizing | Workers | Thumbnails |
+| PDF generation | Future (Puppeteer) | Export data |
+| Monthly reports | Cron jobs | Automated insights |
+| File scanning | Workers | Security checks |
+
+---
+
+## 🤖 AI Features
+
+| Feature | Purpose |
+|--------|--------|
+| AI bio generation | Auto profile creation |
+| Smart suggestions | Improve user inputs |
+| Content recommendations | Enhance UX |
+
+---
+
+## 🧑‍💼 Product Features
+
+| Feature | Description |
+|--------|------------|
+| Local-first sync (Zero) | Offline access + sync |
+| Organization billing | Usage-based pricing |
+| NFC card ordering | Physical product system |
+| Custom design uploads | Supports AI, PSD, JPG, Canva |
+| Analytics tracking | Engagement insights |
+| Template system | Customizable layouts |
+| Template builder (future) | Drag-and-drop builder |
+
+---
+
+## 📈 Scalability & Future-Proofing
+
+| Feature | Purpose |
+|--------|--------|
+| Import / Export | Data portability |
+| Multi-tenant system | Org-based isolation |
+| RBAC (future) | Permissions system |
+| Offline sync engine | Real-time sync |
+| Queue architecture | Scalable processing |
+| White-label support | Agency branding |
+
+---
+
+# 💡 Summary
+
+ZironTap is built as a **modern SaaS platform** with:
+
+- ⚡ Full type safety (TypeScript + Zod + oRPC)
+- 🧠 AI-powered enhancements
+- 🔄 Offline-first architecture
+- 🏢 Multi-tenant system
+- ⚙️ Background job processing
 ---
 
 ## 📂 Project Structure
@@ -110,23 +264,33 @@ The `@ziron/validators` package is the **only** place where Zod schemas are defi
 
 ---
 
-## 🗺️ Roadmap & Future Plans
+## 🗺️ Roadmap & Future-Proof Features
 
 ### ✅ Phase 1: Digital Card MVP (Current Focus)
-- [x] Base monorepo & tooling.
-- [x] Core DB schema & Auth integration.
-- [ ] Card editor & public profile rendering.
-- [ ] Media upload & WebP optimization.
+- [x] Base monorepo & tooling (Turborepo, pnpm catalogs, Biome).
+- [x] Core DB schema & Auth integration (Drizzle + Better Auth).
+- [ ] Card editor & public profile rendering (oRPC + React 19).
+- [ ] Media upload & WebP optimization (@ziron/media).
 
-### 🚀 Phase 2: Growth & Tools
-- [ ] **URL Shortener**: Redirect logic and basic click tracking.
-- [ ] **QR Engine**: Dynamic generation with template support.
-- [ ] **Analytics Suite**: Detailed insights for cards and links.
+### 🚀 Phase 2: Scale & Automation
+- **Background Processing (Inngest)**:
+  - Automated image optimization & resizing.
+  - PDF generation from user data and templates.
+  - Monthly report aggregation for clients.
+  - File security checking & vulnerability scanning.
+- **AI Integration**:
+  - Automatic bio generation from profile data.
+  - Smart suggestions for name, job title, and company.
+- **Local-First Sync (Zero/Rocicorp)**:
+  - Full offline access with real-time synchronization.
+- **Payments & Physical Cards**:
+  - Organization-based dynamic payment system with usage limitations.
+  - NFC card ordering flow with custom design uploads (.ai, .psd, Canva).
 
-### 🏗️ Phase 3: Enterprise & Scaling
-- [ ] **Offline Sync**: Support for card editing with optimistic updates.
-- [ ] **Team Collaboration**: Advanced RBAC and activity logs.
-- [ ] **White-labeling**: Custom domains for organizations.
+### 🏗️ Phase 3: Enterprise Ecosystem
+- **Advanced Analytics**: Granular tracking for views, clicks, and conversion events.
+- **Custom Template Builder**: Deep personalization for organization-specific branding.
+- **Bulk Operations**: Large-scale importing/exporting for enterprise onboarding.
 
 ---
 
