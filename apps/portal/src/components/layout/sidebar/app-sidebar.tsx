@@ -1,12 +1,15 @@
 "use client";
 
+import { useRef, useState } from "react";
+
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { CreditCard, Link2, QrCode, SearchIcon, Star } from "lucide-react";
+import { CreditCard, Link2, QrCode, Star } from "lucide-react";
 
 import { CardPlusIcon } from "@ziron/ui/assets/icons/digital-card";
+import { SearchIcon, type SearchIconHandle } from "@ziron/ui/assets/icons/search";
 import { Kbd, KbdGroup } from "@ziron/ui/components/kbd";
 import {
 	Sidebar,
@@ -19,6 +22,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@ziron/ui/components/sidebar";
+import { TabsSubtle, TabsSubtleItem } from "@ziron/ui/components/tabs-subtle";
 
 import { useActiveOrganization } from "@/lib/auth/client";
 
@@ -35,6 +39,15 @@ export function AppSidebar() {
 	const pathname = usePathname();
 	const { data: activeOrganization } = useActiveOrganization();
 	const activePath = pathname === "/" ? `/${activeOrganization?.slug}` : pathname;
+	const tabs = [
+		{ icon: CreditCard, label: "Cards" },
+		{ icon: QrCode, label: "Qr" },
+		{ icon: Link2, label: "Links" },
+		{ icon: Star, label: "Review" },
+	];
+	const [selected, setSelected] = useState(0);
+
+	const iconRef = useRef<SearchIconHandle>(null);
 
 	return (
 		<Sidebar className="bg-transparent" collapsible="icon" variant="sidebar">
@@ -46,6 +59,11 @@ export function AppSidebar() {
 					<SidebarGroupContent className="px-2">
 						<SidebarMenu className="flex flex-row justify-between gap-1 border-sidebar-border border-b pb-2 md:border-0 md:pb-0">
 							<div className="flex items-center gap-1">
+								<TabsSubtle activeLabel idPrefix="demo" onSelect={setSelected} selectedIndex={selected}>
+									{tabs.map((tab, i) => (
+										<TabsSubtleItem icon={tab.icon} index={i} key={tab.label} label={tab.label} />
+									))}
+								</TabsSubtle>
 								{mainNav.map(({ href, label, icon: Icon }) => {
 									const slug = activeOrganization?.slug;
 									const itemPath =
@@ -69,8 +87,11 @@ export function AppSidebar() {
 							</div>
 
 							<SidebarMenuItem>
-								<SidebarMenuButton>
-									<SearchIcon />
+								<SidebarMenuButton
+									onMouseEnter={() => iconRef.current?.startAnimation()}
+									onMouseLeave={() => iconRef.current?.stopAnimation()}
+								>
+									<SearchIcon className="size-4" ref={iconRef} />
 								</SidebarMenuButton>
 							</SidebarMenuItem>
 						</SidebarMenu>

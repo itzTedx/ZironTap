@@ -1,9 +1,10 @@
-import { useId } from "react";
+import { useId, useRef } from "react";
 
 import type { UploadHookControl } from "@better-upload/client";
-import { Loader2, Upload } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
+import { CloudUploadIcon, type CloudUploadIconHandle } from "@ziron/ui/assets/icons/upload";
 import { cn } from "@ziron/ui/lib/utils";
 
 type UploadDropzoneProps = {
@@ -34,6 +35,7 @@ export function UploadDropzone({
 	uploadOverride,
 }: UploadDropzoneProps) {
 	const id = useId();
+	const iconRef = useRef<CloudUploadIconHandle>(null);
 
 	const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({
 		onDrop: (files) => {
@@ -54,6 +56,8 @@ export function UploadDropzone({
 			className={cn("relative rounded-lg border border-input border-dashed text-foreground transition-colors", {
 				"border-primary/80": isDragActive,
 			})}
+			onMouseEnter={() => iconRef.current?.startAnimation()}
+			onMouseLeave={() => iconRef.current?.stopAnimation()}
 		>
 			<label
 				{...getRootProps()}
@@ -68,7 +72,11 @@ export function UploadDropzone({
 				htmlFor={_id || id}
 			>
 				<div className="my-2">
-					{isPending ? <Loader2 className="size-6 animate-spin" /> : <Upload className="size-6" />}
+					{isPending ? (
+						<Loader2 className="size-6 animate-spin" />
+					) : (
+						<CloudUploadIcon className="size-6 text-foreground/60" ref={iconRef} />
+					)}
 				</div>
 
 				<div className="mt-3 space-y-1 text-center">
@@ -98,7 +106,7 @@ export function UploadDropzone({
 				<div className="pointer-events-none absolute inset-0 rounded-lg">
 					<div className="flex size-full flex-col items-center justify-center rounded-lg bg-accent dark:bg-accent/40">
 						<div className="my-2">
-							<Upload className="size-6" />
+							<CloudUploadIcon className="size-6" ref={iconRef} />
 						</div>
 
 						<p className="mt-3 font-semibold text-sm">Drop files here</p>

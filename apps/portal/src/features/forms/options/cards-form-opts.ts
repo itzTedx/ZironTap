@@ -15,25 +15,32 @@ export const cardFormOpts = formOptions({
 		mapUrl: "",
 		phones: [
 			{
-				phone: "primary",
+				phone: "",
 				label: "primary",
 			},
 		],
 		emails: [
 			{
-				email: "test",
+				email: "",
 				label: "primary",
 			},
 		],
+		appearance: {
+			theme: "dark",
+			layout: "default",
+			accentColor: "red",
+			cardStyle: "default",
+		},
+		version: 1,
 	} as z.input<typeof cardSchema>,
 
 	validators: {
-		onSubmit: cardSchema,
+		onChange: cardSchema,
 	},
 
-	onSubmitInvalid() {
+	onSubmitInvalid({ formApi }) {
 		const InvalidInput = document.querySelector('[aria-invalid="true"]') as HTMLInputElement;
-
+		console.log("Invalid", formApi.getAllErrors());
 		InvalidInput?.focus();
 	},
 });

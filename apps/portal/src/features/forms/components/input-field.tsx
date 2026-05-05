@@ -10,9 +10,10 @@ import { useFieldContext } from "../hooks/form-contexts";
 interface InputFieldProps extends ComponentProps<typeof Input> {
 	label?: string;
 	className?: string;
+	isField?: boolean;
 }
 
-export function InputField({ label, placeholder, className, required, ...rest }: InputFieldProps) {
+export function InputField({ label, placeholder, className, isField, required, ...rest }: InputFieldProps) {
 	const field = useFieldContext<string>();
 
 	const errors = useStore(field.store, (state) => state.meta.errors);

@@ -279,30 +279,44 @@ export const CardForm = () => {
 									</Fieldset>
 								</CollapsibleFrame>
 								<CollapsibleFrame className="space-y-3" title="Layout style">
-									<Fieldset className="gap-4">
-										<FieldsetLegend className="font-medium text-sm">Choose a theme</FieldsetLegend>
-										<RadioGroup className="flex-row gap-4" defaultValue="system">
-											{items.map((item) => (
-												<div key={item.value}>
-													<FieldLabel className="cursor-pointer flex-col">
-														<Radio className="peer sr-only absolute" value={item.value} />
-														<span className="relative block overflow-hidden rounded-lg not-peer-data-checked:opacity-80 shadow-xs transition-shadow peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-64 peer-data-checked:ring-2 peer-data-checked:ring-brand-accent peer-data-checked:ring-offset-1 peer-data-checked:ring-offset-background">
-															<Image
-																alt="Default Theme Template"
-																height={370}
-																loading="lazy"
-																src="/templates/default.svg"
-																width={180}
-															/>
-														</span>
-														<span className="not-peer-data-checked:text-muted-foreground/70">
-															{item.label}
-														</span>
-													</FieldLabel>
-												</div>
-											))}
-										</RadioGroup>
-									</Fieldset>
+									<form.AppField name="appearance.layout">
+										{(field) => (
+											<Fieldset className="gap-4">
+												<FieldsetLegend className="font-medium text-sm">
+													Choose a theme
+												</FieldsetLegend>
+												<RadioGroup
+													className="flex-row gap-4"
+													defaultValue="system"
+													onValueChange={(v) => field.handleChange(v)}
+													value={field.state.value}
+												>
+													{items.map((item) => (
+														<div key={item.value}>
+															<FieldLabel className="cursor-pointer flex-col">
+																<Radio
+																	className="peer sr-only absolute"
+																	value={item.value}
+																/>
+																<span className="relative block overflow-hidden rounded-lg not-peer-data-checked:opacity-80 shadow-xs transition-shadow peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-64 peer-data-checked:ring-2 peer-data-checked:ring-brand-accent peer-data-checked:ring-offset-1 peer-data-checked:ring-offset-background">
+																	<Image
+																		alt="Default Theme Template"
+																		height={370}
+																		loading="lazy"
+																		src="/templates/default.svg"
+																		width={180}
+																	/>
+																</span>
+																<span className="not-peer-data-checked:text-muted-foreground/70">
+																	{item.label}
+																</span>
+															</FieldLabel>
+														</div>
+													))}
+												</RadioGroup>
+											</Fieldset>
+										)}
+									</form.AppField>
 								</CollapsibleFrame>
 							</TabsPanel>
 							<TabsPanel value="analytics">
@@ -361,7 +375,7 @@ export const CardForm = () => {
 
 						<div className="mt-auto border-t p-3">
 							<form.AppForm>
-								<form.SubmitButton label="Save" />
+								<form.SubmitButton label="Create Card" />
 							</form.AppForm>
 						</div>
 					</div>

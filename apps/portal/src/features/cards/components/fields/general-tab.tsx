@@ -1,3 +1,6 @@
+import { PlusIcon } from "@phosphor-icons/react/dist/ssr";
+
+import { Button } from "@ziron/ui/components/button";
 import { Card } from "@ziron/ui/components/card";
 import { FieldGroup } from "@ziron/ui/components/field";
 import { Map, MapControls } from "@ziron/ui/components/map";
@@ -33,38 +36,56 @@ export const GeneralTab = withForm({
 						</form.AppField>
 
 						<FieldGroup className="flex-row gap-3">
-							<form.AppField mode="array" name="emails">
-								{(field) =>
-									field.state.value?.map((data, i) => (
-										<EmailRow
-											fields={`emails[${i}]`}
-											form={form}
-											key={`${Number(i + 1)}-${data.label}-${data.email}`}
-										/>
-									))
-								}
-							</form.AppField>
-							<form.AppField mode="array" name="phones">
-								{(field) =>
-									field.state.value?.map((data, i) => (
-										<PhoneRow
-											fields={`phones[${i}]`}
-											form={form}
-											key={`${Number(i + 1)}-${data.label}-${data.phone}`}
-										/>
-									))
-								}
-							</form.AppField>
-							{/* <form.AppField name="phones">
-								{(field) => (
-									<field.InputField
-										autoComplete="tel"
-										label="Phone"
-										placeholder="e.g. +971 00 000 0000"
-										type="tel"
-									/>
-								)}
-							</form.AppField> */}
+							<form.Field mode="array" name="emails">
+								{(field) => {
+									return (
+										<div className="w-full space-y-2">
+											{field.state.value?.map((data, i) => {
+												return (
+													<EmailRow
+														fields={`emails[${i}]`}
+														form={form}
+														key={`${Number(i + 1)}-${data.label}-${data.email}`}
+														onRemove={() => field.removeValue(i)}
+													/>
+												);
+											})}
+											<Button
+												onClick={() => field.pushValue({ label: "Work", email: "" })}
+												type="button"
+												variant="link"
+											>
+												<PlusIcon /> Add work or personal email
+											</Button>
+										</div>
+									);
+								}}
+							</form.Field>
+							<form.Field mode="array" name="phones">
+								{(field) => {
+									return (
+										<div className="w-full space-y-2">
+											{field.state.value?.map((data, i) => {
+												return (
+													<PhoneRow
+														fields={`phones[${i}]`}
+														form={form}
+														key={`${Number(i + 1)}-${data.label}-${data.phone}`}
+														onRemove={() => field.removeValue(i)}
+													/>
+												);
+											})}
+											<Button
+												onClick={() => field.pushValue({ label: "Work", phone: "" })}
+												type="button"
+												variant="link"
+											>
+												<PlusIcon /> Add another number
+											</Button>
+										</div>
+									);
+								}}
+							</form.Field>
 						</FieldGroup>
 
 						<form.AppField name="bio">
@@ -107,7 +128,7 @@ export const GeneralTab = withForm({
 						</form.AppField>
 
 						<Card className="h-[240px] overflow-hidden p-0">
-							<Map center={[-74.006, 40.7128]} zoom={11}>
+							<Map center={[24.4547, 54.3916]} zoom={11}>
 								<MapControls />
 							</Map>
 						</Card>

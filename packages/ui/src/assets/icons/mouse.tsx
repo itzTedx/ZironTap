@@ -1,18 +1,16 @@
 "use client";
-
 import { forwardRef, type HTMLAttributes, type MouseEvent, useCallback, useImperativeHandle, useRef } from "react";
 
 import type { Variants } from "motion/react";
 import { domMin, LazyMotion, m, useAnimation, useReducedMotion } from "motion/react";
 
 import { cn } from "@ziron/ui/lib/utils";
-
-export interface SearchIconHandle {
+export interface MousePointerClickIconHandle {
 	startAnimation: () => void;
 	stopAnimation: () => void;
 }
 
-interface SearchIconProps
+interface MousePointerClickIconProps
 	extends Omit<
 		HTMLAttributes<HTMLDivElement>,
 		| "color"
@@ -29,7 +27,7 @@ interface SearchIconProps
 	color?: string;
 }
 
-const SearchIcon = forwardRef<SearchIconHandle, SearchIconProps>(
+const MousePointerClickIcon = forwardRef<MousePointerClickIconHandle, MousePointerClickIconProps>(
 	({ onMouseEnter, onMouseLeave, className, size = 24, duration = 1, isAnimated = true, color, ...props }, ref) => {
 		const controls = useAnimation();
 		const reduced = useReducedMotion();
@@ -60,15 +58,32 @@ const SearchIcon = forwardRef<SearchIconHandle, SearchIconProps>(
 			[controls, onMouseLeave]
 		);
 
-		const lensVariants: Variants = {
-			normal: { x: 0, y: 0, rotate: 0, opacity: 1 },
+		const pointerVariants: Variants = {
+			normal: {
+				scale: 1,
+				y: 0,
+			},
 			animate: {
-				x: [0, 2, -2, 1, 0],
-				y: [0, -1, 2, -1, 0],
-				rotate: [0, 6, -6, 4, 0],
+				scale: [1, 0.95, 1],
+				y: [0, 1, 0],
 				transition: {
-					duration: 1.2 * duration,
-					ease: "easeInOut" as const,
+					duration: 0.5 * duration,
+					ease: "easeInOut",
+				},
+			},
+		};
+
+		const clickRayVariants: Variants = {
+			normal: {
+				opacity: 1,
+				scale: 1,
+			},
+			animate: {
+				opacity: [0, 1, 0, 1],
+				scale: [0.6, 1.2, 1],
+				transition: {
+					duration: 0.6 * duration,
+					ease: "easeOut",
 				},
 			},
 		};
@@ -95,10 +110,20 @@ const SearchIcon = forwardRef<SearchIconHandle, SearchIconProps>(
 						width={size}
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						<m.g variants={lensVariants}>
-							<m.circle cx="11" cy="11" r="8" />
-							<path d="M17 17L21 21" />
-						</m.g>
+						<m.path d="M9 4V2" style={{ transformOrigin: "center" }} variants={clickRayVariants} />
+						<m.path d="M5 5L3.5 3.5" variants={clickRayVariants} />
+						<m.path d="M4 9H2" variants={clickRayVariants} />
+						<m.path d="M5 13L3.5 14.5" variants={clickRayVariants} />
+						<m.path d="M14.5 3.5L13 5" variants={clickRayVariants} />
+
+						<m.path
+							d="M12.669 8.35811L17.6969 10.3256C20.5969 11.4604 22.0469 12.0277 21.9988 12.9278C21.9508 13.8278 20.4375 14.2405 17.4111 15.0659C16.5099 15.3117 16.0593 15.4346 15.7469 15.7469C15.4346 16.0593 15.3117 16.5099 15.0659 17.4111C14.2405 20.4375 13.8278 21.9508 12.9278 21.9988C12.0277 22.0469 11.4604 20.5969 10.3256 17.6969L8.35811 12.669C7.17004 9.63279 6.57601 8.1147 7.34535 7.34535C8.1147 6.57601 9.63279 7.17004 12.669 8.35811Z"
+							style={{
+								transformBox: "fill-box",
+								transformOrigin: "center",
+							}}
+							variants={pointerVariants}
+						/>
 					</m.svg>
 				</m.div>
 			</LazyMotion>
@@ -106,13 +131,5 @@ const SearchIcon = forwardRef<SearchIconHandle, SearchIconProps>(
 	}
 );
 
-SearchIcon.displayName = "SearchIcon";
-export { SearchIcon };
-
-export const IconSearch = (props: SVGProps) => {
-	return (
-		<svg {...props} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-			<path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z" />
-		</svg>
-	);
-};
+MousePointerClickIcon.displayName = "MousePointerClickIcon";
+export { MousePointerClickIcon };
