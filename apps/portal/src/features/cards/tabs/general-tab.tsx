@@ -11,7 +11,7 @@ import { PhoneRow } from "@/features/forms/components/phone-row";
 import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
-import { CollapsibleFrame } from "../collapsible-frame";
+import { CollapsibleFrame } from "../components/collapsible-frame";
 
 export const GeneralTab = withForm({
 	...cardFormOpts,

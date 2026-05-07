@@ -37,10 +37,4 @@ export const cardFormOpts = formOptions({
 	validators: {
 		onChange: cardSchema,
 	},
-
-	onSubmitInvalid({ formApi }) {
-		const InvalidInput = document.querySelector('[aria-invalid="true"]') as HTMLInputElement;
-		console.log("Invalid", formApi.getAllErrors());
-		InvalidInput?.focus();
-	},
 });

@@ -36,9 +36,11 @@ catalog:
   maplibre-gl: ^5.24.0
   motion: ^12.38.0
   next: 16.2.4
+  pdfjs-dist: ^5.7.284
   react: ^19.2.4
   react-day-picker: ^9.14.0
   react-dropzone: ^15.0.0
+  react-pdf: ^10.4.1
   tailwindcss: ^4.2.1
   turbo: ^2.9.7
   typescript: ^5

@@ -45,7 +45,7 @@ export const EmailRow = withFieldGroup({
 				{(field) => {
 					const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 					return (
-						<Field>
+						<Field data-invalid={isInvalid}>
 							<FieldLabel className={cn(index !== 0 && "sr-only")}>Phone</FieldLabel>
 							<InputGroup aria-invalid={isInvalid}>
 								<InputGroupAddon align="inline-start">
