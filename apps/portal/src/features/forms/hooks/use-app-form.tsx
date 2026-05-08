@@ -3,6 +3,7 @@ import { createFormHook } from "@tanstack/react-form-nextjs";
 import { AutocompleteField } from "../components/autocomplete-field";
 import { CoverUploadField } from "../components/cover-upload-field";
 import { InputField } from "../components/input-field";
+import { MapField } from "../components/map-field";
 import { ProfileUploadField } from "../components/profile-upload-field";
 import { SelectField } from "../components/select-field";
 import { SlugField } from "../components/slug-field";
@@ -19,6 +20,7 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
 		ProfileUploadField,
 		AutocompleteField,
 		SlugField,
+		MapField,
 	},
 	formComponents: {
 		SubmitButton,

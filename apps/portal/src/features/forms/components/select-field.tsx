@@ -22,7 +22,7 @@ export const SelectField = ({
 	required,
 	...rest
 }: SelectFieldProps) => {
-	const field = useFieldContext<string>();
+	const field = useFieldContext<unknown>();
 
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 

@@ -15,6 +15,7 @@ import PhoneMockup from "@/components/layout/preview/iphone";
 
 import { useAppForm } from "../forms/hooks/use-app-form";
 import { cardFormOpts } from "../forms/options/cards-form-opts";
+import { ActionBarDemo } from "./components/action-bar";
 import { CollapsibleFrame } from "./components/collapsible-frame";
 import { AnalyticsTab } from "./tabs/analytics-tab";
 import { CustomizationTab } from "./tabs/customization-tab";
@@ -75,7 +76,7 @@ export const CardForm = () => {
 				form.handleSubmit();
 			}}
 		>
-			<div className="grid md:grid-cols-[1fr_360px]">
+			<div className="grid md:grid-cols-[1fr_420px]">
 				<ScrollArea className="h-full">
 					<FieldGroup className="container mt-4 mb-24 max-w-4xl">
 						<ProfileHero form={form} />
@@ -95,37 +96,44 @@ export const CardForm = () => {
 							<SeoTab form={form} value="seo" />
 							<AnalyticsTab form={form} value="analytics" />
 						</Tabs>
+
+						<ActionBarDemo />
 					</FieldGroup>
 				</ScrollArea>
 				<aside className="sticky top-14 h-[91svh]">
-					<div className="m-4 h-full space-y-3 rounded-md border bg-muted">
-						<div className="m-1 rounded-md bg-muted p-3">
-							<h3 className="mb-1 text-muted-foreground text-sm">Quick Action</h3>
-							<div className="flex flex-wrap items-center gap-2">
-								<Button variant="outline">Preview</Button>
+					<ScrollArea>
+						<div className="m-4 h-full space-y-3 rounded-md border bg-muted">
+							<div className="sticky top-0 z-99 m-1 rounded-md bg-muted p-3 backdrop-blur-2xl">
+								<h3 className="mb-1 text-muted-foreground text-sm">Quick Action</h3>
+								<div className="flex flex-wrap items-center gap-2">
+									<Button variant="outline">Preview</Button>
 
-								<form.AppForm>
-									<form.SubmitButton label="Create Card" />
-								</form.AppForm>
+									<form.AppForm>
+										<form.SubmitButton label="Create Card" />
+									</form.AppForm>
+								</div>
 							</div>
+
+							<CollapsibleFrame title="Properties">Status</CollapsibleFrame>
+
+							<JsonViewer data={data} defaultExpanded={2} rootName="form-data" />
+
+							<CollapsibleFrame
+								className="flex items-center justify-center overflow-hidden"
+								title="Preview"
+							>
+								<PhoneMockup>
+									<ScrollArea>
+										<div className="w-full p-4">
+											<p>Hello</p>
+										</div>
+									</ScrollArea>
+								</PhoneMockup>
+							</CollapsibleFrame>
+
+							<div className="mt-auto border-t p-3" />
 						</div>
-
-						<CollapsibleFrame title="Properties">Status</CollapsibleFrame>
-
-						<JsonViewer data={data} defaultExpanded={2} rootName="form-data" />
-
-						<CollapsibleFrame className="flex items-center justify-center overflow-hidden" title="Preview">
-							<PhoneMockup>
-								<ScrollArea>
-									<div className="w-full p-4">
-										<p>Hello</p>
-									</div>
-								</ScrollArea>
-							</PhoneMockup>
-						</CollapsibleFrame>
-
-						<div className="mt-auto border-t p-3" />
-					</div>
+					</ScrollArea>
 				</aside>
 			</div>
 		</form>

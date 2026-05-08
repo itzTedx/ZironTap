@@ -3,7 +3,6 @@ import { PlusIcon } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@ziron/ui/components/button";
 import { Card } from "@ziron/ui/components/card";
 import { FieldGroup } from "@ziron/ui/components/field";
-import { Map, MapControls } from "@ziron/ui/components/map";
 import { TabsPanel } from "@ziron/ui/components/tabs";
 
 import { EmailRow } from "@/features/forms/components/email-row";
@@ -129,10 +128,10 @@ export const GeneralTab = withForm({
 							)}
 						</form.AppField>
 
-						<Card className="h-[240px] overflow-hidden p-0">
-							<Map center={[24.4547, 54.3916]} zoom={11}>
-								<MapControls />
-							</Map>
+						<Card className="min-h-96 overflow-hidden p-0">
+							<form.AppField name="address">
+								{(field) => <field.MapField center={[24.466191, 54.374814]} zoom={16} />}
+							</form.AppField>
 						</Card>
 					</FieldGroup>
 				</CollapsibleFrame>
