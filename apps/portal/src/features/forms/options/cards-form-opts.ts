@@ -25,6 +25,13 @@ export const cardFormOpts = formOptions({
 				label: "primary",
 			},
 		],
+		links: [
+			{
+				order: 0,
+				label: "Instagram",
+				url: "https://instagram.com/zironpro",
+			},
+		],
 		appearance: {
 			theme: "dark",
 			layout: "default",

@@ -1,17 +1,22 @@
 import { formatBytes } from "@better-upload/client/helpers";
-import { InfoIcon } from "@phosphor-icons/react";
 import { DotIcon, DotsSixVerticalIcon, PlusIcon, SpinnerIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@ziron/ui/components/button";
 import { Card, CardAction, CardFrame, CardHeader, CardPanel, CardTitle } from "@ziron/ui/components/card";
-import { Field, FieldGroup, FieldLabel } from "@ziron/ui/components/field";
-import { Input } from "@ziron/ui/components/input";
-import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@ziron/ui/components/input-group";
+import { FieldGroup } from "@ziron/ui/components/field";
 import { Progress } from "@ziron/ui/components/progress";
+import {
+	Sortable,
+	SortableContent,
+	SortableItem,
+	SortableItemHandle,
+	SortableOverlay,
+} from "@ziron/ui/components/sortable";
 import { TabsPanel } from "@ziron/ui/components/tabs";
 
 import { FileIcon } from "@/components/upload/upload-progress";
 
+import { LinkRow } from "@/features/forms/components/link-row";
 import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
@@ -26,85 +31,122 @@ export const LinksTab = withForm({
 		return (
 			<TabsPanel className="space-y-3" value={value}>
 				<CollapsibleFrame title="Additional Fields">
-					<FieldGroup>
-						<CardFrame>
-							<Card className="gap-0">
-								<CardHeader className="items-center gap-0 p-2 px-3 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-2">
-									<CardTitle className="flex items-center gap-1 text-sm">
-										<Button size="xs" type="button" variant="ghost">
-											<DotsSixVerticalIcon weight="bold" />
-										</Button>
-										Instagram
-									</CardTitle>
-									<CardAction>
-										<Button size="xs" type="button" variant="destructive-outline">
-											<XIcon weight="bold" />
-											<span className="sr-only">Edit</span>
-										</Button>
-									</CardAction>
-								</CardHeader>
-								<CardPanel className="px-3 pb-3">
-									<FieldGroup className="grid grid-cols-[1fr_0.5fr] gap-3">
-										<Field>
-											<FieldLabel className="sr-only">Link</FieldLabel>
-											<Input aria-label="Set your URL" placeholder="@username" />
-										</Field>
-										<Field>
-											<FieldLabel className="sr-only">Link</FieldLabel>
-											<InputGroup>
-												<InputGroupInput aria-label="Set your URL" placeholder="Display Text" />
-												<InputGroupAddon>
-													<InputGroupText>
-														<InfoIcon weight="fill" />
-													</InputGroupText>
-												</InputGroupAddon>
-											</InputGroup>
-										</Field>
-									</FieldGroup>
-								</CardPanel>
-							</Card>
-						</CardFrame>
-						<CardFrame>
-							<Card className="gap-0">
-								<CardHeader className="items-center gap-0 p-2 px-3 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-2">
-									<CardTitle className="flex items-center gap-1 text-sm">
-										<Button size="xs" type="button" variant="ghost">
-											<DotsSixVerticalIcon weight="bold" />
-										</Button>
-										Instagram
-									</CardTitle>
-									<CardAction>
-										<Button size="xs" type="button" variant="destructive-outline">
-											<XIcon weight="bold" />
-											<span className="sr-only">Edit</span>
-										</Button>
-									</CardAction>
-								</CardHeader>
-								<CardPanel className="px-3 pb-3">
-									<FieldGroup className="grid grid-cols-[1fr_0.5fr] gap-3">
-										<Field>
-											<FieldLabel className="sr-only">Link</FieldLabel>
-											<Input aria-label="Set your URL" placeholder="@username" />
-										</Field>
-										<Field>
-											<FieldLabel className="sr-only">Link</FieldLabel>
-											<InputGroup>
-												<InputGroupInput aria-label="Set your URL" placeholder="Display Text" />
-												<InputGroupAddon>
-													<InputGroupText>
-														<InfoIcon weight="fill" />
-													</InputGroupText>
-												</InputGroupAddon>
-											</InputGroup>
-										</Field>
-									</FieldGroup>
-								</CardPanel>
-							</Card>
-						</CardFrame>
-						<Button className="w-full" variant="secondary">
-							<PlusIcon /> Add Link
-						</Button>
-					</FieldGroup>
+					<form.Field mode="array" name="links">
+						{(field) => {
+							return (
+								<FieldGroup>
+									<Sortable
+										getItemValue={(item) => item.order}
+										onValueChange={field.handleChange}
+										orientation="vertical"
+										value={field.state.value ?? [{ label: "", url: "", order: 1 }]}
+									>
+										<SortableContent className="space-y-3">
+											{field.state.value?.map((data, i) => (
+												<SortableItem
+													asChild
+													key={`${Number(i)}-${data.url}`}
+													value={data.order}
+												>
+													<CardFrame>
+														<Card className="gap-0">
+															<CardHeader className="items-center gap-0 p-2 px-3 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-2">
+																<CardTitle className="flex items-center gap-1 text-sm">
+																	<SortableItemHandle asChild>
+																		<Button size="xs" type="button" variant="ghost">
+																			<DotsSixVerticalIcon weight="bold" />
+																		</Button>
+																	</SortableItemHandle>
+																	Instagram
+																</CardTitle>
+																<CardAction>
+																	<Button
+																		onClick={() => field.removeValue(i)}
+																		size="xs"
+																		type="button"
+																		variant="destructive-outline"
+																	>
+																		<XIcon weight="bold" />
+																		<span className="sr-only">Edit</span>
+																	</Button>
+																</CardAction>
+															</CardHeader>
+															<CardPanel className="px-3 pb-3">
+																<LinkRow fields={`links[${i}]`} form={form} />
+															</CardPanel>
+														</Card>
+													</CardFrame>
+												</SortableItem>
+											))}
+										</SortableContent>
+										<SortableOverlay>
+											{(activeItem) => {
+												const linksList = field.state.value ?? [];
+												const activeOrder =
+													typeof activeItem.value === "number"
+														? activeItem.value
+														: Number(activeItem.value);
+												const activeIndex = linksList.findIndex(
+													(link) => link.order === activeOrder
+												);
+												if (activeIndex < 0) return null;
+
+												return (
+													<SortableItem asChild value={activeItem.value}>
+														<CardFrame>
+															<Card className="gap-0">
+																<CardHeader className="items-center gap-0 p-2 px-3 in-[[data-slot=card]:has(>[data-slot=card-panel])]:pb-2">
+																	<CardTitle className="flex items-center gap-1 text-sm">
+																		<Button size="xs" type="button" variant="ghost">
+																			<DotsSixVerticalIcon weight="bold" />
+																		</Button>
+																		Instagram
+																	</CardTitle>
+																	<CardAction>
+																		<Button
+																			onClick={() =>
+																				field.removeValue(activeIndex)
+																			}
+																			size="xs"
+																			type="button"
+																			variant="destructive-outline"
+																		>
+																			<XIcon weight="bold" />
+																			<span className="sr-only">Edit</span>
+																		</Button>
+																	</CardAction>
+																</CardHeader>
+																<CardPanel className="px-3 pb-3">
+																	<LinkRow
+																		fields={`links[${activeIndex}]`}
+																		form={form}
+																	/>
+																</CardPanel>
+															</Card>
+														</CardFrame>
+													</SortableItem>
+												);
+											}}
+										</SortableOverlay>
+									</Sortable>
+
+									<Button
+										className="w-full"
+										onClick={() =>
+											field.pushValue({
+												label: "",
+												url: "",
+												order: (field.state.value?.length ?? 0) + 1,
+											})
+										}
+										variant="secondary"
+									>
+										<PlusIcon /> Add Link
+									</Button>
+								</FieldGroup>
+							);
+						}}
+					</form.Field>
 				</CollapsibleFrame>
 				<form.AppField name="coverImage">
 					{(field) => (

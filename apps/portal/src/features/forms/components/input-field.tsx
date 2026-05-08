@@ -11,16 +11,25 @@ interface InputFieldProps extends ComponentProps<typeof Input> {
 	label?: string;
 	className?: string;
 	isField?: boolean;
+	group?: boolean;
 }
 
-export function InputField({ label, placeholder, className, isField, required, ...rest }: InputFieldProps) {
+export function InputField({
+	label,
+	placeholder,
+	className,
+	group = false,
+	isField,
+	required,
+	...rest
+}: InputFieldProps) {
 	const field = useFieldContext<string>();
 
 	const errors = useStore(field.store, (state) => state.meta.errors);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	return (
-		<Field className={className} data-invalid={isInvalid}>
+		<Field className={className} data-invalid={group ? undefined : isInvalid}>
 			{label && (
 				<FieldLabel htmlFor={field.name}>
 					{label}
@@ -29,12 +38,13 @@ export function InputField({ label, placeholder, className, isField, required, .
 			)}
 			<Input
 				{...rest}
-				aria-invalid={isInvalid}
+				aria-invalid={group ? undefined : isInvalid}
 				id={field.name}
 				name={field.name}
 				onBlur={field.handleBlur}
 				onChange={(e) => field.handleChange(e.target.value)}
 				placeholder={placeholder}
+				unstyled={group}
 				value={field.state.value}
 			/>
 

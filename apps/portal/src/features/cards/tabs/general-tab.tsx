@@ -129,9 +129,9 @@ export const GeneralTab = withForm({
 						</form.AppField>
 
 						<Card className="min-h-96 overflow-hidden p-0">
-							<form.AppField name="address">
+							{/* <form.AppField name="address">
 								{(field) => <field.MapField center={[24.466191, 54.374814]} zoom={16} />}
-							</form.AppField>
+							</form.AppField> */}
 						</Card>
 					</FieldGroup>
 				</CollapsibleFrame>

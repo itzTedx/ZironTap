@@ -10,6 +10,10 @@ catalog:
   '@better-upload/client': ^3.0.14
   '@better-upload/server': ^3.0.14
   '@biomejs/biome': ^2.4.6
+  '@dnd-kit/core': ^6.3.1
+  '@dnd-kit/modifiers': ^9.0.0
+  '@dnd-kit/sortable': ^10.0.0
+  '@dnd-kit/utilities': ^3.2.2
   '@hugeicons/core-free-icons': ^4.1.1
   '@hugeicons/react': ^1.1.6
   '@orpc/client': ^1.13.6
