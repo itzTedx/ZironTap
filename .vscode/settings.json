@@ -26,6 +26,7 @@
 		"biomejs",
 		"dotenv",
 		"ecommerce",
+		"latlng",
 		"nodemailer",
 		"oklch",
 		"orpc",
