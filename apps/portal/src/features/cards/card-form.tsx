@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useParams } from "next/navigation";
+
 import { LinkSimpleIcon, UserCircleDashedIcon } from "@phosphor-icons/react";
 import { BrowsersIcon, ChartPieSliceIcon, PencilCircleIcon } from "@phosphor-icons/react/dist/ssr";
 
@@ -52,10 +54,28 @@ const TABS = [
 	},
 ] as const;
 
+const SLUG_ALPHABET = "abcdefghijklmnopqrstuvwxyz0123456789";
+const DEFAULT_SLUG_LENGTH = 7;
+
+function generateDefaultSlug(length = DEFAULT_SLUG_LENGTH) {
+	const randomValues = new Uint32Array(length);
+	crypto.getRandomValues(randomValues);
+
+	return Array.from(randomValues, (value) => SLUG_ALPHABET[value % SLUG_ALPHABET.length]).join("");
+}
+
 export const CardForm = () => {
 	const [data, setData] = useState({});
+	const [defaultSlug] = useState(() => generateDefaultSlug());
+	const params = useParams<{ orgId: string }>();
+
 	const form = useAppForm({
 		...cardFormOpts,
+		defaultValues: {
+			...cardFormOpts.defaultValues,
+			slug: defaultSlug,
+			orgId: params.orgId,
+		},
 		onSubmit: ({ value }) => {
 			setData(value);
 			console.log("FORM VALUES:", value);

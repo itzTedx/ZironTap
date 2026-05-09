@@ -51,19 +51,16 @@ export const OrganizationSelector = () => {
 					<div className="flex items-center justify-between gap-2">
 						<MenuTrigger
 							render={
-								<SidebarMenuButton
-									className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-									size="lg"
-								/>
+								<SidebarMenuButton className="w-fit data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground" />
 							}
 						>
-							<div className="relative flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-								{data.logo && <Image alt={data.name} className="object-contain" fill src={data.logo} />}
+							<div className="relative flex aspect-square size-6 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+								{data.logo && <Image alt={data.name} className="object-cover" fill src={data.logo} />}
 							</div>
 							<div className="grid text-left text-sm leading-tight">
-								<span className="truncate font-medium">{data.name}'s ZironTap</span>
+								<span className="truncate font-medium">{data.name}</span>
 							</div>
-							<CaretDownIcon />
+							<CaretDownIcon size={16} />
 						</MenuTrigger>
 						<SidebarTrigger />
 					</div>

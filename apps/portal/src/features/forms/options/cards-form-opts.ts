@@ -42,6 +42,7 @@ export const cardFormOpts = formOptions({
 	} as z.input<typeof cardSchema>,
 
 	validators: {
-		onChange: cardSchema,
+		onChangeAsync: cardSchema,
+		onChangeAsyncDebounceMs: 1000,
 	},
 });

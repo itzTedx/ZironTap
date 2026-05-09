@@ -4,8 +4,8 @@ import * as React from "react";
 
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
+import { CaretDoubleLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react";
 
 import { Button } from "@ziron/ui/components/button";
 import { Input } from "@ziron/ui/components/input";
@@ -258,7 +258,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
 			variant="ghost"
 			{...props}
 		>
-			<PanelLeftIcon />
+			<CaretDoubleLeftIcon />
 			<span className="sr-only">Toggle Sidebar</span>
 		</Button>
 	);

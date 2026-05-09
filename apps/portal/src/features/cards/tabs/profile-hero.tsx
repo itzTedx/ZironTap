@@ -19,7 +19,7 @@ export const ProfileHero = withForm({
 					)}
 				</form.AppField>
 
-				<FieldGroup className="flex-row justify-between">
+				<FieldGroup className="flex-row items-start justify-between">
 					<form.AppField name="photo">
 						{(field) => (
 							<field.ProfileUploadField

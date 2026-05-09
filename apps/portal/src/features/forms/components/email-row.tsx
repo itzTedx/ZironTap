@@ -1,9 +1,10 @@
 import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
+import { useStore } from "@tanstack/react-form-nextjs";
 import { EllipsisIcon } from "lucide-react";
 
 import { Badge } from "@ziron/ui/components/badge";
 import { Button } from "@ziron/ui/components/button";
-import { Field, FieldLabel } from "@ziron/ui/components/field";
+import { Field, FieldError, FieldLabel } from "@ziron/ui/components/field";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@ziron/ui/components/input-group";
 import {
 	Menu,
@@ -40,19 +41,24 @@ export const EmailRow = withFieldGroup({
 	defaultValues: cardFormOpts.defaultValues.emails?.[0],
 	props: { onRemove: () => {}, index: 0 },
 	render: function EmailRowRender({ group, index, onRemove }) {
+		const label = useStore(group.store, (state) => state.values.label);
+
 		return (
 			<group.AppField name="email">
 				{(field) => {
 					const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 					return (
 						<Field data-invalid={isInvalid}>
-							<FieldLabel className={cn(index !== 0 && "sr-only")}>Email</FieldLabel>
+							<FieldLabel className={cn(index !== 0 && "sr-only")} htmlFor={field.name}>
+								Email
+							</FieldLabel>
 							<InputGroup aria-invalid={isInvalid}>
 								<InputGroupAddon align="inline-start">
 									<EnvelopeSimpleIcon className="text-muted-foreground" weight="fill" />
 								</InputGroupAddon>
+
 								<InputGroupInput
-									autoComplete="email"
+									autoComplete="home email"
 									id={field.name}
 									name={field.name}
 									onBlur={field.handleBlur}
@@ -61,8 +67,11 @@ export const EmailRow = withFieldGroup({
 									type="email"
 									value={field.state.value}
 								/>
+
 								<InputGroupAddon align="inline-end">
-									<Badge variant="info">Primary</Badge>
+									<Badge className="capitalize" variant="info">
+										{label}
+									</Badge>
 									<Menu>
 										<MenuTrigger
 											render={<Button aria-label="Open menu" size="icon-xs" variant="ghost" />}
@@ -103,6 +112,7 @@ export const EmailRow = withFieldGroup({
 									</Menu>
 								</InputGroupAddon>
 							</InputGroup>
+							{isInvalid && <FieldError errors={field.state.meta.errors} />}
 						</Field>
 					);
 				}}

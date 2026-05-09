@@ -2,7 +2,7 @@ import { PlusIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@ziron/ui/components/button";
 import { Card } from "@ziron/ui/components/card";
-import { FieldGroup } from "@ziron/ui/components/field";
+import { FieldError, FieldGroup } from "@ziron/ui/components/field";
 import { TabsPanel } from "@ziron/ui/components/tabs";
 
 import { EmailRow } from "@/features/forms/components/email-row";
@@ -11,8 +11,7 @@ import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
 import { CollapsibleFrame } from "../components/collapsible-frame";
-
-const CONTACT_LABELS = ["work", "personal"] as const;
+import { CONTACT_LABELS } from "../constants/label-data";
 
 export const GeneralTab = withForm({
 	...cardFormOpts,
@@ -40,9 +39,11 @@ export const GeneralTab = withForm({
 						<FieldGroup className="flex-row gap-3">
 							<form.Field mode="array" name="emails">
 								{(field) => {
-									const nextEmailLabel =
+									const nextLabel =
 										CONTACT_LABELS[(field.state.value?.length ?? 0) % CONTACT_LABELS.length] ??
 										CONTACT_LABELS[0];
+									const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+									console.log("isInvalid", field.state.meta.errors);
 
 									return (
 										<div className="w-full space-y-2">
@@ -57,8 +58,10 @@ export const GeneralTab = withForm({
 													/>
 												);
 											})}
+
+											{isInvalid && <FieldError errors={field.state.meta.errors} />}
 											<Button
-												onClick={() => field.pushValue({ label: nextEmailLabel, email: "" })}
+												onClick={() => field.pushValue({ label: nextLabel.label, email: "" })}
 												type="button"
 												variant="link"
 											>
@@ -70,7 +73,7 @@ export const GeneralTab = withForm({
 							</form.Field>
 							<form.Field mode="array" name="phones">
 								{(field) => {
-									const nextPhoneLabel =
+									const nextLabel =
 										CONTACT_LABELS[(field.state.value?.length ?? 0) % CONTACT_LABELS.length] ??
 										CONTACT_LABELS[0];
 
@@ -88,7 +91,7 @@ export const GeneralTab = withForm({
 												);
 											})}
 											<Button
-												onClick={() => field.pushValue({ label: nextPhoneLabel, phone: "" })}
+												onClick={() => field.pushValue({ label: nextLabel.label, phone: "" })}
 												type="button"
 												variant="link"
 											>

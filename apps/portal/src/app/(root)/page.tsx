@@ -24,7 +24,7 @@ export default async function Page() {
 			},
 			headers: await headers(),
 		});
-		return redirect(`/${organization[0]?.slug}/cards`);
+		return redirect(`/${organization[0]?.id}/cards`);
 	}
 
 	return <div>Page</div>;

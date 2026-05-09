@@ -4,7 +4,7 @@ import { EllipsisIcon } from "lucide-react";
 
 import { Badge } from "@ziron/ui/components/badge";
 import { Button } from "@ziron/ui/components/button";
-import { Field, FieldLabel } from "@ziron/ui/components/field";
+import { Field, FieldError, FieldLabel } from "@ziron/ui/components/field";
 import { Group, GroupSeparator } from "@ziron/ui/components/group";
 import { Input } from "@ziron/ui/components/input";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@ziron/ui/components/input-group";
@@ -51,8 +51,10 @@ export const PhoneRow = withFieldGroup({
 					const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 					return (
 						<Field data-invalid={isInvalid}>
-							<FieldLabel className={cn(index !== 0 && "sr-only")}>Phone</FieldLabel>
-							<InputGroup aria-invalid={isInvalid}>
+							<FieldLabel className={cn(index !== 0 && "sr-only")} htmlFor={field.name}>
+								Phone
+							</FieldLabel>
+							<InputGroup aria-invalid={isInvalid} data-invalid={isInvalid}>
 								<InputGroupAddon align="inline-start">
 									<PhoneIcon className="text-muted-foreground" weight="fill" />
 								</InputGroupAddon>
@@ -82,7 +84,6 @@ export const PhoneRow = withFieldGroup({
 												<MenuSubPopup>
 													<group.AppField name="label">
 														{(subField) => {
-															console.log(subField);
 															return (
 																<MenuRadioGroup
 																	defaultValue="primary"
@@ -111,6 +112,8 @@ export const PhoneRow = withFieldGroup({
 									</Menu>
 								</InputGroupAddon>
 							</InputGroup>
+
+							{isInvalid && <FieldError errors={field.state.meta.errors} />}
 						</Field>
 					);
 				}}

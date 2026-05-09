@@ -212,7 +212,7 @@
 	--accent-foreground: var(--color-zinc-100);
 
 	--destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
-	--destructive-foreground: var(--color-red-100);
+	--destructive-foreground: var(--color-red-400);
 
 	--info: var(--color-blue-500);
 	--info-foreground: var(--color-blue-400);
@@ -325,6 +325,20 @@
 
 @utility container {
 	@apply mx-auto max-w-[1420px] px-4 lg:px-6;
+}
+
+@utility hide-scrollbar {
+	.hide-scrollbar {
+		/* For Firefox */
+		-ms-overflow-style: none;
+		/* For Firefox */
+		scrollbar-width: none;
+	}
+
+	/* For Chrome, Safari, and Opera */
+	.hide-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 .checkerboard {

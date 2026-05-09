@@ -1,41 +1,33 @@
-"use client";
-
-import { useRef } from "react";
-
 import { CaretRightIcon } from "@phosphor-icons/react/dist/ssr";
-import { StarIcon } from "lucide-react";
-
-import { MousePointerClickIcon, type MousePointerClickIconHandle } from "@ziron/ui/assets/icons/mouse";
-import { Button } from "@ziron/ui/components/button";
 
 import { BackButton } from "@/components/primitives/buttons/back-button";
 
-export const AppHeader = () => {
-	const ref = useRef<MousePointerClickIconHandle>(null);
+interface AppHeaderProps {
+	backLink?: string;
+	title: string;
+	subRoute?: string;
+	children?: React.ReactNode;
+	action?: React.ReactNode;
+}
+
+export const AppHeader = ({ backLink, title, children, subRoute, action }: AppHeaderProps) => {
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/80 py-2 backdrop-blur-xl">
 			<div className="container flex items-center justify-between gap-4">
-				<div className="flex items-center gap-3">
-					<BackButton href="/" />
-					<h1 className="font-semibold">Cards</h1>
-					<CaretRightIcon />
-					<span className="font-semibold">New Card</span>
+				<div className="flex flex-1 items-center gap-3">
+					{backLink && <BackButton href={backLink} />}
+					<h1 className="font-semibold">{title}</h1>
+					{subRoute && (
+						<>
+							<CaretRightIcon />
+							<span className="font-semibold">{subRoute}</span>
+						</>
+					)}
 
-					<Button size="icon" variant="ghost">
-						<StarIcon />
-					</Button>
+					{action}
 				</div>
 
-				<div>
-					<Button
-						onMouseEnter={() => ref.current?.startAnimation()}
-						onMouseLeave={() => ref.current?.stopAnimation()}
-						variant="outline"
-					>
-						<MousePointerClickIcon ref={ref} /> 11 clicks
-					</Button>
-					<Button variant="secondary">Share card</Button>
-				</div>
+				{children}
 			</div>
 		</header>
 	);

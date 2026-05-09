@@ -120,7 +120,7 @@ const TabsSubtle = forwardRef<HTMLDivElement, TabsSubtleProps>(
 			>
 				<div
 					className={cn(
-						"scrollbar-hide relative -my-1 flex max-w-full select-none items-center gap-0.5 overflow-x-auto py-1",
+						"no-scrollbar relative -my-1 flex max-w-full select-none items-center gap-0.5 py-1",
 						className
 					)}
 					onBlur={(e) => {
@@ -264,6 +264,7 @@ TabsSubtle.displayName = "TabsSubtle";
 interface TabsSubtleItemProps extends HTMLAttributes<HTMLButtonElement> {
 	icon?: IconComponent;
 	label: string;
+	href?: string;
 	index: number;
 }
 

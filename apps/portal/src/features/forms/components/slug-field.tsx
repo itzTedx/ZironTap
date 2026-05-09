@@ -1,6 +1,6 @@
-import { type ComponentProps, startTransition, useActionState, useEffect, useState } from "react";
+import { type ComponentProps, useState } from "react";
 
-import { CheckCircleIcon, CheckIcon, SpinnerIcon } from "@phosphor-icons/react/dist/ssr";
+import { CheckIcon } from "@phosphor-icons/react/dist/ssr";
 import { useStore } from "@tanstack/react-form-nextjs";
 import { EditIcon } from "lucide-react";
 
@@ -18,7 +18,6 @@ import { Field, FieldError, FieldLabel } from "@ziron/ui/components/field";
 import { Input } from "@ziron/ui/components/input";
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@ziron/ui/components/input-group";
 
-import { authClient } from "@/lib/auth/client";
 import { SHORT_DOMAIN } from "@/utils/constants";
 
 import { useFieldContext } from "../hooks/form-contexts";
@@ -30,40 +29,10 @@ interface SlugFieldProps extends ComponentProps<typeof Input> {
 
 export function SlugField({ label, placeholder, className, required, ...rest }: SlugFieldProps) {
 	const field = useFieldContext<string>();
-	const [debouncedValue, setDebouncedValue] = useState(field.state.value);
 	const [isEditMode, setIsEditMode] = useState(false);
 
 	const errors = useStore(field.store, (state) => state.meta.errors);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-
-	const [data, checkSlugAction, isPending] = useActionState(async (_: { status: boolean } | null, slug: string) => {
-		if (!slug) return null;
-		try {
-			const { data, error } = await authClient.organization.checkSlug({ slug });
-			if (error) return { status: false };
-			return data;
-		} catch {
-			return { status: false };
-		}
-	}, null);
-
-	const isAvailable = data === null ? null : data.status === true;
-
-	useEffect(() => {
-		const handler = setTimeout(() => {
-			setDebouncedValue(field.state.value);
-		}, 500);
-
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [field.state.value]);
-
-	useEffect(() => {
-		startTransition(() => {
-			checkSlugAction(debouncedValue);
-		});
-	}, [debouncedValue, checkSlugAction]);
 
 	const handleEditButton = () => {
 		setIsEditMode(!isEditMode);
@@ -93,11 +62,11 @@ export function SlugField({ label, placeholder, className, required, ...rest }: 
 					</CardAction>
 				</CardHeader>
 				<CardPanel className="px-3 pb-3">
-					<Field data-invalid={isInvalid || isAvailable === false}>
+					<Field data-invalid={isInvalid}>
 						<FieldLabel className="sr-only" htmlFor={field.name}>
 							Link
 						</FieldLabel>
-						<InputGroup aria-invalid={isInvalid || isAvailable === false}>
+						<InputGroup aria-invalid={isInvalid}>
 							<InputGroupInput
 								{...rest}
 								aria-label="Set your URL"
@@ -114,33 +83,12 @@ export function SlugField({ label, placeholder, className, required, ...rest }: 
 							<InputGroupAddon>
 								<InputGroupText>{SHORT_DOMAIN}/</InputGroupText>
 							</InputGroupAddon>
-							{isAvailable && (
-								<InputGroupAddon align="inline-end">
-									<InputGroupText>
-										<CheckCircleIcon className="text-success" weight="bold" />
-									</InputGroupText>
-								</InputGroupAddon>
-							)}
 						</InputGroup>
 					</Field>
 				</CardPanel>
 			</Card>
-			{(isInvalid || isPending || isAvailable === false) && (
-				<CardFrameFooter className="px-3 py-2">
-					{isInvalid && <FieldError errors={errors} />}
-					{isAvailable === false && !isInvalid && (
-						<p className="text-destructive text-xs">This link is already taken.</p>
-					)}
-					{isPending && (
-						<div className="flex w-full justify-between gap-1 text-foreground/80 text-xs">
-							<p>Checking availability...</p>
-							<SpinnerIcon className="size-4 shrink-0 animate-spin" weight="bold" />
-						</div>
-					)}
-					{/* {isAvailable === true && !isPending && !isInvalid && (
-                        <p className="text-success text-xs">This link is available!</p>
-                    )} */}
-				</CardFrameFooter>
+			{isInvalid && (
+				<CardFrameFooter className="px-3 py-2">{isInvalid && <FieldError errors={errors} />}</CardFrameFooter>
 			)}
 		</CardFrame>
 	);
