@@ -15,7 +15,7 @@ import PhoneMockup from "@/components/layout/preview/iphone";
 
 import { useAppForm } from "../forms/hooks/use-app-form";
 import { cardFormOpts } from "../forms/options/cards-form-opts";
-import { ActionBarDemo } from "./components/action-bar";
+import { CardActionBar } from "./components/action-bar";
 import { CollapsibleFrame } from "./components/collapsible-frame";
 import { AnalyticsTab } from "./tabs/analytics-tab";
 import { CustomizationTab } from "./tabs/customization-tab";
@@ -97,7 +97,7 @@ export const CardForm = () => {
 							<AnalyticsTab form={form} value="analytics" />
 						</Tabs>
 
-						<ActionBarDemo />
+						<CardActionBar form={form} />
 					</FieldGroup>
 				</ScrollArea>
 				<aside className="sticky top-14 h-[91svh]">

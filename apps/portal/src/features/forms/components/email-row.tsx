@@ -46,7 +46,7 @@ export const EmailRow = withFieldGroup({
 					const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 					return (
 						<Field data-invalid={isInvalid}>
-							<FieldLabel className={cn(index !== 0 && "sr-only")}>Phone</FieldLabel>
+							<FieldLabel className={cn(index !== 0 && "sr-only")}>Email</FieldLabel>
 							<InputGroup aria-invalid={isInvalid}>
 								<InputGroupAddon align="inline-start">
 									<EnvelopeSimpleIcon className="text-muted-foreground" weight="fill" />
@@ -58,7 +58,7 @@ export const EmailRow = withFieldGroup({
 									onBlur={field.handleBlur}
 									onChange={(e) => field.handleChange(e.target.value)}
 									placeholder="e.g. name@company.com"
-									type="tel"
+									type="email"
 									value={field.state.value}
 								/>
 								<InputGroupAddon align="inline-end">

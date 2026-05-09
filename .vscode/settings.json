@@ -27,6 +27,7 @@
 		"dotenv",
 		"ecommerce",
 		"latlng",
+		"maplibregl",
 		"nodemailer",
 		"oklch",
 		"orpc",

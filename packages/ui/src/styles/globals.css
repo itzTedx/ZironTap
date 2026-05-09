@@ -16,6 +16,8 @@
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 
+	--color-floating: var(--floating);
+
 	--font-sans: var(--font-sans);
 	--font-heading: var(--font-heading);
 	--font-mono: var(--font-mono);
@@ -123,6 +125,8 @@
 	--background: color-mix(in srgb, var(--color-zinc-100) 66%, var(--color-white));
 	--foreground: var(--color-zinc-800);
 
+	--floating: color-mix(in srgb, var(--color-zinc-600) 98%, var(--color-white));
+
 	--card: var(--color-white);
 	--card-foreground: var(--color-zinc-800);
 
@@ -184,6 +188,8 @@
 	--background: color-mix(in srgb, var(--color-zinc-950) 96%, var(--color-white));
 	--foreground: var(--color-zinc-100);
 
+	--floating: color-mix(in srgb, var(--color-zinc-900) 93%, var(--color-white));
+
 	--card: color-mix(in srgb, var(--background) 98%, var(--color-white));
 	--card-foreground: var(--color-zinc-100);
 
@@ -206,7 +212,7 @@
 	--accent-foreground: var(--color-zinc-100);
 
 	--destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
-	--destructive-foreground: var(--color-red-400);
+	--destructive-foreground: var(--color-red-100);
 
 	--info: var(--color-blue-500);
 	--info-foreground: var(--color-blue-400);
@@ -261,40 +267,40 @@
 		@apply hidden!;
 	}
 	.leaflet-container {
-		@apply !bg-card !font-[inherit];
+		@apply bg-card! font-[inherit]!;
 	}
 	.leaflet-container a {
-		@apply !text-inherit;
+		@apply text-inherit!;
 	}
 	.leaflet-div-icon {
-		@apply !bg-transparent !border-none;
+		@apply bg-transparent! border-none!;
 	}
 	.leaflet-popup-content-wrapper,
 	.leaflet-popup-content,
 	.leaflet-popup-content p {
-		@apply ![all:unset];
+		@apply [all:unset]!;
 	}
 	.leaflet-popup {
-		@apply !animate-none;
+		@apply animate-none!;
 	}
 	.leaflet-popup-close-button {
 		@apply ring-offset-background focus:ring-ring bg-secondary rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:outline-hidden;
 	}
 	.leaflet-tooltip,
 	.leaflet-draw-tooltip {
-		@apply !bg-foreground !text-background !animate-none !rounded-md !border-none !p-0 !px-3 !py-1.5 !shadow-none;
+		@apply bg-foreground! text-background! animate-none! rounded-md! border-none! p-0! px-3! py-1.5! shadow-none!;
 	}
 	.leaflet-draw-tooltip:before {
-		@apply bg-foreground !top-1/2 !right-0.5 size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] !border-none;
+		@apply bg-foreground top-1/2! right-0.5! size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] border-none!;
 	}
 	.leaflet-error-draw-tooltip {
-		@apply !bg-destructive !text-white;
+		@apply bg-destructive! text-white!;
 	}
 	.leaflet-error-draw-tooltip:before {
 		@apply bg-destructive;
 	}
 	.leaflet-draw-tooltip-subtext {
-		@apply !text-background;
+		@apply text-background!;
 	}
 	.leaflet-popup-tip-container,
 	.leaflet-tooltip-top:before,
@@ -304,13 +310,13 @@
 		@apply hidden;
 	}
 	.leaflet-control-attribution {
-		@apply !bg-muted rounded-md !px-[4px] !py-[2px] text-[10px] !leading-none !text-inherit;
+		@apply bg-muted! rounded-md px-[4px]! py-[2px]! text-[10px] leading-none! text-inherit!;
 	}
 	.leaflet-draw-guide-dash {
 		@apply rounded-full;
 	}
 	.leaflet-edit-marker-selected {
-		@apply !border-transparent !bg-transparent;
+		@apply border-transparent! bg-transparent!;
 	}
 	.marker-cluster div {
 		@apply font-[inherit];
@@ -318,7 +324,7 @@
 }
 
 @utility container {
-	@apply mx-auto max-w-[1416px] px-4 lg:px-6;
+	@apply mx-auto max-w-[1420px] px-4 lg:px-6;
 }
 
 .checkerboard {

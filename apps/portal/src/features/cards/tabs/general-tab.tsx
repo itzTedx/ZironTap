@@ -12,11 +12,14 @@ import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
 import { CollapsibleFrame } from "../components/collapsible-frame";
 
+const CONTACT_LABELS = ["work", "personal"] as const;
+
 export const GeneralTab = withForm({
 	...cardFormOpts,
 	props: {
 		value: "general",
 	},
+
 	render: ({ form, value }) => {
 		return (
 			<TabsPanel className="space-y-3" value={value}>
@@ -37,6 +40,10 @@ export const GeneralTab = withForm({
 						<FieldGroup className="flex-row gap-3">
 							<form.Field mode="array" name="emails">
 								{(field) => {
+									const nextEmailLabel =
+										CONTACT_LABELS[(field.state.value?.length ?? 0) % CONTACT_LABELS.length] ??
+										CONTACT_LABELS[0];
+
 									return (
 										<div className="w-full space-y-2">
 											{field.state.value?.map((data, i) => {
@@ -51,7 +58,7 @@ export const GeneralTab = withForm({
 												);
 											})}
 											<Button
-												onClick={() => field.pushValue({ label: "Work", email: "" })}
+												onClick={() => field.pushValue({ label: nextEmailLabel, email: "" })}
 												type="button"
 												variant="link"
 											>
@@ -63,6 +70,10 @@ export const GeneralTab = withForm({
 							</form.Field>
 							<form.Field mode="array" name="phones">
 								{(field) => {
+									const nextPhoneLabel =
+										CONTACT_LABELS[(field.state.value?.length ?? 0) % CONTACT_LABELS.length] ??
+										CONTACT_LABELS[0];
+
 									return (
 										<div className="w-full space-y-2">
 											{field.state.value?.map((data, i) => {
@@ -77,7 +88,7 @@ export const GeneralTab = withForm({
 												);
 											})}
 											<Button
-												onClick={() => field.pushValue({ label: "Work", phone: "" })}
+												onClick={() => field.pushValue({ label: nextPhoneLabel, phone: "" })}
 												type="button"
 												variant="link"
 											>

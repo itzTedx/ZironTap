@@ -22,7 +22,7 @@ export const emailContactSchema = z.object({
 export type EmailContact = z.infer<typeof emailContactSchema>;
 
 export const linkSchema = z.object({
-	order: z.number().min(1),
+	order: z.number().min(0),
 	label: z.string().min(1, "Link label is required.").max(64, "Link label must be 64 characters or less."),
 	url: urlSchema,
 });

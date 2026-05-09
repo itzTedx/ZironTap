@@ -1,4 +1,5 @@
 import { PhoneIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
+import { useStore } from "@tanstack/react-form-nextjs";
 import { EllipsisIcon } from "lucide-react";
 
 import { Badge } from "@ziron/ui/components/badge";
@@ -42,6 +43,8 @@ export const PhoneRow = withFieldGroup({
 	defaultValues: cardFormOpts.defaultValues.phones?.[0],
 	props: { onRemove: () => {}, index: 0 },
 	render: function EmailRowRender({ group, index, onRemove }) {
+		const label = useStore(group.store, (state) => state.values.label);
+
 		return (
 			<group.AppField name="phone">
 				{(field) => {
@@ -64,7 +67,9 @@ export const PhoneRow = withFieldGroup({
 									value={field.state.value}
 								/>
 								<InputGroupAddon align="inline-end">
-									<Badge variant="info">Primary</Badge>
+									<Badge className="capitalize" variant="info">
+										{label}
+									</Badge>
 									<Menu>
 										<MenuTrigger
 											render={<Button aria-label="Open menu" size="icon-xs" variant="ghost" />}
@@ -77,6 +82,7 @@ export const PhoneRow = withFieldGroup({
 												<MenuSubPopup>
 													<group.AppField name="label">
 														{(subField) => {
+															console.log(subField);
 															return (
 																<MenuRadioGroup
 																	defaultValue="primary"
