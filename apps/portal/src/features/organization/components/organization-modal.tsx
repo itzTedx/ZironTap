@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 import {
 	AlertDialog,
@@ -20,13 +20,16 @@ import {
 	DialogHeader,
 	DialogPopup,
 	DialogTitle,
-	DialogTrigger,
 } from "@ziron/ui/components/dialog";
 
 import { CreateOrganizationForm } from "./form/create-organization-form";
 
-export const OrganizationModal = () => {
-	const [dialogOpen, setDialogOpen] = useState(false);
+interface OrganizationModalProps extends React.ComponentProps<typeof Button> {
+	open: boolean;
+	setOpen: (o: boolean) => void;
+}
+
+export const OrganizationModal = ({ open, setOpen }: OrganizationModalProps) => {
 	const [confirmOpen, setConfirmOpen] = useState(false);
 	const [formHasValues, setFormHasValues] = useState(false);
 	const [formKey, setFormKey] = useState(0);
@@ -37,12 +40,13 @@ export const OrganizationModal = () => {
 				if (!o && formHasValues) {
 					setConfirmOpen(true);
 				} else {
-					setDialogOpen(o);
+					setOpen(o);
 				}
 			}}
-			open={dialogOpen}
+			open={open}
 		>
-			<DialogTrigger render={<Button variant="outline" />}>Compose</DialogTrigger>
+			{/* <DialogTrigger className={className} render={<Button {...rest} variant="ghost" />}>
+				{children}</DialogTrigger> */}
 			<DialogPopup showCloseButton={false}>
 				<DialogHeader className="border-b">
 					<DialogTitle>Create organization</DialogTitle>
@@ -55,11 +59,13 @@ export const OrganizationModal = () => {
 					onSubmit={() => {
 						setFormKey((k) => k + 1);
 						setFormHasValues(false);
-						setDialogOpen(false);
+						setOpen(false);
 					}}
 				>
-					<DialogFooter>
-						<DialogClose render={<Button className="w-full flex-1" variant="ghost" />}>Cancel</DialogClose>
+					<DialogFooter className="px-3 py-2.5">
+						<DialogClose render={<Button className="w-full flex-1" variant="secondary" />}>
+							Cancel
+						</DialogClose>
 						<Button className="w-full flex-1" type="submit">
 							Create organization
 						</Button>
@@ -81,7 +87,7 @@ export const OrganizationModal = () => {
 								setConfirmOpen(false);
 								setFormKey((k) => k + 1);
 								setFormHasValues(false);
-								setDialogOpen(false);
+								setOpen(false);
 							}}
 						>
 							Discard

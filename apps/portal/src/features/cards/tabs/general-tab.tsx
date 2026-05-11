@@ -11,6 +11,7 @@ import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
 import { CollapsibleFrame } from "../components/collapsible-frame";
+import { JOB_TITLES } from "../constants/job-titles";
 import { CONTACT_LABELS } from "../constants/label-data";
 
 export const GeneralTab = withForm({
@@ -124,7 +125,11 @@ export const GeneralTab = withForm({
 
 						<form.AppField name="jobTitle">
 							{(field) => (
-								<field.AutocompleteField label="Job Title" placeholder="e.g. Product Manager" />
+								<field.AutocompleteField
+									items={JOB_TITLES}
+									label="Job Title"
+									placeholder="e.g. Product Manager"
+								/>
 							)}
 						</form.AppField>
 					</FieldGroup>

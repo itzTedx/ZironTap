@@ -17,9 +17,10 @@ import { useFieldContext } from "../hooks/form-contexts";
 interface AutocompleteFieldProps extends ComponentProps<typeof AutocompleteInput> {
 	label: string;
 	className?: string;
+	items: readonly unknown[] | undefined;
 }
 
-export function AutocompleteField({ label, placeholder, className, required, ...rest }: AutocompleteFieldProps) {
+export function AutocompleteField({ label, placeholder, items, className, required, ...rest }: AutocompleteFieldProps) {
 	const field = useFieldContext<string>();
 
 	const errors = useStore(field.store, (state) => state.meta.errors);
@@ -31,11 +32,7 @@ export function AutocompleteField({ label, placeholder, className, required, ...
 				{label}
 				{required && <span className="font-medium text-brand-accent-foreground">*</span>}
 			</FieldLabel>
-			<Autocomplete
-				items={JOB_TITLES}
-				onValueChange={(value) => field.handleChange(value)}
-				value={field.state.value}
-			>
+			<Autocomplete items={items} onValueChange={(value) => field.handleChange(value)} value={field.state.value}>
 				<AutocompleteInput
 					{...rest}
 					aria-invalid={isInvalid}
@@ -60,61 +57,3 @@ export function AutocompleteField({ label, placeholder, className, required, ...
 		</Field>
 	);
 }
-
-const JOB_TITLES = [
-	{ label: "Software Engineer", value: "software-engineer" },
-	{ label: "Frontend Developer", value: "frontend-developer" },
-	{ label: "Backend Developer", value: "backend-developer" },
-	{ label: "Full Stack Developer", value: "full-stack-developer" },
-	{ label: "Web Developer", value: "web-developer" },
-	{ label: "Mobile App Developer", value: "mobile-app-developer" },
-	{ label: "DevOps Engineer", value: "devops-engineer" },
-	{ label: "Cloud Engineer", value: "cloud-engineer" },
-	{ label: "Data Engineer", value: "data-engineer" },
-	{ label: "Machine Learning Engineer", value: "machine-learning-engineer" },
-	{ label: "AI Engineer", value: "ai-engineer" },
-	{ label: "Cybersecurity Analyst", value: "cybersecurity-analyst" },
-	{ label: "QA Engineer", value: "qa-engineer" },
-	{ label: "System Administrator", value: "system-administrator" },
-
-	{ label: "UI Designer", value: "ui-designer" },
-	{ label: "UX Designer", value: "ux-designer" },
-	{ label: "UI/UX Designer", value: "ui-ux-designer" },
-	{ label: "Product Designer", value: "product-designer" },
-	{ label: "Graphic Designer", value: "graphic-designer" },
-	{ label: "Motion Designer", value: "motion-designer" },
-	{ label: "3D Artist", value: "3d-artist" },
-	{ label: "Animator", value: "animator" },
-	{ label: "Creative Director", value: "creative-director" },
-
-	{ label: "Product Manager", value: "product-manager" },
-	{ label: "Project Manager", value: "project-manager" },
-	{ label: "Business Analyst", value: "business-analyst" },
-	{ label: "Operations Manager", value: "operations-manager" },
-	{ label: "Marketing Manager", value: "marketing-manager" },
-	{ label: "Digital Marketing Specialist", value: "digital-marketing-specialist" },
-	{ label: "SEO Specialist", value: "seo-specialist" },
-	{ label: "Content Strategist", value: "content-strategist" },
-	{ label: "Social Media Manager", value: "social-media-manager" },
-
-	{ label: "Sales Executive", value: "sales-executive" },
-	{ label: "Account Manager", value: "account-manager" },
-	{ label: "Business Development Manager", value: "business-development-manager" },
-	{ label: "Customer Support Specialist", value: "customer-support-specialist" },
-	{ label: "Customer Success Manager", value: "customer-success-manager" },
-
-	{ label: "Accountant", value: "accountant" },
-	{ label: "Financial Analyst", value: "financial-analyst" },
-	{ label: "HR Manager", value: "hr-manager" },
-	{ label: "HR Executive", value: "hr-executive" },
-	{ label: "Office Administrator", value: "office-administrator" },
-	{ label: "Administrative Assistant", value: "administrative-assistant" },
-
-	{ label: "Civil Engineer", value: "civil-engineer" },
-	{ label: "Mechanical Engineer", value: "mechanical-engineer" },
-	{ label: "Electrical Engineer", value: "electrical-engineer" },
-	{ label: "Architect", value: "architect" },
-	{ label: "Technician", value: "technician" },
-	{ label: "Consultant", value: "consultant" },
-	{ label: "Teacher", value: "teacher" },
-];

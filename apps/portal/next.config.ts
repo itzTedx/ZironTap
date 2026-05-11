@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
 		// Enable filesystem caching for `next build`
 		turbopackFileSystemCacheForBuild: true,
 	},
+
+	images: {
+		remotePatterns: [
+			{
+				hostname: "ziron-qr-local.s3.ap-south-1.amazonaws.com",
+			},
+		],
+	},
 };
 
 export default nextConfig;

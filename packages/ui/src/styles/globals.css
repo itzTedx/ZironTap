@@ -208,8 +208,8 @@
 	--brand-accent: var(--violet-600);
 	--brand-accent-foreground: var(--violet-300);
 
-	--accent: --alpha(var(--color-white) / 4%);
-	--accent-foreground: var(--color-zinc-100);
+	--accent: --alpha(var(--color-white) / 8%);
+	--accent-foreground: var(--color-zinc-300);
 
 	--destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
 	--destructive-foreground: var(--color-red-400);

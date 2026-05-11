@@ -155,7 +155,7 @@ export const CreateOrganizationForm = ({
 										<Field data-invalid={isInvalid}>
 											<FieldLabel htmlFor={field.name}>Logo</FieldLabel>
 											<div className="flex items-center gap-4">
-												<div className="relative size-24 rounded-md bg-muted">
+												<div className="relative flex size-24 items-center justify-center overflow-hidden rounded-md bg-muted">
 													{logo ? (
 														<Image
 															alt="Organization Logo"
@@ -163,7 +163,14 @@ export const CreateOrganizationForm = ({
 															fill
 															src={logo}
 														/>
-													) : null}
+													) : (
+														<Image
+															alt="Organization Logo"
+															className="object-cover"
+															fill
+															src="/png/placeholder-organization.png"
+														/>
+													)}
 												</div>
 
 												<div className="space-y-1">
@@ -296,9 +303,8 @@ export const CreateOrganizationForm = ({
 										<FieldLabel htmlFor={field.name}>Address</FieldLabel>
 										<Badge variant="info">Optional</Badge>
 									</div>
-									<InputGroup>
+									<InputGroup aria-invalid={isInvalid}>
 										<InputGroupTextarea
-											aria-invalid={isInvalid}
 											className="min-h-24 resize-none"
 											id={field.name}
 											name={field.name}
