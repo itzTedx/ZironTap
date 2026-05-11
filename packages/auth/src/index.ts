@@ -160,6 +160,17 @@ export const auth = betterAuth({
 			membershipLimit: 100,
 			creatorRole: "owner",
 			defaultOrganizationIdField: "slug",
+			schema: {
+				organization: {
+					additionalFields: {
+						updatedAt: {
+							type: "date",
+							input: true,
+							required: true,
+						},
+					},
+				},
+			},
 		}),
 		// apiKey([
 		// 	{

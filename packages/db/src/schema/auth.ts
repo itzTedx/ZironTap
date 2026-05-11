@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { boolean, index, integer, pgTable, text, timestamp, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 
-import { id, timestamps } from "./columns";
+import { id, timestamps, updatedAt } from "./columns";
 
 export const users = pgTable(
 	"users",
@@ -100,6 +100,7 @@ export const organizations = pgTable(
 		slug: text("slug").notNull().unique(),
 		logo: text("logo"),
 		createdAt: timestamp("created_at").notNull(),
+		updatedAt: updatedAt(),
 		metadata: text("metadata"),
 	},
 	(table) => [uniqueIndex("organizations_slug_uidx").on(table.slug)]

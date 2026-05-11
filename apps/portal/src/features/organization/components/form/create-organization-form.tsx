@@ -99,9 +99,15 @@ export const CreateOrganizationForm = ({
 					logo: value.logo,
 					userId: session?.user?.id,
 					keepCurrentActiveOrganization: false,
+					metadata: {
+						website: value.website,
+						phone: value.phone,
+						email: value.email,
+						address: value.address,
+					},
 
 					fetchOptions: {
-						onSuccess: () => {
+						onSuccess: ({ data }) => {
 							onSubmit();
 							toastManager.add({
 								title: "Organization created successfully.",
@@ -110,7 +116,7 @@ export const CreateOrganizationForm = ({
 
 								timeout: 3000,
 							});
-							router.push("/");
+							router.push(`/${data.slug}/cards`);
 						},
 					},
 				});
