@@ -27,6 +27,7 @@
 		"@tanstack/react-form": "catalog:",
 		"@tanstack/react-form-nextjs": "catalog:",
 		"@tanstack/react-query": "catalog:",
+		"@tanstack/react-table": "catalog:",
 		"@ziron/api": "workspace:*",
 		"@ziron/auth": "workspace:*",
 		"@ziron/db": "workspace:*",

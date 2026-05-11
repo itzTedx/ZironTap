@@ -10,13 +10,14 @@ import { authClient } from "@/lib/auth/client";
 
 interface Props {
 	href: string;
+	root?: boolean;
 }
 
-export const BackButton = ({ href }: Props) => {
+export const BackButton = ({ href, root }: Props) => {
 	const { data: activeOrganization } = authClient.useActiveOrganization();
 	return (
 		<Button
-			render={<Link href={`/${activeOrganization?.slug}/${href}` as Route} />}
+			render={<Link href={root ? `${href}` : (`/${activeOrganization?.slug}/${href}` as Route)} />}
 			size="icon-sm"
 			variant="outline"
 		>

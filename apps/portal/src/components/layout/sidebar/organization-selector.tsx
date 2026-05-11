@@ -3,9 +3,10 @@
 import { useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { CaretDownIcon, PlusIcon } from "@phosphor-icons/react";
-import { GearIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, GearIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { Button } from "@ziron/ui/components/button";
 import {
@@ -109,6 +110,16 @@ export const OrganizationSelector = () => {
 										</MenuShortcut>
 									</MenuItem>
 								))}
+								<MenuItem className="am:min-h-auto gap-2">
+									<Button
+										className="h-6 w-full py-2"
+										render={<Link href="/organizations" />}
+										size="sm"
+										variant="link"
+									>
+										View all <ArrowRightIcon />
+									</Button>
+								</MenuItem>
 							</div>
 
 							<MenuItem
