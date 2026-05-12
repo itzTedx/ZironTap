@@ -9,12 +9,7 @@ import { withForm } from "@/features/forms/hooks/use-app-form";
 import { cardFormOpts } from "@/features/forms/options/cards-form-opts";
 
 import { CollapsibleFrame } from "../components/collapsible-frame";
-
-const items = [
-	{ label: "System", value: "system" },
-	{ label: "Light", value: "light" },
-	{ label: "Dark", value: "dark" },
-] as const;
+import { COLOR_MODE, TEMPLATES, THEME_PRESET } from "../constants/themes";
 
 export const CustomizationTab = withForm({
 	...cardFormOpts,
@@ -28,11 +23,11 @@ export const CustomizationTab = withForm({
 					<Fieldset className="gap-4">
 						<FieldsetLegend className="font-medium text-sm">Choose a theme</FieldsetLegend>
 						<RadioGroup className="flex-row gap-4" defaultValue="system">
-							{items.map((item) => (
+							{COLOR_MODE.map((item) => (
 								<div key={item.value}>
-									<FieldLabel className="cursor-pointer flex-col">
+									<FieldLabel className="cursor-pointer flex-col dark:has-data-checked:bg-transparent">
 										<Radio className="peer sr-only absolute" value={item.value} />
-										<span className="relative block h-[90px] w-auto overflow-hidden rounded-lg not-peer-data-checked:opacity-80 shadow-xs transition-shadow peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-64 peer-data-checked:ring-2 peer-data-checked:ring-brand-accent peer-data-checked:ring-offset-1 peer-data-checked:ring-offset-background">
+										<span className="relative block h-[90px] w-auto overflow-hidden rounded-lg not-peer-data-checked:opacity-80 shadow-xs transition-shadow peer-data-disabled:cursor-not-allowed peer-data-disabled:opacity-64 peer-data-checked:ring-2 peer-data-checked:ring-brand-accent peer-data-checked:ring-offset-1 peer-data-checked:ring-offset-background dark:has-data-checked:bg-transparent">
 											{themePreviews[item.value]}
 										</span>
 										<span className="not-peer-data-checked:text-muted-foreground/70">
@@ -48,14 +43,14 @@ export const CustomizationTab = withForm({
 					<form.AppField name="appearance.layout">
 						{(field) => (
 							<Fieldset className="gap-4">
-								<FieldsetLegend className="font-medium text-sm">Choose a theme</FieldsetLegend>
+								<FieldsetLegend className="sr-only">Choose a theme</FieldsetLegend>
 								<RadioGroup
 									className="flex-row gap-4"
 									defaultValue="system"
 									onValueChange={(v) => field.handleChange(v)}
 									value={field.state.value}
 								>
-									{items.map((item) => (
+									{TEMPLATES.map((item) => (
 										<div key={item.value}>
 											<FieldLabel className="cursor-pointer flex-col">
 												<Radio className="peer sr-only absolute" value={item.value} />
@@ -64,13 +59,82 @@ export const CustomizationTab = withForm({
 														alt="Default Theme Template"
 														height={370}
 														loading="lazy"
-														src="/templates/default.svg"
+														src={item.img}
 														width={180}
 													/>
 												</span>
 												<span className="not-peer-data-checked:text-muted-foreground/70">
 													{item.label}
 												</span>
+											</FieldLabel>
+										</div>
+									))}
+								</RadioGroup>
+							</Fieldset>
+						)}
+					</form.AppField>
+				</CollapsibleFrame>
+				<CollapsibleFrame className="space-y-3" title="Theme Preset">
+					<form.AppField name="appearance.layout">
+						{(field) => (
+							<Fieldset className="gap-4">
+								<FieldsetLegend className="sr-only font-medium text-sm">
+									Choose a preset theme form gallery
+								</FieldsetLegend>
+								<RadioGroup
+									className="grid grid-cols-3 gap-4"
+									defaultValue="system"
+									onValueChange={(v) => field.handleChange(v)}
+									value={field.state.value}
+								>
+									{THEME_PRESET.map((item) => (
+										<div className="w-full" key={item.value}>
+											<FieldLabel className="flex w-full items-start justify-between gap-2 rounded-lg border p-3 hover:bg-accent/50 has-data-checked:border-primary/48 has-data-checked:bg-accent/50">
+												<div className="flex items-center gap-3">
+													<Image
+														alt={item.description}
+														className="size-12 rounded-sm shadow-md"
+														height={48}
+														src={item.img}
+														width={48}
+													/>
+													<p>{item.label}</p>
+												</div>
+												<Radio value={item.value} />
+											</FieldLabel>
+										</div>
+									))}
+								</RadioGroup>
+							</Fieldset>
+						)}
+					</form.AppField>
+				</CollapsibleFrame>
+				<CollapsibleFrame className="space-y-3" defaultOpen={false} isToggle title="Custom Theme">
+					<form.AppField name="appearance.layout">
+						{(field) => (
+							<Fieldset className="gap-4">
+								<FieldsetLegend className="font-medium text-sm">Set your own card theme</FieldsetLegend>
+
+								<RadioGroup
+									className="grid grid-cols-3 gap-4"
+									defaultValue="system"
+									onValueChange={(v) => field.handleChange(v)}
+									value={field.state.value}
+								>
+									{THEME_PRESET.map((item) => (
+										<div className="w-full" key={item.value}>
+											<FieldLabel className="flex w-full items-start justify-between gap-2 rounded-lg border p-3 hover:bg-accent/50 has-data-checked:border-primary/48 has-data-checked:bg-accent/50">
+												<div className="flex items-center gap-3">
+													<Image
+														alt={item.description}
+														className="size-12 rounded-sm shadow-md"
+														height={48}
+														src={item.img}
+														width={48}
+													/>
+													<p>{item.label}</p>
+												</div>
+												<Radio value={item.value} />
 											</FieldLabel>
 										</div>
 									))}

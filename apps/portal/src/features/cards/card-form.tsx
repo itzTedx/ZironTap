@@ -24,7 +24,6 @@ import { CustomizationTab } from "./tabs/customization-tab";
 import { GeneralTab } from "./tabs/general-tab";
 import { LinksTab } from "./tabs/links-tab";
 import { ProfileHero } from "./tabs/profile-hero";
-import { SeoTab } from "./tabs/seo-tab";
 
 const TABS = [
 	{
@@ -113,7 +112,6 @@ export const CardForm = () => {
 						<GeneralTab form={form} value="general" />
 						<LinksTab form={form} value="links" />
 						<CustomizationTab form={form} value="customization" />
-						<SeoTab form={form} value="seo" />
 						<AnalyticsTab form={form} value="analytics" />
 					</Tabs>
 
