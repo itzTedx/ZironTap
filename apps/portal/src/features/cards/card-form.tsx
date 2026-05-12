@@ -18,7 +18,7 @@ import PhoneMockup from "@/components/layout/preview/iphone";
 import { useAppForm } from "../forms/hooks/use-app-form";
 import { cardFormOpts } from "../forms/options/cards-form-opts";
 import { CardActionBar } from "./components/action-bar";
-import { CollapsibleFrame } from "./components/collapsible-frame";
+import { Collapsible } from "./components/collapsible";
 import { AnalyticsTab } from "./tabs/analytics-tab";
 import { CustomizationTab } from "./tabs/customization-tab";
 import { GeneralTab } from "./tabs/general-tab";
@@ -118,36 +118,33 @@ export const CardForm = () => {
 					<CardActionBar form={form} />
 				</FieldGroup>
 			</ScrollArea>
-			<aside className="sticky top-14 h-[91svh]">
-				<ScrollArea>
-					<div className="m-4 h-full space-y-3 rounded-md border bg-muted">
-						<div className="sticky top-0 z-99 m-1 rounded-md bg-muted p-3 backdrop-blur-2xl">
-							<h3 className="mb-1 text-muted-foreground text-sm">Quick Action</h3>
-							<div className="flex flex-wrap items-center gap-2">
-								<Button variant="outline">Preview</Button>
+			<aside className="sticky top-16 m-4 h-fit rounded-md border bg-muted">
+				<div className="sticky top-1 z-99 m-1 rounded-md bg-muted p-3 backdrop-blur-2xl">
+					<h3 className="mb-1 text-muted-foreground text-sm">Quick Action</h3>
+					<div className="flex flex-wrap items-center gap-2">
+						<Button variant="outline">Preview</Button>
 
-								<form.AppForm>
-									<form.SubmitButton label="Create Card" />
-								</form.AppForm>
-							</div>
-						</div>
-
-						<CollapsibleFrame title="Properties">Status</CollapsibleFrame>
-
-						<JsonViewer data={data} defaultExpanded={2} rootName="form-data" />
-
-						<CollapsibleFrame className="flex items-center justify-center overflow-hidden" title="Preview">
-							<PhoneMockup>
-								<ScrollArea>
-									<div className="w-full p-4">
-										<p>Hello</p>
-									</div>
-								</ScrollArea>
-							</PhoneMockup>
-						</CollapsibleFrame>
-
-						<div className="mt-auto border-t p-3" />
+						<form.AppForm>
+							<form.SubmitButton label="Create Card" />
+						</form.AppForm>
 					</div>
+				</div>
+				<ScrollArea className="h-[83svh] flex-1 overflow-hidden" scrollFade>
+					<Collapsible title="Properties">Status</Collapsible>
+					<Collapsible title="Form Data">
+						<JsonViewer data={data} defaultExpanded={2} rootName="form-data" />
+					</Collapsible>
+					<Collapsible className="flex items-center justify-center overflow-hidden" title="Preview">
+						<PhoneMockup>
+							<ScrollArea>
+								<div className="w-full p-4">
+									<p>Hello</p>
+								</div>
+							</ScrollArea>
+						</PhoneMockup>
+					</Collapsible>
+
+					<div className="mt-auto border-t p-3" />
 				</ScrollArea>
 			</aside>
 		</form>
