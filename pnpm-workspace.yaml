@@ -76,3 +76,13 @@ catalogs:
     react-dom: 19.2.6
 
 cleanupUnusedCatalogs: true
+
+ignoredBuiltDependencies:
+  - '@prisma/engines'
+  - core-js-pure
+  - prisma
+
+onlyBuiltDependencies:
+  - esbuild
+  - msw
+  - sharp

@@ -65,6 +65,7 @@ CREATE TABLE "organizations" (
 	"slug" text NOT NULL,
 	"logo" text,
 	"created_at" timestamp NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"metadata" text,
 	CONSTRAINT "organizations_slug_unique" UNIQUE("slug")
 );

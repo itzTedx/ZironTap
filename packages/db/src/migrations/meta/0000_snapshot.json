@@ -1,5 +1,5 @@
 {
-	"id": "705405d1-745f-4f41-87c1-a4e14d9ff860",
+	"id": "9e97abdf-4f54-4c8e-bca4-fabd253e83b0",
 	"prevId": "00000000-0000-0000-0000-000000000000",
 	"version": "7",
 	"dialect": "postgresql",
@@ -572,6 +572,13 @@
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": true
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp with time zone",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
 				},
 				"metadata": {
 					"name": "metadata",

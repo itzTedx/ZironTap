@@ -1,10 +1,12 @@
 {
 	"name": "zirontap-v3",
 	"version": "0.0.1",
+	"description": "Customer facing ",
 	"private": true,
 	"workspaces": ["apps/*", "packages/*", "tooling/*"],
 	"scripts": {
 		"dev": "turbo dev",
+		"dev:shop": "pnpm -F shop dev",
 		"build": "turbo build",
 		"lint": "turbo lint",
 		"format": "turbo format",
