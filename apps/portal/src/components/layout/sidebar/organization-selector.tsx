@@ -33,12 +33,15 @@ export const OrganizationSelector = () => {
 	}
 	if (error || !data) {
 		return (
-			<div className="rounded-lg border border-dashed p-4 text-sm">
-				<p className="font-medium">No active organization</p>
-				<p className="mt-1 text-muted-foreground">
-					Create an organization or set one as active to see it here.
-				</p>
-			</div>
+			<>
+				<div className="rounded-lg border border-dashed p-4 text-sm">
+					<p className="font-medium">No active organization</p>
+					<p className="mt-1 text-muted-foreground">
+						Create an organization or set one as active to see it here.
+					</p>
+				</div>
+				<OrganizationModal className="w-full" open={open} setOpen={setOpen} size="lg" />
+			</>
 		);
 	}
 

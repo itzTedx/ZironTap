@@ -163,9 +163,10 @@ export const auth = betterAuth({
 			schema: {
 				organization: {
 					additionalFields: {
+						// DB column exists; do not require it on the create request body.
 						updatedAt: {
 							type: "date",
-							input: true,
+							input: false,
 							required: true,
 						},
 					},

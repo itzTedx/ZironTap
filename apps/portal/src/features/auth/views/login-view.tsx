@@ -16,7 +16,7 @@ export const LoginView = ({ showResetSuccess }: LoginViewProps) => {
 			footer={
 				<Link className="group" href="/register">
 					Don’t have an account?{" "}
-					<span className="underline underline-offset-2 group-hover:no-underline">Sign up</span>
+					<span className="text-brand-400 underline underline-offset-2 group-hover:no-underline">Sign up</span>
 				</Link>
 			}
 			title="Sign in to Zirontap"

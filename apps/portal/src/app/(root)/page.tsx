@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@ziron/auth";
 
 import { isLoggedIn } from "@/features/auth/lib/api";
+import { OrganizationModal } from "@/features/organization/components/organization-modal";
 
 export default async function Page() {
 	const loggedIn = await isLoggedIn();
@@ -24,8 +25,13 @@ export default async function Page() {
 			},
 			headers: await headers(),
 		});
-		return redirect(`/${organization[0]?.id}/cards`);
+
+		if (organization[0]?.slug) {
+			return redirect(`/${organization[0]?.slug}/cards`);
+		}
 	}
 
-	return <div>Page</div>;
+	if (organization.length === 0) {
+		return <OrganizationModal />;
+	}
 }

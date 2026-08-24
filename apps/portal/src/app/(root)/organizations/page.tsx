@@ -2,7 +2,6 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { PlusIcon } from "@phosphor-icons/react/dist/ssr";
-import { organization } from "better-auth/plugins";
 
 import { Button } from "@ziron/ui/components/button";
 
@@ -20,11 +19,11 @@ export default async function OrganizationsPage() {
 		redirect("/login");
 	}
 
-	const _organization = await auth.api.listOrganizations({
+	const organizations = await auth.api.listOrganizations({
 		headers: await headers(),
 	});
 
-	console.log(organization);
+	console.log(organizations);
 
 	return (
 		<>
@@ -38,7 +37,7 @@ export default async function OrganizationsPage() {
 			</AppHeader>
 
 			<section className="container mt-4">
-				<OrganizationsTable />
+				<OrganizationsTable data={organizations} />
 			</section>
 		</>
 	);

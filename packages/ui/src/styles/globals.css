@@ -206,7 +206,7 @@
 	--secondary-foreground: var(--color-zinc-100);
 
 	--muted: --alpha(var(--color-white) / 4%);
-	--muted-foreground: color-mix(in srgb, var(--color-zinc-500) 90%, var(--color-white));
+	--muted-foreground: color-mix(in srgb, var(--color-zinc-500) 75%, var(--color-white));
 
 	--brand-accent: var(--violet-600);
 	--brand-accent-foreground: var(--violet-300);

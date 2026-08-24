@@ -21,7 +21,7 @@ export const AuthCard = ({ children, title, description, footer }: Props) => {
 	return (
 		<CardFrame className="w-full max-w-md">
 			<Card>
-				<CardHeader className="p-9">
+				<CardHeader className="p-9 text-center">
 					<CardTitle>{title}</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>
@@ -29,7 +29,7 @@ export const AuthCard = ({ children, title, description, footer }: Props) => {
 			</Card>
 			{footer && (
 				<CardFrameFooter className="px-9">
-					<div className="flex items-center justify-center gap-1">{footer}</div>
+					<div className="flex items-center justify-center gap-1 text-sm">{footer}</div>
 				</CardFrameFooter>
 			)}
 		</CardFrame>

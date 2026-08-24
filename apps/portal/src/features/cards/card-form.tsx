@@ -192,7 +192,7 @@ export const CardForm = () => {
 							<QRCode
 								className="relative flex items-center justify-center gap-6 overflow-hidden rounded-md border bg-background p-6"
 								size={120}
-								value="https://zironpro.ae"
+								value="https://zirontap.to"
 							>
 								<div
 									className="pointer-events-none absolute inset-0 h-full w-full animate-mask-pan bg-repeat"

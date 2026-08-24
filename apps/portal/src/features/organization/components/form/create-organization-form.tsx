@@ -19,7 +19,7 @@ import { type CreateOrganizationType, createOrganizationSchema } from "@ziron/va
 
 import { UploadButton } from "@/components/upload/upload-button";
 
-import { authClient, useSession } from "@/lib/auth/client";
+import { authClient } from "@/lib/auth/client";
 import { UPLOAD_ROUTES } from "@/lib/constants/upload";
 
 /** Ignores placeholder entries TanStack Form can add to `meta.errors` after blur when no real validator ran. */
@@ -72,7 +72,6 @@ export const CreateOrganizationForm = ({
 	onSubmit: () => void;
 	onHasValuesChange?: (has: boolean) => void;
 }) => {
-	const { data: session } = useSession();
 	const [, startTransition] = useTransition();
 	const router = useRouter();
 	const defaultValues: CreateOrganizationType = {
@@ -97,7 +96,6 @@ export const CreateOrganizationForm = ({
 					name: value.name, // required
 					slug: slugify(value.name), // required
 					logo: value.logo,
-					userId: session?.user?.id,
 					keepCurrentActiveOrganization: false,
 					metadata: {
 						website: value.website,
@@ -117,6 +115,14 @@ export const CreateOrganizationForm = ({
 								timeout: 3000,
 							});
 							router.push(`/${data.slug}/cards`);
+						},
+						onError: ({ error }) => {
+							toastManager.add({
+								title: "Could not create organization",
+								description: error.message ?? "Please try again.",
+								type: "error",
+								timeout: 4000,
+							});
 						},
 					},
 				});

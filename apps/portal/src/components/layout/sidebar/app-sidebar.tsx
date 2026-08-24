@@ -111,7 +111,7 @@ export function AppSidebar() {
 									<CardPlusIcon className="size-5" />
 									New card
 								</span>
-								<KbdGroup>
+								<KbdGroup className="text-xs">
 									<Kbd>Ctrl</Kbd>
 									<Kbd>O</Kbd>
 								</KbdGroup>

@@ -12,6 +12,7 @@ import { Button } from "@ziron/ui/components/button";
 import { Checkbox } from "@ziron/ui/components/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@ziron/ui/components/field";
 import { Input } from "@ziron/ui/components/input";
+import { LoadingSwap } from "@ziron/ui/components/loading-swap";
 import { Separator } from "@ziron/ui/components/separator";
 import { toastManager } from "@ziron/ui/components/toast";
 
@@ -101,7 +102,7 @@ export const LoginForm = () => {
 					)}
 				</Button>
 			</div>
-			<div className="flex items-center gap-6">
+			<div className="flex items-center gap-6 text-muted-foreground">
 				<Separator className="flex-1" /> or <Separator className="flex-1" />
 			</div>
 			<form
@@ -165,7 +166,7 @@ export const LoginForm = () => {
 				</FieldGroup>
 
 				<Button className="relative w-full" disabled={isPending} form="login-form" type="submit">
-					{isPending ? "Logging in..." : "Login"}
+					<LoadingSwap isLoading={isPending}>Login</LoadingSwap>
 					{lastMethod === "email" && (
 						<Badge className="absolute -top-2 -right-2" size="sm" variant="outline">
 							Last used
@@ -185,7 +186,9 @@ export const LoginForm = () => {
 							}}
 						/>
 					</Field>
-					<Link href="/forgot-password">Forgot password?</Link>
+					<Link className="text-brand-400 text-sm hover:underline" href="/forgot-password">
+						Forgot password?
+					</Link>
 				</div>
 				<PasskeyButton className="mx-auto h-auto w-full max-w-full" />
 			</form>

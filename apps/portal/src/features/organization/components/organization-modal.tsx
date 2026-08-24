@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { useParams } from "next/navigation";
 
 import {
 	AlertDialog,
@@ -25,14 +27,21 @@ import {
 import { CreateOrganizationForm } from "./form/create-organization-form";
 
 interface OrganizationModalProps extends React.ComponentProps<typeof Button> {
-	open: boolean;
-	setOpen: (o: boolean) => void;
+	open?: boolean;
+	setOpen?: (o: boolean) => void;
 }
 
 export const OrganizationModal = ({ open, setOpen }: OrganizationModalProps) => {
 	const [confirmOpen, setConfirmOpen] = useState(false);
 	const [formHasValues, setFormHasValues] = useState(false);
 	const [formKey, setFormKey] = useState(0);
+	const params = useParams<{ orgId?: string }>();
+
+	useEffect(() => {
+		if (!params.orgId) {
+			setOpen?.(true);
+		}
+	}, [params.orgId, setOpen]);
 
 	return (
 		<Dialog
@@ -40,7 +49,7 @@ export const OrganizationModal = ({ open, setOpen }: OrganizationModalProps) => 
 				if (!o && formHasValues) {
 					setConfirmOpen(true);
 				} else {
-					setOpen(o);
+					setOpen?.(o);
 				}
 			}}
 			open={open}
@@ -59,7 +68,7 @@ export const OrganizationModal = ({ open, setOpen }: OrganizationModalProps) => 
 					onSubmit={() => {
 						setFormKey((k) => k + 1);
 						setFormHasValues(false);
-						setOpen(false);
+						setOpen?.(false);
 					}}
 				>
 					<DialogFooter className="px-3 py-2.5">
@@ -87,7 +96,7 @@ export const OrganizationModal = ({ open, setOpen }: OrganizationModalProps) => 
 								setConfirmOpen(false);
 								setFormKey((k) => k + 1);
 								setFormHasValues(false);
-								setOpen(false);
+								setOpen?.(false);
 							}}
 						>
 							Discard
