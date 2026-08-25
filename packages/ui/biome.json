@@ -1,9 +1,4 @@
 {
 	"root": false,
-	"extends": "//",
-	"linter": {
-		"domains": {
-			"react": "recommended"
-		}
-	}
+	"extends": ["@ziron/biome/react"]
 }

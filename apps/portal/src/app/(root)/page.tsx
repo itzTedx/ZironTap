@@ -32,6 +32,7 @@ export default async function Page() {
 	}
 
 	if (organization.length === 0) {
+		console.log("[DEBUG]:No organization found")
 		return <OrganizationModal />;
 	}
 }

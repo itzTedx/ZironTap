@@ -10,8 +10,8 @@
 		"build": "tsc"
 	},
 	"dependencies": {
-		"@t3-oss/env-core": "^0.13.10",
-		"@t3-oss/env-nextjs": "^0.13.10",
+		"@t3-oss/env-core": "catalog:",
+		"@t3-oss/env-nextjs": "catalog:",
 		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},

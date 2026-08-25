@@ -1,41 +1,50 @@
-"use client"
+"use client";
 
-import { flexRender, useTable, type ColumnDef, type RowData } from "@tanstack/react-table"
+import { useState } from "react";
 
 import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@ziron/ui/components/table"
+	flexRender,
+	getCoreRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	type SortingState,
+	useReactTable,
+} from "@tanstack/react-table";
+import type { Organization } from "better-auth/client";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
-import { features, type DataTableFeatures } from "./features"
-import { CardFrame } from "@ziron/ui/components/card"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import { CardFrame } from "@ziron/ui/components/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ziron/ui/components/table";
 
-interface DataTableProps<TData extends RowData> {
-	columns: ColumnDef<DataTableFeatures, TData>[]
-	data: TData[]
-}
+import { columns } from "./columns";
 
-export function OrganizationsTable<TData extends RowData>({
-	columns,
-	data,
-}: DataTableProps<TData>) {
-	const table = useTable({
-		features,
-		data,
+export function OrganizationsTable({ data }: { data: Organization[] }) {
+	const [sorting, setSorting] = useState<SortingState>([
+		{
+			desc: false,
+			id: "createdAt",
+		},
+	]);
+
+	const table = useReactTable({
 		columns,
-	})
+		data,
+		enableSortingRemoval: false,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		onSortingChange: setSorting,
+		state: {
+			sorting,
+		},
+	});
 
 	return (
 		<CardFrame className="w-full">
 			<Table className="table-fixed" variant="card">
 				<TableHeader>
 					{table.getHeaderGroups().map((headerGroup) => (
-						<TableRow key={headerGroup.id}>
+						<TableRow className="hover:bg-transparent" key={headerGroup.id}>
 							{headerGroup.headers.map((header) => {
 								const columnSize = header.column.getSize();
 								return (
@@ -76,28 +85,25 @@ export function OrganizationsTable<TData extends RowData>({
 											flexRender(header.column.columnDef.header, header.getContext())
 										)}
 									</TableHead>
-								)
+								);
 							})}
 						</TableRow>
 					))}
 				</TableHeader>
 				<TableBody>
-					{table.getRowModel().rows?.length ? (
+					{table.getRowModel().rows.length ? (
 						table.getRowModel().rows.map((row) => (
-							<TableRow className="group"
-								key={row.id}
-								data-state={row.getIsSelected() && "selected"}
-							>
+							<TableRow data-state={row.getIsSelected() ? "selected" : undefined} key={row.id}>
 								{row.getVisibleCells().map((cell) => (
 									<TableCell key={cell.id}>
-										<table.FlexRender cell={cell} />
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									</TableCell>
 								))}
 							</TableRow>
 						))
 					) : (
-						<TableRow className="group">
-							<TableCell colSpan={columns.length} className="h-24 text-center">
+						<TableRow>
+							<TableCell className="h-24 text-center" colSpan={columns.length}>
 								No results.
 							</TableCell>
 						</TableRow>
@@ -105,5 +111,5 @@ export function OrganizationsTable<TData extends RowData>({
 				</TableBody>
 			</Table>
 		</CardFrame>
-	)
+	);
 }

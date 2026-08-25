@@ -3,26 +3,30 @@
 	"version": "0.1.0",
 	"description": "ZironTap Shop: the ecommerce frontend for ZironTap. Manages product listings, checkout, and order management for templates, themes, and media.",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev -p 3001",
 		"build": "next build",
-		"start": "next dev -p 3001",
-		"lint": "biome check",
-		"format": "biome format --write"
+		"start": "next start -p 3001",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"next": "catalog:",
-		"react": "19.2.4",
-		"react-dom": "19.2.4"
+		"react": "catalog:react19",
+		"react-dom": "catalog:react19"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"tailwindcss": "^4",
+		"@tailwindcss/postcss": "catalog:",
+		"@types/node": "catalog:",
+		"@types/react": "catalog:react19",
+		"@types/react-dom": "catalog:react19",
+		"@ziron/biome": "workspace:*",
+		"@ziron/typescript-config": "workspace:*",
 		"babel-plugin-react-compiler": "catalog:",
+		"tailwindcss": "catalog:",
 		"typescript": "catalog:"
 	}
 }

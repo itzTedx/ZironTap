@@ -62,7 +62,7 @@ function IconProvider({ children, defaultLibrary = "lucide" }: { children: React
 			e.preventDefault();
 			setIconLibraryState((prev) => {
 				const idx = iconLibraryOrder.indexOf(prev);
-				return iconLibraryOrder[(idx + 1) % iconLibraryOrder.length];
+				return iconLibraryOrder[(idx + 1) % iconLibraryOrder.length] ?? "lucide";
 			});
 		};
 		document.addEventListener("keydown", onKeyDown);

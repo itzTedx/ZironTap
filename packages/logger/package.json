@@ -11,7 +11,7 @@
 	},
 	"dependencies": {
 		"@ziron/env": "workspace:*",
-		"winston": "^3.14.2"
+		"winston": "catalog:"
 	},
 	"devDependencies": {
 		"@ziron/typescript-config": "workspace:*",

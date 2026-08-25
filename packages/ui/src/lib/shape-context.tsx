@@ -83,7 +83,7 @@ function ShapeProvider({ children, defaultShape = "pill" }: { children: ReactNod
 			transitionShape(() => {
 				setShapeState((prev) => {
 					const idx = shapeOrder.indexOf(prev);
-					return shapeOrder[(idx + 1) % shapeOrder.length];
+					return shapeOrder[(idx + 1) % shapeOrder.length] ?? "pill";
 				});
 			});
 		};

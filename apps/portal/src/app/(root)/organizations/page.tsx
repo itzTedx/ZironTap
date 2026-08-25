@@ -11,6 +11,7 @@ import { AppHeader } from "@/components/layout/header/app-header";
 
 import { isLoggedIn } from "@/features/auth/lib/api";
 import { OrganizationsTable } from "@/features/organization/components/table";
+import { columns } from "@/features/organization/components/table/columns";
 
 export default async function OrganizationsPage() {
 	const loggedIn = await isLoggedIn();
@@ -37,7 +38,7 @@ export default async function OrganizationsPage() {
 			</AppHeader>
 
 			<section className="container mt-4">
-				<OrganizationsTable data={organizations} />
+				<OrganizationsTable data={organizations} columns={columns} />
 			</section>
 		</>
 	);

@@ -48,6 +48,20 @@ export const auth = betterAuth({
 			const redisKey = namespacedKey(AUTH_PREFIX, key);
 			await redis.del(redisKey);
 		},
+		async getAndDelete(key: string) {
+			const redis = getCacheClient();
+			const redisKey = namespacedKey(AUTH_PREFIX, key);
+			const val = await redis.get(redisKey);
+			if (val !== null) {
+				await redis.del(redisKey);
+			}
+			return val;
+		},
+		async increment(key: string, amount?: number) {
+			const redis = getCacheClient();
+			const redisKey = namespacedKey(AUTH_PREFIX, key);
+			return redis.incrBy(redisKey, amount ?? 1);
+		},
 	},
 
 	//Rate limiting.
@@ -68,9 +82,7 @@ export const auth = betterAuth({
 		},
 		apple: {
 			clientId: env.APPLE_CLIENT_ID,
-			teamId: env.APPLE_TEAM_ID,
-			keyId: env.APPLE_KEY_ID,
-			privateKey: env.APPLE_PRIVATE_KEY,
+			clientSecret: env.APPLE_PRIVATE_KEY,
 		},
 	},
 

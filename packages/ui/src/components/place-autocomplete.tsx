@@ -66,7 +66,7 @@ interface PlaceSearchOptions {
 
 interface PlaceAutocompleteProps
 	extends Omit<PlaceSearchOptions, "query">,
-		Omit<React.ComponentProps<"input">, "value" | "onChange"> {
+	Omit<React.ComponentProps<"input">, "value" | "onChange"> {
 	debounceMs?: number;
 	value?: string;
 	defaultValue?: string;

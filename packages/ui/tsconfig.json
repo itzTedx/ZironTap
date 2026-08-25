@@ -1,7 +1,6 @@
 {
 	"extends": "@ziron/typescript-config/react-library.json",
 	"compilerOptions": {
-		"baseUrl": ".",
 		"paths": {
 			"@ziron/ui/*": ["./src/*"]
 		}

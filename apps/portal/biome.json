@@ -1,4 +1,4 @@
 {
 	"root": false,
-	"extends": ["@ziron/biome/base"]
+	"extends": ["@ziron/biome/nextjs"]
 }

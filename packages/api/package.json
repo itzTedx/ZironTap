@@ -10,16 +10,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@orpc/client": "^1.13.6",
-		"@orpc/openapi": "^1.13.6",
-		"@orpc/server": "^1.13.6",
-		"@orpc/zod": "^1.13.6",
+		"@orpc/client": "catalog:",
+		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
+		"@orpc/zod": "catalog:",
 		"@ziron/auth": "workspace:*",
 		"@ziron/db": "workspace:*",
 		"@ziron/env": "workspace:*",
 		"@ziron/validators": "workspace:*",
 		"next": "catalog:",
-		"react": "catalog:",
+		"react": "catalog:react19",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

@@ -10,7 +10,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@redis/client": "^5.11.0",
+		"@redis/client": "catalog:",
 		"@ziron/env": "workspace:*"
 	},
 	"devDependencies": {

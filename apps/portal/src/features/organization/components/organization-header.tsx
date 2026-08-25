@@ -7,7 +7,7 @@ interface OrganizationHeaderProps {
 	metadata?: string;
 }
 
-export const OrganizationHeader = ({ logo, name, id, metadata }: OrganizationHeaderProps) => {
+export const OrganizationHeader = ({ logo, name, id: _id, metadata }: OrganizationHeaderProps) => {
 	const data = JSON.parse(metadata!);
 
 	return (

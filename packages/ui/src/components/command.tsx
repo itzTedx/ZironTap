@@ -77,9 +77,21 @@ function CommandDialogPopup({ className, children, ...props }: CommandDialogPrim
 function Command({
 	autoHighlight = "always",
 	keepHighlight = true,
+	className,
+	loop: _loop,
+	shouldFilter: _shouldFilter,
+	children,
 	...props
-}: React.ComponentProps<typeof Autocomplete>) {
-	return <Autocomplete autoHighlight={autoHighlight} inline keepHighlight={keepHighlight} open {...props} />;
+}: React.ComponentProps<typeof Autocomplete> & {
+	className?: string;
+	loop?: boolean;
+	shouldFilter?: boolean;
+}) {
+	return (
+		<Autocomplete autoHighlight={autoHighlight} inline keepHighlight={keepHighlight} open {...props}>
+			{className ? <div className={className}>{children}</div> : children}
+		</Autocomplete>
+	);
 }
 
 function CommandInput({

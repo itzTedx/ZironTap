@@ -12,7 +12,7 @@ export const AnalyticsTab = withForm({
 	props: {
 		value: "analytics",
 	},
-	render: ({ form, value }) => {
+	render: ({ form: _form, value }) => {
 		return (
 			<TabsPanel className="space-y-3" value={value}>
 				<Empty>

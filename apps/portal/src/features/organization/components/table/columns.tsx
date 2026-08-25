@@ -1,50 +1,23 @@
-"use client";
+"use client"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@ziron/ui/components/avatar";
+import { createColumnHelper } from "@tanstack/react-table"
 import Link from "next/link";
-
-import { DotsThreeIcon } from "@phosphor-icons/react/dist/ssr";
-import type { ColumnDef } from "@tanstack/react-table";
-import type { Organization } from "better-auth/client";
+import type { Organization } from "better-auth/plugins"
+import { MoreHorizontal } from "lucide-react";
 
 import { IconDipArrowRight } from "@ziron/ui/assets/icons/arrow";
-import { Avatar, AvatarFallback, AvatarImage } from "@ziron/ui/components/avatar";
-import { Button } from "@ziron/ui/components/button";
-import { Checkbox } from "@ziron/ui/components/checkbox";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@ziron/ui/components/dropdown-menu";
 
-export const columns: ColumnDef<Organization>[] = [
-	{
-		cell: ({ row }) => (
-			<Checkbox
-				aria-label="Select row"
-				checked={row.getIsSelected()}
-				onCheckedChange={(value) => row.toggleSelected(!!value)}
-			/>
-		),
-		enableSorting: false,
-		header: ({ table }) => {
-			const isAllSelected = table.getIsAllPageRowsSelected();
-			const isSomeSelected = table.getIsSomePageRowsSelected();
-			return (
-				<Checkbox
-					aria-label="Select all rows"
-					checked={isAllSelected}
-					indeterminate={isSomeSelected && !isAllSelected}
-					onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-				/>
-			);
-		},
-		id: "select",
-		size: 20,
-	},
-	{
-		accessorKey: "name",
+import { Button } from "@ziron/ui/components/button";
+import { type DataTableFeatures } from "./features"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuLinkItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@ziron/ui/components/menu";
+
+const columnHelper = createColumnHelper<DataTableFeatures, Organization>()
+
+export const columns = columnHelper.columns([
+	columnHelper.accessor("name", {
+		header: "Name",
+		size: 200,
 		cell: ({ row }) => {
 			const metadata = JSON.parse(row.original.metadata);
 			return (
@@ -67,26 +40,22 @@ export const columns: ColumnDef<Organization>[] = [
 				</div>
 			);
 		},
-		header: "Name",
-		size: 220,
-	},
-
-	{
-		accessorKey: "id",
+	}),
+	columnHelper.accessor("id", {
 		header: "ID",
 		size: 220,
-	},
-	{
-		accessorKey: "cards",
+	}),
+	columnHelper.accessor("metadata.cardsCount", {
 		header: "Cards",
+		maxSize: 60,
 		cell: ({ row }) => {
 			const metadata = JSON.parse(row.original.metadata);
 
 			return <p>{metadata.cardsCount}</p>;
 		},
-	},
-	{
-		accessorKey: "createdAt",
+	}),
+	columnHelper.accessor("createdAt", {
+		header: "Created",
 		cell: ({ row }) => {
 			const createdAt = row.original.createdAt;
 			const date = createdAt instanceof Date ? createdAt : new Date(createdAt);
@@ -100,48 +69,37 @@ export const columns: ColumnDef<Organization>[] = [
 				</div>
 			);
 		},
-		header: "Created",
-		size: 140,
-	},
-	{
-		accessorKey: "actions",
-		enableSorting: false,
-		enableHiding: false,
+	}),
+	columnHelper.display({
+		id: "actions",
+		size: 30,
 		cell: ({ row }) => {
-			const organization = row.original;
+			const payment = row.original
 
 			return (
-				<div className="flex justify-end">
-					<DropdownMenu>
-						<DropdownMenuTrigger
-							render={() => (
-								<Button
-									className="size-8 opacity-0 transition-opacity group-hover:opacity-100"
-									size="icon"
-									variant="ghost"
-								>
-									<DotsThreeIcon className="size-4" />
-									<span className="sr-only">Open actions</span>
-								</Button>
-							)}
-						/>
-
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem>
-								<Link href={`/organizations/${organization.id}`}>View</Link>
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						render={<Button variant="ghost" className="h-8 w-8 p-0 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />}
+					>
+						<span className="sr-only">Open menu</span>
+						<MoreHorizontal className="h-4 w-4" />
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end">
+						<DropdownMenuGroup>
+							<DropdownMenuLabel>Actions</DropdownMenuLabel>
+							<DropdownMenuItem
+								onClick={() => navigator.clipboard.writeText(payment.id)}
+							>
+								Copy payment ID
 							</DropdownMenuItem>
-
-							<DropdownMenuItem>
-								<Link href={`/organizations/${organization.id}/edit`}>Edit</Link>
-							</DropdownMenuItem>
-
 							<DropdownMenuSeparator />
-
-							<DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</div>
-			);
+							<DropdownMenuLinkItem render={<Link href={`/organizations/${row.original.slug}`} />}>Edit Organization</DropdownMenuLinkItem>
+							<DropdownMenuItem>View customer</DropdownMenuItem>
+							<DropdownMenuItem>View payment details</DropdownMenuItem>
+						</DropdownMenuGroup>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			)
 		},
-	},
-];
+	}),
+])
